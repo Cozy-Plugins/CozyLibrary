@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.cozyplugins</groupId>
-    <artifactId>CozyCommandLibary</artifactId>
+    <artifactId>CozyLibary</artifactId>
     <version>1.0.0</version>
-    <name>CozyCommandLibary</name>
+    <name>CozyLibary</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
