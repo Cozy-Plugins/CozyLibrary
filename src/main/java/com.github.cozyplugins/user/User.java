@@ -1,4 +1,4 @@
-package com.github.cozyplugins.datatypes;
+package com.github.cozyplugins.user;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
