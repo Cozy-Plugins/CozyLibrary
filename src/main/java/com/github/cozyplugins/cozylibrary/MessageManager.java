@@ -18,39 +18,6 @@ import java.util.regex.Pattern;
 public class MessageManager {
 
     /**
-     * <h1>Used to parse colours in a message</h1>
-     *
-     * @param message The message to parse.
-     * @return The parsed message.
-     */
-    public static @NotNull String parseColours(@NotNull String message) {
-        Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
-        Matcher match = pattern.matcher(message);
-
-        while (match.find()) {
-            String colour = message.substring(match.start(), match.end());
-            message = message.replace(colour, net.md_5.bungee.api.ChatColor.of(colour) + "");
-            match = pattern.matcher(message);
-        }
-
-        return ChatColor.translateAlternateColorCodes('&', message);
-    }
-
-    /**
-     * <h1>Used to parse a messages placeholders</h1>
-     * This will also check if the placeholder api is enabled.
-     * Then it will use the method in {@link PlaceholderAPIDependency}
-     * to parse the placeholders.
-     *
-     * @param message The message to parse.
-     * @return The parsed message.
-     */
-    public static @NotNull String parsePlaceholders(@NotNull String message, @Nullable Player player) {
-        if (PlaceholderAPIDependency.isEnabled()) return PlaceholderAPIDependency.parse(message, player);
-        return message;
-    }
-
-    /**
      * <h1>Used to parse colours and placeholders in a message</h1>
      *
      * @param message The message to parse.
@@ -85,5 +52,38 @@ public class MessageManager {
             message.append(MessageManager.parse(item)).append("\n");
         }
         return message.substring(0, message.length() - 1);
+    }
+
+    /**
+     * <h1>Used to parse colours in a message</h1>
+     *
+     * @param message The message to parse.
+     * @return The parsed message.
+     */
+    public static @NotNull String parseColours(@NotNull String message) {
+        Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
+        Matcher match = pattern.matcher(message);
+
+        while (match.find()) {
+            String colour = message.substring(match.start(), match.end());
+            message = message.replace(colour, net.md_5.bungee.api.ChatColor.of(colour) + "");
+            match = pattern.matcher(message);
+        }
+
+        return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    /**
+     * <h1>Used to parse a messages placeholders</h1>
+     * This will also check if the placeholder api is enabled.
+     * Then it will use the method in {@link PlaceholderAPIDependency}
+     * to parse the placeholders.
+     *
+     * @param message The message to parse.
+     * @return The parsed message.
+     */
+    public static @NotNull String parsePlaceholders(@NotNull String message, @Nullable Player player) {
+        if (PlaceholderAPIDependency.isEnabled()) return PlaceholderAPIDependency.parse(message, player);
+        return message;
     }
 }
