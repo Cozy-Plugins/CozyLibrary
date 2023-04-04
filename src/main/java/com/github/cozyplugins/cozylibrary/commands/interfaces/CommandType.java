@@ -12,7 +12,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * <h1>Represents a command</h1>
+ * <h1>Represents a command type</h1>
+ * The server operator can use the command types
+ * in the plugin to customise the commands.
+ * A command type represents how the command
+ * will function.
  */
 public interface CommandType {
 
