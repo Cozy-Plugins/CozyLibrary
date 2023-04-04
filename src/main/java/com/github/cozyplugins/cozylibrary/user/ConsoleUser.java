@@ -1,5 +1,6 @@
 package com.github.cozyplugins.cozylibrary.user;
 
+import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -32,12 +33,12 @@ public class ConsoleUser implements User {
 
     @Override
     public void sendMessage(@NotNull String message) {
-
+        ConsoleManager.log(message);
     }
 
     @Override
     public void sendMessage(@NotNull List<String> messageList) {
-
+        ConsoleManager.log(messageList);
     }
 
     @Override
