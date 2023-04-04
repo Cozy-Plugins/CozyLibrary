@@ -19,7 +19,11 @@ public class PlaceholderAPIDependency {
      * @return True if the placeholder API is enabled.
      */
     public static boolean isEnabled() {
-        return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
+        try {
+            return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
+        } catch (Exception exception) {
+            return false;
+        }
     }
 
     /**
