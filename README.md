@@ -1,4 +1,4 @@
-A library used to create commands easily in spigot plugins.
+A library used to help create spigot plugins.
 
 **Maven**
 ```xml
