@@ -49,7 +49,7 @@ public interface CommandType {
      * @param arguments The current command arguments.
      * @return The requested command suggestions.
      */
-    @Nullable CommandSuggestions getSuggestions(@NotNull CommandArguments arguments);
+    @Nullable CommandSuggestions getSuggestions(@NotNull User user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 
     /**
      * <h1>Ran when any user executes this command</h1>
