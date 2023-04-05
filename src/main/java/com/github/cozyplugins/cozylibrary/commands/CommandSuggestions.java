@@ -43,6 +43,32 @@ public class CommandSuggestions {
     }
 
     /**
+     * Used to append a list to the first set of suggestions.
+     *
+     * @param suggestions The suggestions to append.
+     * @return This instance.
+     */
+    public CommandSuggestions appendBase(List<String> suggestions) {
+        if (this.suggestions.isEmpty()) {
+            this.suggestions.add(suggestions);
+            return this;
+        }
+        this.suggestions.get(0).addAll(suggestions);
+        return this;
+    }
+
+    /**
+     * Used to append a list to the first set of suggestions.
+     *
+     * @param suggestions The suggestions to append.
+     * @return This instance.
+     */
+    public CommandSuggestions appendBase(String[] suggestions) {
+        this.appendBase(new ArrayList<>(Arrays.stream(suggestions).toList()));
+        return this;
+    }
+
+    /**
      * Used to get the list of command suggestions.
      *
      * @return The list of command suggestions.
