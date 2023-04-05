@@ -49,7 +49,7 @@ public interface CommandType {
      * @param arguments The current command arguments.
      * @return The requested command suggestions.
      */
-    @Nullable CommandSuggestions getSuggestions(CommandArguments arguments);
+    @Nullable CommandSuggestions getSuggestions(@NotNull CommandArguments arguments);
 
     /**
      * <h1>Ran when any user executes this command</h1>
@@ -61,7 +61,7 @@ public interface CommandType {
      * @param arguments The commands arguments.
      * @return The command status.
      */
-    @Nullable CommandStatus onUser(User user, ConfigurationSection section, CommandArguments arguments);
+    @Nullable CommandStatus onUser(@NotNull User user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 
     /**
      * <h1>Ran when the console executes this command</h1>
@@ -72,7 +72,7 @@ public interface CommandType {
      * @param arguments The commands arguments.
      * @return The command status.
      */
-    @Nullable CommandStatus onConsole(ConsoleUser user, ConfigurationSection section, CommandArguments arguments);
+    @Nullable CommandStatus onConsole(@NotNull ConsoleUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 
     /**
      * <h1>Ran when the console executes this command</h1>
@@ -83,7 +83,7 @@ public interface CommandType {
      * @param arguments The commands arguments.
      * @return The command status.
      */
-    @Nullable CommandStatus onPlayer(PlayerUser user, ConfigurationSection section, CommandArguments arguments);
+    @Nullable CommandStatus onPlayer(@NotNull PlayerUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 
     /**
      * <h1>Ran when a fake user executes this command</h1>
@@ -95,5 +95,5 @@ public interface CommandType {
      * @param arguments The commands arguments.
      * @return The command status.
      */
-    @Nullable CommandStatus onFakeUser(FakeUser user, ConfigurationSection section, CommandArguments arguments);
+    @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 }
