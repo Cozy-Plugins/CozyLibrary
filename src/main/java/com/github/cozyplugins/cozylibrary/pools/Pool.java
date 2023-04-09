@@ -64,4 +64,23 @@ public class Pool<T> {
     public List<T> get() {
         return this.list;
     }
+
+    /**
+     * <h1>Used to check if a object is contained in the pool</h1>
+     *
+     * @param object The value to look for.
+     * @return True if the object exists.
+     */
+    public boolean contains(T object) {
+        return this.list.contains(object);
+    }
+
+    /**
+     * <h1>Used to check if the pool is empty</h1>
+     *
+     * @return True if this is empty.
+     */
+    public boolean isEmpty() {
+        return this.list.isEmpty();
+    }
 }

@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.commands;
+package com.github.cozyplugins.cozylibrary.commands.datatypes;
 
 import com.github.cozyplugins.cozylibrary.pools.Pool;
 

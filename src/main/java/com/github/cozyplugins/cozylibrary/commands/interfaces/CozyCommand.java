@@ -1,9 +1,10 @@
 package com.github.cozyplugins.cozylibrary.commands.interfaces;
 
-import com.github.cozyplugins.cozylibrary.commands.CommandAliases;
-import com.github.cozyplugins.cozylibrary.commands.CommandArguments;
-import com.github.cozyplugins.cozylibrary.commands.CommandSuggestions;
+import com.github.cozyplugins.cozylibrary.commands.datatypes.*;
 import com.github.cozyplugins.cozylibrary.pools.PermissionPool;
+import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
+import com.github.cozyplugins.cozylibrary.user.FakeUser;
+import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.cozyplugins.cozylibrary.user.User;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -11,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * <h1>Represents a command</h1>
  */
-public interface Command {
+public interface CozyCommand {
 
     /**
      * <h1>Used to get the commands main name</h1>
@@ -58,6 +59,14 @@ public interface Command {
     @Nullable PermissionPool getPermissionPool();
 
     /**
+     * <h1>Used to get the list of subcommands</h1>
+     * If null, there will be no sub commands.
+     *
+     * @return A command pool.
+     */
+    @Nullable CommandPool getSubCommands();
+
+    /**
      * <h1>Used to get the command's suggestions</h1>
      * When tab completing a command, these
      * suggestions will be shown.
@@ -67,4 +76,40 @@ public interface Command {
      * @return The requested command suggestions.
      */
     @Nullable CommandSuggestions getSuggestions(@NotNull User user, @NotNull CommandArguments arguments);
+
+    /**
+     * <h1>Run when a user executes the command</h1>
+     *
+     * @param user      The instance of the user.
+     * @param arguments The commands arguments.
+     * @return The command status.
+     */
+    @Nullable CommandStatus onUser(@NotNull User user, @NotNull CommandArguments arguments);
+
+    /**
+     * <h1>Run when a fake user executes the command</h1>
+     *
+     * @param user      The instance of the user.
+     * @param arguments The commands arguments.
+     * @return The command status.
+     */
+    @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull CommandArguments arguments);
+
+    /**
+     * <h1>Run when a console user executes the command</h1>
+     *
+     * @param user      The instance of the user.
+     * @param arguments The commands arguments.
+     * @return The command status.
+     */
+    @Nullable CommandStatus onConsoleUser(@NotNull ConsoleUser user, @NotNull CommandArguments arguments);
+
+    /**
+     * <h1>Run when a player user executes the command</h1>
+     *
+     * @param user      The instance of the user.
+     * @param arguments The commands arguments.
+     * @return The command status.
+     */
+    @Nullable CommandStatus onPlayerUser(@NotNull PlayerUser user, @NotNull CommandArguments arguments);
 }

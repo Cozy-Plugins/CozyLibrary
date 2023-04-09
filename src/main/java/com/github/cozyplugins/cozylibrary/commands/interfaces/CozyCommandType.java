@@ -1,8 +1,8 @@
 package com.github.cozyplugins.cozylibrary.commands.interfaces;
 
-import com.github.cozyplugins.cozylibrary.commands.CommandArguments;
-import com.github.cozyplugins.cozylibrary.commands.CommandStatus;
-import com.github.cozyplugins.cozylibrary.commands.CommandSuggestions;
+import com.github.cozyplugins.cozylibrary.commands.datatypes.CommandArguments;
+import com.github.cozyplugins.cozylibrary.commands.datatypes.CommandStatus;
+import com.github.cozyplugins.cozylibrary.commands.datatypes.CommandSuggestions;
 import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
 import com.github.cozyplugins.cozylibrary.user.FakeUser;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
  * A command type represents how the command
  * will function.
  */
-public interface CommandType {
+public interface CozyCommandType {
 
     /**
      * <h1>Used to get the commands type identifier</h1>
@@ -65,7 +65,7 @@ public interface CommandType {
 
     /**
      * <h1>Ran when the console executes this command</h1>
-     * If this and {@link CommandType#onUser}  is null, it is not a console command.
+     * If this and {@link CozyCommandType#onUser}  is null, it is not a console command.
      *
      * @param user      The user who executed the command.
      * @param section   The configuration section of the command.
@@ -76,7 +76,7 @@ public interface CommandType {
 
     /**
      * <h1>Ran when the console executes this command</h1>
-     * If this and {@link CommandType#onUser}  is null, this is not a player command.
+     * If this and {@link CozyCommandType#onUser}  is null, this is not a player command.
      *
      * @param user      The user who executed the command.
      * @param section   The configuration section of the command.
@@ -87,7 +87,7 @@ public interface CommandType {
 
     /**
      * <h1>Ran when a fake user executes this command</h1>
-     * If this and {@link CommandType#onUser}
+     * If this and {@link CozyCommandType#onUser}
      * return null, this is not a fake user command.
      *
      * @param user      The user who executed the command.
