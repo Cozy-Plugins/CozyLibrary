@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.configuration;
+package com.github.cozyplugins.cozylibrary.messages;
 
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.smuddgge.squishyconfiguration.ConfigurationFactory;
@@ -6,8 +6,6 @@ import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
 
 /**
  * <h1>Represents the base config for messages</h1>

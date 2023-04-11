@@ -1,5 +1,6 @@
 package com.github.cozyplugins.cozylibrary;
 
+import com.github.cozyplugins.cozylibrary.messages.MessageManager;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 

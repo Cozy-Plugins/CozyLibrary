@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary;
+package com.github.cozyplugins.cozylibrary.messages;
 
 import com.github.cozyplugins.cozylibrary.dependencys.PlaceholderAPIDependency;
 import org.bukkit.ChatColor;
@@ -78,12 +78,15 @@ public class MessageManager {
      * This will also check if the placeholder api is enabled.
      * Then it will use the method in {@link PlaceholderAPIDependency}
      * to parse the placeholders.
+     * Furthermore, the placeholders defined in the message files will also be parsed.
      *
      * @param message The message to parse.
      * @return The parsed message.
      */
     public static @NotNull String parsePlaceholders(@NotNull String message, @Nullable Player player) {
         if (PlaceholderAPIDependency.isEnabled()) return PlaceholderAPIDependency.parse(message, player);
-        return message;
+        return message
+                .replace("{message}", BaseConfigMessages.getMessage(DefaultMessage.MESSAGE))
+                .replace("{error}", BaseConfigMessages.getMessage(DefaultMessage.ERROR));
     }
 }
