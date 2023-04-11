@@ -38,7 +38,7 @@ public interface CozyCommandType {
      *
      * @return The command syntax.
      */
-    @NotNull String getSyntax();
+    @Nullable String getSyntax();
 
     /**
      * <h1>Used to get the command's suggestions</h1>
@@ -53,8 +53,6 @@ public interface CozyCommandType {
 
     /**
      * <h1>Ran when any user executes this command</h1>
-     * If this returns null, it will attempt to run as
-     * the specific type of user.
      *
      * @param user      The user who executed the command.
      * @param section   The configuration section of the command.

@@ -27,6 +27,10 @@ public class CommandArguments {
         this.arguments = arguments;
     }
 
+    public CommandArguments() {
+
+    }
+
     /**
      * Retrieves the command name.
      *
