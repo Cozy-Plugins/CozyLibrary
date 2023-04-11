@@ -38,6 +38,7 @@ public class PlayerManager {
 
     /**
      * Used to get a random online player.
+     *
      * @return A random player who is online.
      */
     public static @Nullable Player getRandomOnlinePlayer() {

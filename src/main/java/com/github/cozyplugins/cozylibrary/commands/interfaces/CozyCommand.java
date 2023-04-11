@@ -91,8 +91,8 @@ public interface CozyCommand {
      *
      * @param user      The instance of the user.
      * @param arguments The commands arguments.
-     * @param status The current command status from {@link CozyCommand#onUser}.
-     *               If the command status is null, it will create a new instance.
+     * @param status    The current command status from {@link CozyCommand#onUser}.
+     *                  If the command status is null, it will create a new instance.
      * @return The command status.
      */
     @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status);
@@ -102,8 +102,8 @@ public interface CozyCommand {
      *
      * @param user      The instance of the user.
      * @param arguments The commands arguments.
-     * @param status The current command status from {@link CozyCommand#onUser}.
-     *               If the command status is null, it will create a new instance.
+     * @param status    The current command status from {@link CozyCommand#onUser}.
+     *                  If the command status is null, it will create a new instance.
      * @return The command status.
      */
     @Nullable CommandStatus onConsoleUser(@NotNull ConsoleUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status);
@@ -113,8 +113,8 @@ public interface CozyCommand {
      *
      * @param user      The instance of the user.
      * @param arguments The commands arguments.
-     * @param status The current command status from {@link CozyCommand#onUser}.
-     *               If the command status is null, it will create a new instance.
+     * @param status    The current command status from {@link CozyCommand#onUser}.
+     *                  If the command status is null, it will create a new instance.
      * @return The command status.
      */
     @Nullable CommandStatus onPlayerUser(@NotNull PlayerUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status);

@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 public class PlayerUser implements User {
 
-    private @NotNull Player player;
+    private final @NotNull Player player;
 
     /**
      * Used to create a new player user.

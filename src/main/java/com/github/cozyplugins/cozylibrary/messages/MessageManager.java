@@ -66,7 +66,7 @@ public class MessageManager {
 
         while (match.find()) {
             String colour = message.substring(match.start(), match.end());
-            message = message.replace(colour, net.md_5.bungee.api.ChatColor.of(colour) + "");
+            message = message.replace(colour, String.valueOf(net.md_5.bungee.api.ChatColor.of(colour)));
             match = pattern.matcher(message);
         }
 

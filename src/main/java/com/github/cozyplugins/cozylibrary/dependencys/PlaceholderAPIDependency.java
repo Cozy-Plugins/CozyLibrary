@@ -33,7 +33,7 @@ public class PlaceholderAPIDependency {
      * the message will not be parsed.
      *
      * @param message The message to parse.
-     * @param player The player context. This can be null.
+     * @param player  The player context. This can be null.
      * @return The parsed message.
      */
     public static String parse(@NotNull String message, @Nullable Player player) {
