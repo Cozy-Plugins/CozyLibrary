@@ -1,5 +1,6 @@
 package com.github.cozyplugins.cozylibrary.commands;
 
+import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.commands.adapters.BukkitCommandAdapter;
 import com.github.cozyplugins.cozylibrary.commands.adapters.BukkitCommandHandler;
 import com.github.cozyplugins.cozylibrary.commands.interfaces.CozyCommand;
@@ -19,11 +20,9 @@ public class CozyCommandHandler {
 
     /**
      * <h1>Used to initiate a command handler</h1>
-     *
-     * @param pluginName The plugins name.
      */
-    public CozyCommandHandler(@NotNull String pluginName) {
-        this.bukkitCommandHandler = new BukkitCommandHandler(pluginName);
+    public CozyCommandHandler() {
+        this.bukkitCommandHandler = new BukkitCommandHandler(CozyPlugin.getPluginName());
         this.commandList = new ArrayList<>();
     }
 

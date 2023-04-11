@@ -1,7 +1,11 @@
 package com.github.cozyplugins.cozylibrary.configuration;
 
+import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.smuddgge.squishyconfiguration.ConfigurationFactory;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -17,8 +21,30 @@ public class BaseConfigMessages {
     /**
      * Used to initialise the messages configuration file.
      */
-    public BaseConfigMessages(File folder) {
-        this.configuration = ConfigurationFactory.YAML.create(folder, "messages.yml");
+    public BaseConfigMessages() {
+        Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin(CozyPlugin.getPluginName());
+        if (plugin == null) return;
+        this.configuration = ConfigurationFactory.YAML.create(plugin.getDataFolder(), "messages.yml");
         this.configuration.load();
+    }
+
+    /**
+     * <h1>Used to get a default message from the configuration</h1>
+     *
+     * @param message The default message to get.
+     * @return The message.
+     */
+    public @NotNull String get(DefaultMessage message) {
+        return this.configuration.getString(message.toString(), message.getMessage());
+    }
+
+    /**
+     * <h1>Used to get a default message from the configuration</h1>
+     *
+     * @param message The default message to get.
+     * @return The message.
+     */
+    public static @NotNull String getMessage(DefaultMessage message) {
+        return new BaseConfigMessages().get(message);
     }
 }

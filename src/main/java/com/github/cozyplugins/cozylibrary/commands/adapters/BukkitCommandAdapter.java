@@ -157,7 +157,7 @@ public class BukkitCommandAdapter extends Command {
         if (onFakeUserStatus != null) commandStatus = onFakeUserStatus;
 
         // Check if both are null.
-        if (onUserStatus == null && onFakeUserStatus == null) return new CommandStatus().setNotPlayerCommand();
+        if (onUserStatus == null && onFakeUserStatus == null) return new CommandStatus().setNotFakeUserCommand();
         return commandStatus;
     }
 }

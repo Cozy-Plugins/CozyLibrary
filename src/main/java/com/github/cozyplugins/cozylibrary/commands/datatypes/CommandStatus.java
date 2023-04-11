@@ -1,6 +1,11 @@
 package com.github.cozyplugins.cozylibrary.commands.datatypes;
 
+import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.commands.interfaces.CozyCommand;
+import com.github.cozyplugins.cozylibrary.configuration.BaseConfigMessages;
+import com.github.cozyplugins.cozylibrary.configuration.DefaultMessage;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,5 +63,19 @@ public class CommandStatus {
      */
     public @NotNull List<String> getMessageList(@NotNull CozyCommand cozyCommand) {
         List<String> messageList = new ArrayList<>();
+
+        if (this.notPlayerCommand) {
+            messageList.add(BaseConfigMessages.getMessage(DefaultMessage.ERROR_NOT_PLAYER_COMMAND));
+        }
+
+        if (this.notConsoleCommand) {
+            messageList.add(BaseConfigMessages.getMessage(DefaultMessage.ERROR_NOT_CONSOLE_COMMAND));
+        }
+
+        if (this.notFakeUserCommand) {
+            messageList.add(BaseConfigMessages.getMessage(DefaultMessage.ERROR_NOT_FAKE_PLAYER_COMMAND));
+        }
+
+        return messageList;
     }
 }
