@@ -1,13 +1,9 @@
 package com.github.cozyplugins.cozylibrary.commands.datatypes;
 
-import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.commands.interfaces.CozyCommand;
-import com.github.cozyplugins.cozylibrary.configuration.BaseConfigMessages;
-import com.github.cozyplugins.cozylibrary.configuration.DefaultMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
+import com.github.cozyplugins.cozylibrary.messages.BaseConfigMessages;
+import com.github.cozyplugins.cozylibrary.messages.DefaultMessage;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
