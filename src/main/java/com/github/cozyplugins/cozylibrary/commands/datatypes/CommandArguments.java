@@ -1,7 +1,11 @@
 package com.github.cozyplugins.cozylibrary.commands.datatypes;
 
+import com.github.cozyplugins.cozylibrary.ListUtility;
+import com.github.cozyplugins.cozylibrary.commands.interfaces.CozyCommand;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,11 +19,11 @@ public class CommandArguments {
 
 
     /**
-     * Creates a command argument class.
+     * <h1>Creates a command argument class</h1>
      *
-     * @param name The name of the command.
+     * @param name               The name of the command.
      * @param subCommandNameList The names of the sub commands.
-     * @param arguments The command's arguments.
+     * @param arguments          The command's arguments.
      */
     public CommandArguments(@NotNull String name, @NotNull List<String> subCommandNameList, @NotNull List<String> arguments) {
         this.name = name;
@@ -27,8 +31,37 @@ public class CommandArguments {
         this.arguments = arguments;
     }
 
-    public CommandArguments() {
+    /**
+     * <h1>Creates a command argument class</h1>
+     * This method uses the cozy command to determine
+     * the subcommands.
+     *
+     * @param cozyCommand The instance of a cozy command.
+     * @param label       The commands name.
+     * @param args        The arguments given.
+     */
+    public CommandArguments(@NotNull CozyCommand cozyCommand, @NotNull String label, @NotNull String[] args) {
+        List<String> argsList = new ArrayList<>(Arrays.stream(args).toList());
 
+        // Create command arguments without sub command names.
+        CommandArguments arguments = new CommandArguments(
+                label, new ArrayList<>(), argsList
+        );
+
+        // Check if there are sub commands.
+        if (cozyCommand.getSubCommands() == null || cozyCommand.getSubCommands().isEmpty()) {
+            List<String> leftOverArgs = new ArrayList<>(argsList);
+
+            arguments = new CommandArguments(
+                    label, cozyCommand.getSubCommands().extractNames(argsList),
+                    ListUtility.removeTheFirst(leftOverArgs, argsList.size())
+            );
+        }
+
+        // Adapt arguments.
+        this.name = arguments.getCommandName();
+        this.subCommandNameList = arguments.getSubCommandNameList();
+        this.arguments = arguments.getArguments();
     }
 
     /**

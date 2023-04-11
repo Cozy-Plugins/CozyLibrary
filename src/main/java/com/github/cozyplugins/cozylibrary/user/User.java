@@ -1,5 +1,7 @@
 package com.github.cozyplugins.cozylibrary.user;
 
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -76,5 +78,18 @@ public interface User {
             if (!this.hasPermission(permission)) return false;
         }
         return true;
+    }
+
+    /**
+     * <h1>Used to extract the user from a command sender</h1>
+     *
+     * @param commandSender The instance of a command sender.
+     * @return The instance of a user.
+     */
+    static @NotNull User from(@NotNull CommandSender commandSender) {
+        if (commandSender instanceof Player player) {
+            return new PlayerUser(player);
+        }
+        return new ConsoleUser();
     }
 }
