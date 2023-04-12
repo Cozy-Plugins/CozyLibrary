@@ -8,7 +8,6 @@
     <artifactId>TestPlugin</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-
     <name>TestPlugin</name>
 
     <properties>
@@ -37,6 +36,7 @@
     </build>
 
     <repositories>
+        <!-- Spigot -->
         <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
@@ -48,18 +48,27 @@
     </repositories>
 
     <dependencies>
+        <!-- Spigot -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.19.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Cozy Library from local jar-->
         <dependency>
             <groupId>com.github.cozyplugins</groupId>
             <artifactId>CozyLibrary</artifactId>
             <version>1.0.0</version>
             <scope>system</scope>
             <systemPath>${user.home}/Dropbox/Responsorys/CozyPlugins/CozyLibrary/target/CozyLibrary-1.0.0.jar</systemPath>
+        </dependency>
+        <!-- Jet Brains Annotations -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.0.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

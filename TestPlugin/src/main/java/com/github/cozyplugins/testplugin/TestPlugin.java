@@ -1,18 +1,20 @@
 package com.github.cozyplugins.testplugin;
 
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
+import com.github.cozyplugins.cozylibrary.commands.CozyCommandHandler;
+import com.github.cozyplugins.testplugin.commands.HelloWorldCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class TestPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        // Setup cozy plugin.
         CozyPlugin.setPluginName("TestPlugin");
-    }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+        // Setup commands.
+        CozyCommandHandler commandHandler = new CozyCommandHandler();
+        commandHandler.add(new HelloWorldCommand());
+        commandHandler.registerCommands();
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
  * <h1>Represents a cozy command pool</h1>
  * A pool which contains {@link CozyCommand}
  */
-public class CommandPool extends Pool<CozyCommand> {
+public class CommandPool extends Pool<CozyCommand, CommandPool> {
 
     /**
      * <h1>Used to extract command names from a list of arguments</h1>

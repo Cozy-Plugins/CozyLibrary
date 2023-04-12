@@ -11,8 +11,9 @@ import java.util.List;
  * A pool extends the functionality of a {@link List}
  *
  * @param <T> The type that is stored in the pool.
+ * @param <R> This type of class.
  */
-public class Pool<T> {
+public class Pool<T, R extends Pool<T, R>> {
 
     private final @NotNull List<T> list;
 
@@ -29,9 +30,9 @@ public class Pool<T> {
      * @param item The item to append.
      * @return This instance.
      */
-    public Pool<T> append(T item) {
+    public R append(T item) {
         this.list.add(item);
-        return this;
+        return (R) this;
     }
 
     /**
@@ -40,9 +41,9 @@ public class Pool<T> {
      * @param list The list to append.
      * @return This instance.
      */
-    public Pool<T> append(List<T> list) {
+    public R append(List<T> list) {
         this.list.addAll(list);
-        return this;
+        return (R) this;
     }
 
     /**
@@ -51,9 +52,9 @@ public class Pool<T> {
      * @param list The list to append.
      * @return This instance.
      */
-    public Pool<T> append(T[] list) {
+    public R append(T[] list) {
         this.list.addAll(new ArrayList<>(Arrays.stream(list).toList()));
-        return this;
+        return (R) this;
     }
 
     /**

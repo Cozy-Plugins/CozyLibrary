@@ -66,6 +66,7 @@
             <version>24.0.1</version>
             <scope>compile</scope>
         </dependency>
+        <!-- Configuration API -->
         <dependency>
             <groupId>com.github.Smuddgge</groupId>
             <artifactId>SquishyYaml</artifactId>
