@@ -49,7 +49,7 @@ public class CommandArguments {
         );
 
         // Check if there are sub commands.
-        if (cozyCommand.getSubCommands() == null || cozyCommand.getSubCommands().isEmpty()) {
+        if (!(cozyCommand.getSubCommands() == null || cozyCommand.getSubCommands().isEmpty())) {
             List<String> leftOverArgs = new ArrayList<>(argsList);
 
             arguments = new CommandArguments(
