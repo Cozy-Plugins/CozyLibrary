@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <h1>Represents a bukkit command adapter</h1>
- * Used to adapt a cozy command into a bukkit command.
+ * Used to adapt a {@link CozyCommand} into a {@link Command}.
  */
 public class BukkitCommandAdapter extends Command {
 
