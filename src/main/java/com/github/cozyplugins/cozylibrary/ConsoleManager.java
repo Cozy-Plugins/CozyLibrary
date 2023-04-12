@@ -36,7 +36,7 @@ public class ConsoleManager {
      * @param message The message to log.
      */
     public static void log(@NotNull String message) {
-        String parsedMessage = ConsoleManager.getPrefix() + " " + MessageManager.parse(message);
+        String parsedMessage = MessageManager.parse(ConsoleManager.getPrefix() + " " + message);
         Bukkit.getConsoleSender().sendMessage(parsedMessage);
     }
 
@@ -46,7 +46,7 @@ public class ConsoleManager {
      * @param message The warning message.
      */
     public static void warn(@NotNull String message) {
-        String parsedMessage = ConsoleManager.getPrefix() + " &e[WARNING] " + MessageManager.parse(message);
+        String parsedMessage = MessageManager.parse(ConsoleManager.getPrefix() + " &e[WARNING] " + message);
         Bukkit.getConsoleSender().sendMessage(parsedMessage);
     }
 
@@ -56,7 +56,7 @@ public class ConsoleManager {
      * @param message The error message.
      */
     public static void error(@NotNull String message) {
-        String parsedMessage = ConsoleManager.getPrefix() + " &c[ERROR] " + MessageManager.parse(message);
+        String parsedMessage = MessageManager.parse(ConsoleManager.getPrefix() + " &c[ERROR] " + message);
         Bukkit.getConsoleSender().sendMessage(parsedMessage);
     }
 }

@@ -32,5 +32,6 @@ public class CozyPlugin {
      */
     public static void setPluginName(@Nullable String pluginName) {
         CozyPlugin.pluginName = pluginName;
+        ConsoleManager.setPrefix("&7[" + pluginName + "]");
     }
 }
