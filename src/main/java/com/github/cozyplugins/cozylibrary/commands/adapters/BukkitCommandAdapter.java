@@ -41,7 +41,7 @@ public class BukkitCommandAdapter extends Command {
         }
 
         if (cozyCommand.getAliases() != null) {
-            this.setAliases(cozyCommand.getAliases().get());
+            this.setAliases(cozyCommand.getAliases());
         }
     }
 

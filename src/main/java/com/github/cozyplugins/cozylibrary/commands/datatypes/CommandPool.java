@@ -24,7 +24,7 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
         if (args.isEmpty()) return new ArrayList<>();
         List<String> list = new ArrayList<>();
 
-        for (CozyCommand cozyCommand : this.get()) {
+        for (CozyCommand cozyCommand : this) {
 
             boolean containsArgsInAliases = cozyCommand.getAliases() != null
                     && cozyCommand.getAliases().contains(args.get(0));
