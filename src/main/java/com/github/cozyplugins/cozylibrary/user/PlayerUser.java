@@ -25,6 +25,10 @@ public class PlayerUser implements User {
         this.player = player;
     }
 
+    public @NotNull Player getPlayer() {
+        return this.player;
+    }
+
     @Override
     public @NotNull UUID getUuid() {
         return this.player.getUniqueId();
