@@ -18,6 +18,8 @@ public class CommandStatus {
     private boolean notConsoleCommand = false;
     private boolean notFakeUserCommand = false;
 
+    private boolean noPermission = false;
+
     /**
      * <h1>Used to state the command is not executable by a player</h1>
      *
@@ -48,6 +50,16 @@ public class CommandStatus {
         return this;
     }
 
+    /**
+     * <h1>Used to state the user does not have sufficient permissions</h1>
+     *
+     * @return This instance.
+     */
+    public @NotNull CommandStatus setNoPermission() {
+        this.noPermission = true;
+        return this;
+    }
+
 
     /**
      * <h1>Used to get the status message list</h1>
@@ -70,6 +82,10 @@ public class CommandStatus {
 
         if (this.notFakeUserCommand) {
             messageList.add(BaseConfigMessages.getMessage(DefaultMessage.ERROR_NOT_FAKE_PLAYER_COMMAND));
+        }
+
+        if (this.noPermission) {
+            messageList.add(BaseConfigMessages.getMessage(DefaultMessage.ERROR_NO_PERMISSION));
         }
 
         return messageList;

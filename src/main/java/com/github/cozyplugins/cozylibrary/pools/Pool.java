@@ -13,16 +13,7 @@ import java.util.List;
  * @param <T> The type that is stored in the pool.
  * @param <R> This type of class.
  */
-public class Pool<T, R extends Pool<T, R>> {
-
-    private final @NotNull List<T> list;
-
-    /**
-     * <h1>Used to initiate a pool</h1>
-     */
-    public Pool() {
-        this.list = new ArrayList<>();
-    }
+public class Pool<T, R extends Pool<T, R>> extends ArrayList<T> {
 
     /**
      * <h1>Used to append a item to the pool</h1>
@@ -31,7 +22,7 @@ public class Pool<T, R extends Pool<T, R>> {
      * @return This instance.
      */
     public R append(T item) {
-        this.list.add(item);
+        this.add(item);
         return (R) this;
     }
 
@@ -42,7 +33,7 @@ public class Pool<T, R extends Pool<T, R>> {
      * @return This instance.
      */
     public R append(List<T> list) {
-        this.list.addAll(list);
+        this.addAll(list);
         return (R) this;
     }
 
@@ -53,35 +44,7 @@ public class Pool<T, R extends Pool<T, R>> {
      * @return This instance.
      */
     public R append(T[] list) {
-        this.list.addAll(new ArrayList<>(Arrays.stream(list).toList()));
+        this.addAll(new ArrayList<>(Arrays.stream(list).toList()));
         return (R) this;
-    }
-
-    /**
-     * <h1>Used to get the list</h1>
-     *
-     * @return The list.
-     */
-    public List<T> get() {
-        return this.list;
-    }
-
-    /**
-     * <h1>Used to check if a object is contained in the pool</h1>
-     *
-     * @param object The value to look for.
-     * @return True if the object exists.
-     */
-    public boolean contains(T object) {
-        return this.list.contains(object);
-    }
-
-    /**
-     * <h1>Used to check if the pool is empty</h1>
-     *
-     * @return True if this is empty.
-     */
-    public boolean isEmpty() {
-        return this.list.isEmpty();
     }
 }

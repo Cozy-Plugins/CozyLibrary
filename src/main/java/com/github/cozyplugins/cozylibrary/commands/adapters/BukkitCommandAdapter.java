@@ -62,6 +62,17 @@ public class BukkitCommandAdapter extends Command {
     public void execute(@NotNull User user, @NotNull CommandArguments arguments) {
         CommandStatus commandStatus = new CommandStatus();
 
+        // Check if the sender has permission.
+        if (this.cozyCommand.getPermissionPool() != null
+                && !(user.hasPermissionList(this.cozyCommand.getPermissionPool()))) {
+
+            commandStatus.setNoPermission();
+
+            // Send the command status message.
+            user.sendMessage(commandStatus.getMessageList(this.cozyCommand));
+            return;
+        }
+
         // Check if the sender is a player.
         if (user instanceof PlayerUser player) {
             commandStatus = this.executeAsPlayer(player, arguments);

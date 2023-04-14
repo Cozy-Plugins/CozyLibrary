@@ -10,7 +10,8 @@ public enum DefaultMessage {
     ERROR("&7"),
     ERROR_NOT_PLAYER_COMMAND("{error} This command cannot be run by a player."),
     ERROR_NOT_CONSOLE_COMMAND("{error} This command cannot be run by the console."),
-    ERROR_NOT_FAKE_PLAYER_COMMAND("{error} This command cannot be run by a fake player.");
+    ERROR_NOT_FAKE_PLAYER_COMMAND("{error} This command cannot be run by a fake player."),
+    ERROR_NO_PERMISSION("{error} You lack permissions to execute this command.");
 
     private final String message;
 
