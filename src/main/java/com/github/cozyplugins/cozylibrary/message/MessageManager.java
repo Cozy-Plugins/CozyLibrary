@@ -1,6 +1,6 @@
-package com.github.cozyplugins.cozylibrary.messages;
+package com.github.cozyplugins.cozylibrary.message;
 
-import com.github.cozyplugins.cozylibrary.dependencys.PlaceholderAPIDependency;
+import com.github.cozyplugins.cozylibrary.dependency.PlaceholderAPIDependency;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

@@ -1,7 +1,7 @@
 package com.github.cozyplugins.testplugin;
 
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
-import com.github.cozyplugins.cozylibrary.commands.CozyCommandHandler;
+import com.github.cozyplugins.cozylibrary.command.CozyCommandHandler;
 import com.github.cozyplugins.testplugin.commands.HelloWorldCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 

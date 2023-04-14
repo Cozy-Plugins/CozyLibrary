@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.results;
+package com.github.cozyplugins.cozylibrary.result;
 
 import java.util.Objects;
 

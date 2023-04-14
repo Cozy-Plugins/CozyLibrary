@@ -1,6 +1,6 @@
-package com.github.cozyplugins.cozylibrary.commands.datatypes;
+package com.github.cozyplugins.cozylibrary.command.datatypes;
 
-import com.github.cozyplugins.cozylibrary.pools.Pool;
+import com.github.cozyplugins.cozylibrary.pool.Pool;
 
 /**
  * <h1>Represents a set of command aliases</h1>

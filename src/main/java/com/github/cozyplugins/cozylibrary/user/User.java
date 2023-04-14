@@ -1,6 +1,5 @@
 package com.github.cozyplugins.cozylibrary.user;
 
-import com.github.cozyplugins.cozylibrary.pools.PermissionPool;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

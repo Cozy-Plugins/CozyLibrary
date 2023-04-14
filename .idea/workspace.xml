@@ -6,13 +6,35 @@
   <component name="ChangeListManager">
     <list default="true" id="a45d43c1-cd7c-4ef3-8209-3a31263bf2b6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/adapters/BukkitCommandAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/adapters/BukkitCommandAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/datatypes/CommandStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/datatypes/CommandStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/messages/DefaultMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/messages/DefaultMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/pools/Pool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/pools/Pool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/commands/HelloWorldCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/commands/HelloWorldCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/ConsoleManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/CozyCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/CozyCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/adapters/BukkitCommandAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/adapters/BukkitCommandAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/adapters/BukkitCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/adapters/BukkitCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/datatypes/CommandAliases.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/datatypes/CommandAliases.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/datatypes/CommandArguments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/datatypes/CommandArguments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/datatypes/CommandPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/datatypes/CommandPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/datatypes/CommandStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/datatypes/CommandStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/datatypes/CommandSuggestions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/datatypes/CommandSuggestions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/datatypes/CommandTypePool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/datatypes/CommandTypePool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/interfaces/CozyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/interfaces/CozyCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/commands/interfaces/CozyCommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/interfaces/CozyCommandType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/dependencys/PlaceholderAPIDependency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/dependency/PlaceholderAPIDependency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/messages/BaseConfigMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/message/BaseConfigMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/messages/DefaultMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/message/DefaultMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/messages/MessageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/message/MessageManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/pools/PermissionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/pool/PermissionPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/pools/Pool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/pool/Pool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/results/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/result/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/results/ResultChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/result/ResultChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/results/types/ResultInstanceOf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/result/types/ResultInstanceOf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/results/types/ResultNotNull.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/result/types/ResultNotNull.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/results/types/ResultNull.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/result/types/ResultNull.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/user/ConsoleUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/user/ConsoleUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/user/PlayerUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/user/PlayerUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/cozyplugins/cozylibrary/MessageManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/cozyplugins/cozylibrary/MessageManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +235,7 @@
       <workItem from="1681263263429" duration="360000" />
       <workItem from="1681319808178" duration="3763000" />
       <workItem from="1681333019953" duration="7310000" />
-      <workItem from="1681494156191" duration="2433000" />
+      <workItem from="1681494156191" duration="3829000" />
     </task>
     <servers />
   </component>

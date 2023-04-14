@@ -1,8 +1,8 @@
-package com.github.cozyplugins.cozylibrary.results.types;
+package com.github.cozyplugins.cozylibrary.result.types;
 
 
-import com.github.cozyplugins.cozylibrary.results.Result;
-import com.github.cozyplugins.cozylibrary.results.ResultChecker;
+import com.github.cozyplugins.cozylibrary.result.Result;
+import com.github.cozyplugins.cozylibrary.result.ResultChecker;
 
 /**
  * Used in a {@link ResultChecker} to check

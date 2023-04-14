@@ -1,6 +1,4 @@
-package com.github.cozyplugins.cozylibrary.pools;
-
-import org.jetbrains.annotations.NotNull;
+package com.github.cozyplugins.cozylibrary.pool;
 
 import java.util.ArrayList;
 import java.util.Arrays;

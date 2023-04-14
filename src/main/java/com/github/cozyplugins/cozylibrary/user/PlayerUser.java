@@ -1,7 +1,6 @@
 package com.github.cozyplugins.cozylibrary.user;
 
-import com.github.cozyplugins.cozylibrary.messages.MessageManager;
-import com.github.cozyplugins.cozylibrary.pools.PermissionPool;
+import com.github.cozyplugins.cozylibrary.message.MessageManager;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.jetbrains.annotations.NotNull;

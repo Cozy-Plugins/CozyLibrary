@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.messages;
+package com.github.cozyplugins.cozylibrary.message;
 
 import org.jetbrains.annotations.NotNull;
 

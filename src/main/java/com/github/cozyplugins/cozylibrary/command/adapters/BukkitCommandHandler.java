@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.commands.adapters;
+package com.github.cozyplugins.cozylibrary.command.adapters;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import org.bukkit.Bukkit;

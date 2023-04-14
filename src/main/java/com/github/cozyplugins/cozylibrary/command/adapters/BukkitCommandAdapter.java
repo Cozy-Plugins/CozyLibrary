@@ -1,8 +1,8 @@
-package com.github.cozyplugins.cozylibrary.commands.adapters;
+package com.github.cozyplugins.cozylibrary.command.adapters;
 
-import com.github.cozyplugins.cozylibrary.commands.datatypes.CommandArguments;
-import com.github.cozyplugins.cozylibrary.commands.datatypes.CommandStatus;
-import com.github.cozyplugins.cozylibrary.commands.interfaces.CozyCommand;
+import com.github.cozyplugins.cozylibrary.command.datatypes.CommandArguments;
+import com.github.cozyplugins.cozylibrary.command.datatypes.CommandStatus;
+import com.github.cozyplugins.cozylibrary.command.interfaces.CozyCommand;
 import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
 import com.github.cozyplugins.cozylibrary.user.FakeUser;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;

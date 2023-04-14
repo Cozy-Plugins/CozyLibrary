@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.results;
+package com.github.cozyplugins.cozylibrary.result;
 
 /**
  * <h2>Represents a result type</h2>

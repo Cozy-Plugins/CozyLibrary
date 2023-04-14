@@ -1,9 +1,9 @@
-package com.github.cozyplugins.cozylibrary.commands;
+package com.github.cozyplugins.cozylibrary.command;
 
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
-import com.github.cozyplugins.cozylibrary.commands.adapters.BukkitCommandAdapter;
-import com.github.cozyplugins.cozylibrary.commands.adapters.BukkitCommandHandler;
-import com.github.cozyplugins.cozylibrary.commands.interfaces.CozyCommand;
+import com.github.cozyplugins.cozylibrary.command.adapters.BukkitCommandAdapter;
+import com.github.cozyplugins.cozylibrary.command.adapters.BukkitCommandHandler;
+import com.github.cozyplugins.cozylibrary.command.interfaces.CozyCommand;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

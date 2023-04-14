@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.dependencys;
+package com.github.cozyplugins.cozylibrary.dependency;
 
 import com.github.cozyplugins.cozylibrary.PlayerManager;
 import me.clip.placeholderapi.PlaceholderAPI;
