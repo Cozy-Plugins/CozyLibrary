@@ -8,10 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="com.github.cozyplugins.cozylibrary.CozyLibrary" />
         <module name="TestPlugin" />
+        <module name="CozyLibrary" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="CozyLibrary" target="16" />
+      <module name="com.github.cozyplugins.cozylibrary.CozyLibrary" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>

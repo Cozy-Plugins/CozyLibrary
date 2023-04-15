@@ -19,8 +19,8 @@ public class CozyLibrary {
      */
     public static @NotNull String getPluginName() {
         if (CozyLibrary.pluginName == null) {
-            ConsoleManager.warn("[com.github.cozyplugins.cozylibrary.CozyLibrary] Plugin name is not set");
-            ConsoleManager.warn("[com.github.cozyplugins.cozylibrary.CozyLibrary] &7Try : CozyPlugin.setPluginName(\"Name\");");
+            ConsoleManager.warn("[CozyLibrary] Plugin name is not set");
+            ConsoleManager.warn("[CozyLibrary] &7Try : CozyPlugin.setPluginName(\"Name\");");
             throw new RuntimeException("Plugin name is not set");
         }
 

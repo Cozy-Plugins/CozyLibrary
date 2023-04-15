@@ -1,7 +1,6 @@
 package com.github.cozyplugins.cozylibrary.message;
 
 import com.github.cozyplugins.cozylibrary.CozyLibrary;
-import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.smuddgge.squishyconfiguration.ConfigurationFactory;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import org.bukkit.Bukkit;

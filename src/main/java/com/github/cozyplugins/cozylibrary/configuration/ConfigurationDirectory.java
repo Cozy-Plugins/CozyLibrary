@@ -1,7 +1,6 @@
 package com.github.cozyplugins.cozylibrary.configuration;
 
 import com.github.cozyplugins.cozylibrary.CozyLibrary;
-import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;

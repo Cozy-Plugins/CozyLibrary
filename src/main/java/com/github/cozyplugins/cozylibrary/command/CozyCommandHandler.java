@@ -1,7 +1,6 @@
 package com.github.cozyplugins.cozylibrary.command;
 
 import com.github.cozyplugins.cozylibrary.CozyLibrary;
-import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.command.adapters.BukkitCommandAdapter;
 import com.github.cozyplugins.cozylibrary.command.adapters.BukkitCommandHandler;
 import com.github.cozyplugins.cozylibrary.command.interfaces.CozyCommand;
