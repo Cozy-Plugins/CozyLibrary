@@ -1,5 +1,6 @@
 package com.github.cozyplugins.cozylibrary.message;
 
+import com.github.cozyplugins.cozylibrary.CozyLibrary;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.smuddgge.squishyconfiguration.ConfigurationFactory;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
@@ -20,7 +21,7 @@ public class BaseConfigMessages {
      * Used to initialise the messages configuration file.
      */
     public BaseConfigMessages() {
-        Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin(CozyPlugin.getPluginName());
+        Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin(CozyLibrary.getPluginName());
         if (plugin == null) return;
         this.configuration = ConfigurationFactory.YAML.create(plugin.getDataFolder(), "messages.yml");
         this.configuration.load();

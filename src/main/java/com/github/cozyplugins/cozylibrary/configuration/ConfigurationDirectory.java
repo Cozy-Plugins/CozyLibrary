@@ -1,5 +1,6 @@
 package com.github.cozyplugins.cozylibrary.configuration;
 
+import com.github.cozyplugins.cozylibrary.CozyLibrary;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
@@ -63,7 +64,7 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
      * @return The directory as a file.
      */
     public @NotNull File getDirectory() {
-        Plugin plugin = Bukkit.getPluginManager().getPlugin(CozyPlugin.getPluginName());
+        Plugin plugin = Bukkit.getPluginManager().getPlugin(CozyLibrary.getPluginName());
         assert plugin != null;
         return new File(plugin.getDataFolder() + File.separator + this.directoryName);
     }

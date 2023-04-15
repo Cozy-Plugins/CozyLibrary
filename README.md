@@ -12,7 +12,7 @@ A library used to help create spigot plugins.
 ```xml
 <dependency>
     <groupId>com.github.Cozy-Plugins</groupId>
-    <artifactId>CozyLibrary</artifactId>
+    <artifactId>com.github.cozyplugins.cozylibrary.CozyLibrary</artifactId>
     <version>Tag</version>
 </dependency>
 ```
@@ -28,6 +28,6 @@ allprojects {
 ```
 ```gradle
 dependencies {
-    implementation 'com.github.Cozy-Plugins:CozyLibrary:-SNAPSHOT'
+    implementation 'com.github.Cozy-Plugins:com.github.cozyplugins.cozylibrary.CozyLibrary:-SNAPSHOT'
 }
 ```
