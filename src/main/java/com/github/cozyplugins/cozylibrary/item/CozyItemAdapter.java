@@ -1,8 +1,8 @@
 package com.github.cozyplugins.cozylibrary.item;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Utility;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -10,10 +10,15 @@ import org.bukkit.material.MaterialData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+
 /**
- * <h1>Represents a cozy item stack</h1>
+ * <h1>Represents a cozy item adapter</h1>
  * Used to create items quicker and easier.
  * Defaults to {@link Material#AIR}.
+ * Mimics the bucket {@link ItemStack} methods,
+ * but returns when possible its own instance
+ * for method stacking.
  *
  * @param <S> The return type for stacking methods.
  */
@@ -128,7 +133,7 @@ public class CozyItemAdapter<S extends CozyItemAdapter<S>> {
     /**
      * <h1>Used to get the max stack size</h1>
      * Returns -1 if the {@link ItemStack} has
-     * no clue
+     * no clue.
      *
      * @return The max stack size.
      */
@@ -136,16 +141,104 @@ public class CozyItemAdapter<S extends CozyItemAdapter<S>> {
         return this.itemStack.getMaxStackSize();
     }
 
-    @Override
-    @Utility
-    public @NotNull String toString() {
-        return this.itemStack.toString();
+    /**
+     * <h1>Used to check if the item contains an enchant.</h1>
+     *
+     * @param enchantment The enchant to check for.
+     * @return True if the item contains the enchantment.
+     */
+    public boolean containsEnchantment(@NotNull Enchantment enchantment) {
+        return this.itemStack.containsEnchantment(enchantment);
     }
 
-    @Override
-    @Utility
-    public boolean equals(Object obj) {
-        return this.itemStack.equals(obj);
+    /**
+     * <h1>Used to get the level of an enchant on the item</h1>
+     *
+     * @param enchantment The enchantment to check.
+     * @return The level of the requested enchant.
+     */
+    public int getEnchantmentLevel(@NotNull Enchantment enchantment) {
+        return this.itemStack.getEnchantmentLevel(enchantment);
+    }
+
+    /**
+     * <h1>Used to get the map of enchantments and there level</h1>
+     *
+     * @return The map of enchantments.
+     */
+    public @NotNull Map<Enchantment, Integer> getEnchantments() {
+        return this.itemStack.getEnchantments();
+    }
+
+    /**
+     * <h1>Used to add a map of enchantments to this item</h1>
+     * Adds the enchants with less checks.
+     *
+     * @param enchantmentList The enchantments to add.
+     * @return This instance.
+     */
+    public @NotNull S addEnchantments(@NotNull Map<Enchantment, Integer> enchantmentList) {
+        this.itemStack.addUnsafeEnchantments(enchantmentList);
+        return (S) this;
+    }
+
+    /**
+     * <h1>Adds an enchantment to the item</h1>
+     * Adds the enchant with less checks.
+     * If the level is lower then 1 it will attempt to remove the enchant.
+     *
+     * @param enchantment The instance of an enchantment.
+     * @param level       The enchantment level.
+     * @return This instance.
+     */
+    public @NotNull S addEnchantment(@NotNull Enchantment enchantment, int level) {
+        if (level <= 0) {
+            this.removeEnchantment(enchantment);
+            return (S) this;
+        }
+
+        this.itemStack.addUnsafeEnchantment(enchantment, level);
+        return (S) this;
+    }
+
+    /**
+     * <h1>Removes an enchantment from the item</h1>
+     *
+     * @param enchantment The enchant to remove.
+     * @return The enchants level that was removed.
+     */
+    public @NotNull S removeEnchantment(@NotNull Enchantment enchantment) {
+        this.itemStack.removeEnchantment(enchantment);
+        return (S) this;
+    }
+
+    /**
+     * <h1>Used to get the item meta of this item</h1>
+     *
+     * @return The items meta.
+     */
+    public @Nullable ItemMeta getItemMeta() {
+        return this.itemStack.getItemMeta();
+    }
+
+    /**
+     * <h1>Used to check if the item has item meta</h1>
+     *
+     * @return True if the item has meta values set.
+     */
+    public boolean hasItemMeta() {
+        return this.itemStack.hasItemMeta();
+    }
+
+    /**
+     * <h1>Used to set the items meta</h1>
+     *
+     * @param itemMeta The meta values to set item.
+     * @return This instance.
+     */
+    public @NotNull S setItemMeta(@Nullable ItemMeta itemMeta) {
+        this.itemStack.setItemMeta(itemMeta);
+        return (S) this;
     }
 
     /**
@@ -158,5 +251,17 @@ public class CozyItemAdapter<S extends CozyItemAdapter<S>> {
     @Utility
     public boolean isSimilar(@NotNull S item) {
         return this.itemStack.isSimilar(item.itemStack);
+    }
+
+    @Override
+    @Utility
+    public @NotNull String toString() {
+        return this.itemStack.toString();
+    }
+
+    @Override
+    @Utility
+    public boolean equals(Object obj) {
+        return this.itemStack.equals(obj);
     }
 }
