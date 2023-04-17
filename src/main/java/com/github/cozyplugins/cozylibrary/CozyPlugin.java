@@ -21,6 +21,8 @@ public abstract class CozyPlugin extends JavaPlugin {
      * <h1>Used to get the command handler</h1>
      * The command handler is used to register cozy
      * commands.
+     * You can also get the command handler from
+     * the cozy library class.
      *
      * @return The command handler.
      */
