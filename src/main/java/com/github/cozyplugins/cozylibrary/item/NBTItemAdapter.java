@@ -144,7 +144,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
     /**
      * <h1>Used to set a nbt value</h1>
      *
-     * @param key The key of the nbt.
+     * @param key   The key of the nbt.
      * @param value The value to set.
      * @return This instance.
      */

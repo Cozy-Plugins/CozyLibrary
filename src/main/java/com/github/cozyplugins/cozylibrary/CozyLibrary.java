@@ -1,5 +1,6 @@
 package com.github.cozyplugins.cozylibrary;
 
+import com.github.cozyplugins.cozylibrary.command.CozyCommandHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,6 +12,8 @@ import org.jetbrains.annotations.Nullable;
 public class CozyLibrary {
 
     private static String pluginName = null;
+
+    private static final @NotNull CozyCommandHandler commandHandler = new CozyCommandHandler();
 
     /**
      * <h1>Used to set the plugins name</h1>
@@ -35,5 +38,15 @@ public class CozyLibrary {
     public static void setPluginName(@Nullable String pluginName) {
         CozyLibrary.pluginName = pluginName;
         ConsoleManager.setPrefix("&7[" + pluginName + "]");
+    }
+
+    /**
+     * <h1>Used to get the command handler</h1>
+     * Used to register commands in the plugin.
+     *
+     * @return The instance of the command handler.
+     */
+    public static @NotNull CozyCommandHandler getCommandHandler() {
+        return CozyLibrary.commandHandler;
     }
 }

@@ -1,6 +1,7 @@
 A library used to help create spigot plugins.
 
 **Maven**
+
 ```xml
 <repositories>
     <repository>
@@ -9,6 +10,7 @@ A library used to help create spigot plugins.
     </repository>
 </repositories>
 ```
+
 ```xml
 <dependency>
     <groupId>com.github.Cozy-Plugins</groupId>
@@ -18,6 +20,7 @@ A library used to help create spigot plugins.
 ```
 
 **Gradle**
+
 ```gradle
 allprojects {
     repositories {
@@ -26,6 +29,7 @@ allprojects {
     }
 }
 ```
+
 ```gradle
 dependencies {
     implementation 'com.github.Cozy-Plugins:com.github.cozyplugins.cozylibrary.CozyLibrary:-SNAPSHOT'
