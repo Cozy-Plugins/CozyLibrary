@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 /**
- * <h1>Represents a cozy item adapter</h1>
+ * <h1>Represents an item stack adapter</h1>
  * Used to create items quicker and easier.
  * Defaults to {@link Material#AIR}.
  * Mimics the bucket {@link ItemStack} methods,
@@ -22,7 +22,7 @@ import java.util.Map;
  *
  * @param <S> The return type for stacking methods.
  */
-public class CozyItemAdapter<S extends CozyItemAdapter<S>> {
+public class ItemStackAdapter<S extends ItemStackAdapter<S>> {
 
     protected final @NotNull ItemStack itemStack;
 
@@ -30,15 +30,24 @@ public class CozyItemAdapter<S extends CozyItemAdapter<S>> {
      * <h1>Initialises the cozy item</h1>
      * Sets the material to {@link Material#AIR}.
      */
-    public CozyItemAdapter() {
+    public ItemStackAdapter() {
         this.itemStack = new ItemStack(Material.AIR);
     }
 
     /**
      * <h1>Initialises the cozy item</h1>
      */
-    public CozyItemAdapter(@NotNull ItemStack itemStack) {
+    public ItemStackAdapter(@NotNull ItemStack itemStack) {
         this.itemStack = itemStack;
+    }
+
+    /**
+     * <h1>Used to create a clone of the core item stack</h1>
+     *
+     * @return A new instance of this item.
+     */
+    public @NotNull ItemStack create() {
+        return this.itemStack.clone();
     }
 
     /**

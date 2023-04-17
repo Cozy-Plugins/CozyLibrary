@@ -1,132 +1,91 @@
 package com.github.cozyplugins.cozylibrary.item;
 
-import com.github.cozyplugins.cozylibrary.message.MessageManager;
-import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <h1>Represents a cozy item</h1>
- * Uses the bukkit {@link ItemStack} as a
- * base, and adds methods on top.
+ * Expands on the bukkit {@link ItemStack}
+ * with more methods, making it easier
+ * to edit the item.
  */
-public class CozyItem extends CozyItemAdapter<CozyItem> {
+public class CozyItem extends NBTItemAdapter<CozyItem> {
 
     /**
-     * <h1>Used to create an empty item</h1>
+     * <h1>Used to create a empty cozy item</h1>
      */
     public CozyItem() {
         super();
     }
 
     /**
-     * <h1>Used to create a cozy item from a item stack</h1>
+     * <h1>Used to adapt a item stack</h1>
      *
-     * @param itemStack The instance of an item stack.
+     * @param itemStack The item stack to represent.
      */
     public CozyItem(@NotNull ItemStack itemStack) {
         super(itemStack);
     }
 
     /**
-     * <h1>Used to get the items name</h1>
-     * If the item does not have item meta, it will return
-     * the materials name.
+     * <h1>Used to create an item</h1>
+     * Creates an item with a custom name.
      *
-     * @return The name of the item.
+     * @param name The name of the item.
      */
-    public @NotNull String getName() {
-        return (this.getItemMeta() == null)
-                ? this.getMaterial().name() : this.getItemMeta().getDisplayName();
+    public CozyItem(@NotNull String name) {
+        super();
+        this.setName(name);
     }
 
     /**
-     * <h1>Used to set the items name</h1>
-     * Uses {@link MessageManager#parse} to parse
-     * the name.
+     * <h1>Used to create an item</h1>
+     * Creates an item with a name and lore.
      *
-     * @param name The name to set the item.
-     * @return This instance.
+     * @param name     The name of the item.
+     * @param loreList The lore of the item.
      */
-    public @NotNull CozyItem setName(@NotNull String name) {
-        if (this.getItemMeta() == null) this.createItemMeta();
-        ItemMeta itemMeta = this.getItemMeta();
-        itemMeta.setDisplayName(MessageManager.parse(name));
-
-        this.setItemMeta(itemMeta);
-        return this;
+    public CozyItem(@NotNull String name, @NotNull String... loreList) {
+        super();
+        this.setName(name);
+        for (String line : loreList) this.addLore(line);
     }
 
     /**
-     * <h1>Used to get the items lore</h1>
+     * <h1>Used to create an item</h1>
+     * Creates an item with a name and material.
      *
-     * @return The item's lore.
+     * @param name     The name of the item.
+     * @param material The items material.
      */
-    public @NotNull List<String> getLore() {
-        return (this.getItemMeta() == null || this.getItemMeta().getLore() == null)
-                ? new ArrayList<>() : this.getItemMeta().getLore();
+    public CozyItem(@NotNull String name, @NotNull Material material) {
+        super();
+        this.setName(name);
+        this.setMaterial(material);
     }
 
     /**
-     * <h1>Used to set the items lore</h1>
-     * Doesnt parse the lore with {@link MessageManager#parse}.
+     * <h1>Used to create an item</h1>
+     * Creates an item with a material.
      *
-     * @param lore The lore to set.
-     * @return This instance.
+     * @param material The items material.
      */
-    public @NotNull CozyItem setLore(@NotNull List<String> lore) {
-        if (this.getItemMeta() == null) this.createItemMeta();
-        ItemMeta itemMeta = this.getItemMeta();
-        itemMeta.setLore(lore);
-
-        this.setItemMeta(itemMeta);
-        return this;
+    public CozyItem(@NotNull Material material) {
+        super();
+        this.setMaterial(material);
     }
 
     /**
-     * <h1>Used to add lore to a specific index</h1>
+     * <h1>Used to create an item</h1>
+     * Creates an item with a material and lore.
      *
-     * @param line The lore to set.
-     * @param index The place to set the lore.
-     * @return This instance.
+     * @param material The items material.
+     * @param loreList The lore of the item.
      */
-    public @NotNull CozyItem setLore(@NotNull String line, int index) {
-        if (this.getItemMeta() == null) this.createItemMeta();
-
-        List<String> lore = this.getLore();
-        lore.add(index, line);
-
-        ItemMeta itemMeta = this.getItemMeta();
-        itemMeta.setLore(lore);
-
-        this.setItemMeta(itemMeta);
-        return this;
-    }
-
-    public @NotNull CozyItem addLore(String line) {
-        if (this.getItemMeta() == null) this.createItemMeta();
-
-        List<String> lore = this.getLore();
-        lore.add(MessageManager.parse(line));
-
-        ItemMeta itemMeta = this.getItemMeta();
-        itemMeta.setLore(lore);
-
-        this.setItemMeta(itemMeta);
-        return this;
-    }
-
-    /**
-     * <h1>Used to override item meta with the items default meta</h1>
-     *
-     * @return This instance.
-     */
-    public @NotNull CozyItem createItemMeta() {
-        this.setItemMeta(Bukkit.getItemFactory().getItemMeta(this.getMaterial()));
-        return this;
+    public CozyItem(@NotNull Material material, @NotNull String... loreList) {
+        super();
+        this.setMaterial(material);
+        for (String line : loreList) this.addLore(line);
     }
 }
