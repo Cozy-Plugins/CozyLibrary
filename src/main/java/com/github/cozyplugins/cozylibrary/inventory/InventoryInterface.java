@@ -8,6 +8,8 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,6 +20,7 @@ public abstract class InventoryInterface {
     private final @NotNull UUID uuid;
     private final @NotNull Inventory inventory;
     private final @NotNull PlayerUser player;
+    private final @NotNull List<Action> actionList;
 
     /**
      * <h1>Used to create an inventory interface</h1>
@@ -30,6 +33,7 @@ public abstract class InventoryInterface {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(player, size, MessageManager.parse(title, player));
         this.player = new PlayerUser(player);
+        this.actionList = new ArrayList<>();
     }
 
     /**
@@ -43,6 +47,7 @@ public abstract class InventoryInterface {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(player, type, MessageManager.parse(title, player));
         this.player = new PlayerUser(player);
+        this.actionList = new ArrayList<>();
     }
 
     /**
@@ -60,6 +65,15 @@ public abstract class InventoryInterface {
      */
     public @NotNull UUID getUuid() {
         return this.uuid;
+    }
+
+    /**
+     * <h1>Used to get the player using the interface</h1>
+     *
+     * @return The bukkit player.
+     */
+    public @NotNull Player getPlayer() {
+        return this.player.getPlayer();
     }
 
     /**
