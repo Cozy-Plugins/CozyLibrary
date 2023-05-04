@@ -1,6 +1,6 @@
-package com.github.cozyplugins.cozylibrary.command.datatypes;
+package com.github.cozyplugins.cozylibrary.command.datatype;
 
-import com.github.cozyplugins.cozylibrary.command.interfaces.CozyCommandType;
+import com.github.cozyplugins.cozylibrary.command.command.CozyCommandType;
 import com.github.cozyplugins.cozylibrary.pool.Pool;
 
 /**

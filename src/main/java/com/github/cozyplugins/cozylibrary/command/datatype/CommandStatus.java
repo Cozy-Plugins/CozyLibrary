@@ -1,6 +1,6 @@
-package com.github.cozyplugins.cozylibrary.command.datatypes;
+package com.github.cozyplugins.cozylibrary.command.datatype;
 
-import com.github.cozyplugins.cozylibrary.command.interfaces.CozyCommand;
+import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.message.BaseConfigMessages;
 import com.github.cozyplugins.cozylibrary.message.DefaultMessage;
 import org.jetbrains.annotations.NotNull;

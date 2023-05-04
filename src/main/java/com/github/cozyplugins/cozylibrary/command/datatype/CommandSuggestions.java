@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.command.datatypes;
+package com.github.cozyplugins.cozylibrary.command.datatype;
 
 import org.jetbrains.annotations.NotNull;
 

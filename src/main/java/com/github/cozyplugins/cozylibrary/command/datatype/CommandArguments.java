@@ -1,7 +1,7 @@
-package com.github.cozyplugins.cozylibrary.command.datatypes;
+package com.github.cozyplugins.cozylibrary.command.datatype;
 
 import com.github.cozyplugins.cozylibrary.ListUtility;
-import com.github.cozyplugins.cozylibrary.command.interfaces.CozyCommand;
+import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package com.github.cozyplugins.cozylibrary.command.interfaces;
+package com.github.cozyplugins.cozylibrary.command.command;
 
-import com.github.cozyplugins.cozylibrary.command.datatypes.*;
+import com.github.cozyplugins.cozylibrary.command.datatype.*;
 import com.github.cozyplugins.cozylibrary.pool.PermissionPool;
 import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
 import com.github.cozyplugins.cozylibrary.user.FakeUser;
