@@ -87,6 +87,17 @@ public interface CozyCommand {
     @Nullable CommandStatus onUser(@NotNull User user, @NotNull CommandArguments arguments);
 
     /**
+     * <h1>Run when a player user executes the command</h1>
+     *
+     * @param user      The instance of the user.
+     * @param arguments The commands arguments.
+     * @param status    The current command status from {@link CozyCommand#onUser}.
+     *                  If the command status is null, it will create a new instance.
+     * @return The command status.
+     */
+    @Nullable CommandStatus onPlayerUser(@NotNull PlayerUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status);
+
+    /**
      * <h1>Run when a fake user executes the command</h1>
      *
      * @param user      The instance of the user.
@@ -107,15 +118,4 @@ public interface CozyCommand {
      * @return The command status.
      */
     @Nullable CommandStatus onConsoleUser(@NotNull ConsoleUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status);
-
-    /**
-     * <h1>Run when a player user executes the command</h1>
-     *
-     * @param user      The instance of the user.
-     * @param arguments The commands arguments.
-     * @param status    The current command status from {@link CozyCommand#onUser}.
-     *                  If the command status is null, it will create a new instance.
-     * @return The command status.
-     */
-    @Nullable CommandStatus onPlayerUser(@NotNull PlayerUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status);
 }
