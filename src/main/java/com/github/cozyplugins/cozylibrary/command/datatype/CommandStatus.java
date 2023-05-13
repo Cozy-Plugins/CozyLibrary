@@ -60,7 +60,6 @@ public class CommandStatus {
         return this;
     }
 
-
     /**
      * <h1>Used to get the status message list</h1>
      * This message list is determined by if

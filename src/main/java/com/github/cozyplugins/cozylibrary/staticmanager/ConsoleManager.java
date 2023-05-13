@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary;
+package com.github.cozyplugins.cozylibrary.staticmanager;
 
 import com.github.cozyplugins.cozylibrary.message.MessageManager;
 import org.bukkit.Bukkit;
