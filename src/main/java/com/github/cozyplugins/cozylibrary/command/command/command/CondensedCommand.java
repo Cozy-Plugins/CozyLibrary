@@ -1,12 +1,13 @@
-package com.github.cozyplugins.cozylibrary.command.command;
+package com.github.cozyplugins.cozylibrary.command.command.command;
 
+import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandAliases;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandCredentials;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandPool;
 import com.github.cozyplugins.cozylibrary.pool.PermissionPool;
 import org.jetbrains.annotations.Nullable;
 
-public interface CondensedCozyCommand extends CozyCommand {
+public interface CondensedCommand extends CozyCommand {
 
     /**
      * <h1>Used to get the commands credentials</h1>

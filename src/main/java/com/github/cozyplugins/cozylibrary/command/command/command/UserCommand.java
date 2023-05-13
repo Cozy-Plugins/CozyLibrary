@@ -1,5 +1,6 @@
-package com.github.cozyplugins.cozylibrary.command.command;
+package com.github.cozyplugins.cozylibrary.command.command.command;
 
+import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
 import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
@@ -15,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
  * {@link CozyCommand#onFakeUser} and
  * {@link CozyCommand#onConsoleUser}
  */
-public interface UserCozyCommand extends CozyCommand {
+public interface UserCommand extends CozyCommand {
 
     @Override
     default @Nullable CommandStatus onPlayerUser(@NotNull PlayerUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {

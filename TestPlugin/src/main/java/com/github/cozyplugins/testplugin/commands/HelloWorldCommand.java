@@ -1,45 +1,19 @@
 package com.github.cozyplugins.testplugin.commands;
 
-import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
-import com.github.cozyplugins.cozylibrary.command.datatype.*;
-import com.github.cozyplugins.cozylibrary.pool.PermissionPool;
-import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
-import com.github.cozyplugins.cozylibrary.user.FakeUser;
-import com.github.cozyplugins.cozylibrary.user.PlayerUser;
+import com.github.cozyplugins.cozylibrary.command.command.command.CondensedUserCommand;
+import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
+import com.github.cozyplugins.cozylibrary.command.datatype.CommandCredentials;
+import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
+import com.github.cozyplugins.cozylibrary.command.datatype.CommandSuggestions;
 import com.github.cozyplugins.cozylibrary.user.User;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class HelloWorldCommand implements CozyCommand {
+public class HelloWorldCommand implements CondensedUserCommand {
 
     @Override
     public @NotNull String getName() {
-        return "helloworld";
-    }
-
-    @Override
-    public @Nullable CommandAliases getAliases() {
-        return new CommandAliases().append("hw");
-    }
-
-    @Override
-    public @Nullable String getDescription() {
-        return "Sends hello back to the user";
-    }
-
-    @Override
-    public @Nullable String getSyntax() {
-        return "/[name]";
-    }
-
-    @Override
-    public @Nullable PermissionPool getPermissionPool() {
-        return null;
-    }
-
-    @Override
-    public @Nullable CommandPool getSubCommands() {
-        return null;
+        return "hello";
     }
 
     @Override
@@ -49,22 +23,14 @@ public class HelloWorldCommand implements CozyCommand {
 
     @Override
     public @Nullable CommandStatus onUser(@NotNull User user, @NotNull CommandArguments arguments) {
-        user.sendMessage("Hello!");
+        user.sendMessage("Hello world!");
         return new CommandStatus();
     }
 
     @Override
-    public @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
-        return null;
-    }
-
-    @Override
-    public @Nullable CommandStatus onConsoleUser(@NotNull ConsoleUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
-        return null;
-    }
-
-    @Override
-    public @Nullable CommandStatus onPlayerUser(@NotNull PlayerUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
-        return null;
+    public @Nullable CommandCredentials getCredentials() {
+        return new CommandCredentials()
+                .setDescription("Responds with hello world.")
+                .setSyntax("/[name]");
     }
 }

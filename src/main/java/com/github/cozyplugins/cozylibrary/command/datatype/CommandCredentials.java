@@ -117,6 +117,7 @@ public class CommandCredentials {
 
     /**
      * <h1>Used to add a sub command</h1>
+     *
      * @param cozyCommand A sub command to add.
      * @return This instance.
      */

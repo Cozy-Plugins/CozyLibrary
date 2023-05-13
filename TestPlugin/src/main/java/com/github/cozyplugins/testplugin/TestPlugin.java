@@ -7,7 +7,6 @@ public final class TestPlugin extends CozyPlugin {
 
     @Override
     public void onEnable() {
-
         // Setup commands.
         this.getCommandHandler().add(new HelloWorldCommand());
         this.getCommandHandler().registerCommands();
