@@ -3,6 +3,7 @@ package com.github.cozyplugins.cozylibrary.command;
 import com.github.cozyplugins.cozylibrary.CozyLibrary;
 import com.github.cozyplugins.cozylibrary.command.adapter.BukkitCommandAdapter;
 import com.github.cozyplugins.cozylibrary.command.adapter.BukkitCommandHandler;
+import com.github.cozyplugins.cozylibrary.command.adapter.CommandTypeAdapter;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,6 +46,27 @@ public class CozyCommandHandler {
      */
     public @NotNull CozyCommandHandler remove(@NotNull CozyCommand command) {
         this.commandList.remove(command);
+        return this;
+    }
+
+    /**
+     * <h1>Used to remove all command types</h1>
+     * If the command is a instance of {@link CommandTypeAdapter}
+     * it will be removed.
+     *
+     * @return This instnace.
+     */
+    public @NotNull CozyCommandHandler removeCommandTypes() {
+        List<CozyCommand> toRemove = new ArrayList<>();
+
+        for (CozyCommand cozyCommand : this.commandList) {
+            if (cozyCommand instanceof CommandTypeAdapter) toRemove.add(cozyCommand);
+        }
+
+        for (CozyCommand cozyCommand : toRemove) {
+            this.remove(cozyCommand);
+        }
+
         return this;
     }
 

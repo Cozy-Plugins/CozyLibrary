@@ -1,6 +1,6 @@
 package com.github.cozyplugins.testplugin.commands;
 
-import com.github.cozyplugins.cozylibrary.command.command.CozyCommandType;
+import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandSuggestions;
@@ -12,7 +12,7 @@ import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class InfoCommandType implements CozyCommandType {
+public class InfoCommandType implements CommandType {
 
     @Override
     public @NotNull String getIdentifier() {
@@ -21,6 +21,11 @@ public class InfoCommandType implements CozyCommandType {
 
     @Override
     public @Nullable String getSyntax() {
+        return null;
+    }
+
+    @Override
+    public @Nullable String getDescription() {
         return null;
     }
 

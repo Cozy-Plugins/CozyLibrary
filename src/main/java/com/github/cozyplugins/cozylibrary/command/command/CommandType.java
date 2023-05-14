@@ -3,6 +3,7 @@ package com.github.cozyplugins.cozylibrary.command.command;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandSuggestions;
+import com.github.cozyplugins.cozylibrary.command.datatype.CommandTypePool;
 import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
 import com.github.cozyplugins.cozylibrary.user.FakeUser;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
  * A command type represents how the command
  * will function.
  */
-public interface CozyCommandType {
+public interface CommandType {
 
     /**
      * <h1>Used to get the commands type identifier</h1>
@@ -39,6 +40,21 @@ public interface CozyCommandType {
      * @return The command syntax.
      */
     @Nullable String getSyntax();
+
+
+    /**
+     * <h1>Used to get the description of the command type</h1>
+     *
+     * @return The description.
+     */
+    @Nullable String getDescription();
+
+    /**
+     * <h1>Used to get the sub command types</h1>
+     *
+     * @return The sub command types.
+     */
+    @Nullable CommandTypePool getSubCommandTypes();
 
     /**
      * <h1>Used to get the command's suggestions</h1>
@@ -63,7 +79,7 @@ public interface CozyCommandType {
 
     /**
      * <h1>Ran when the console executes this command</h1>
-     * If this and {@link CozyCommandType#onUser}  is null, it is not a console command.
+     * If this and {@link CommandType#onUser}  is null, it is not a console command.
      *
      * @param user      The user who executed the command.
      * @param section   The configuration section of the command.
@@ -74,7 +90,7 @@ public interface CozyCommandType {
 
     /**
      * <h1>Ran when the console executes this command</h1>
-     * If this and {@link CozyCommandType#onUser}  is null, this is not a player command.
+     * If this and {@link CommandType#onUser}  is null, this is not a player command.
      *
      * @param user      The user who executed the command.
      * @param section   The configuration section of the command.
@@ -85,7 +101,7 @@ public interface CozyCommandType {
 
     /**
      * <h1>Ran when a fake user executes this command</h1>
-     * If this and {@link CozyCommandType#onUser}
+     * If this and {@link CommandType#onUser}
      * return null, this is not a fake user command.
      *
      * @param user      The user who executed the command.

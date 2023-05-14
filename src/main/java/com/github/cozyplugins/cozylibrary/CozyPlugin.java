@@ -3,7 +3,7 @@ package com.github.cozyplugins.cozylibrary;
 import com.github.cozyplugins.cozylibrary.command.CommandTypeManager;
 import com.github.cozyplugins.cozylibrary.command.CozyCommandHandler;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
-import com.github.cozyplugins.cozylibrary.command.command.CozyCommandType;
+import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.configuration.CommandDirectory;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -62,7 +62,7 @@ public abstract class CozyPlugin extends JavaPlugin {
      * @param commandType The command type to register.
      * @return This instance.
      */
-    public @NotNull CozyPlugin addCommandType(CozyCommandType commandType) {
+    public @NotNull CozyPlugin addCommandType(CommandType commandType) {
         CommandTypeManager.register(commandType);
         return this;
     }

@@ -1,7 +1,7 @@
 package com.github.cozyplugins.cozylibrary.command.adapter;
 
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
-import com.github.cozyplugins.cozylibrary.command.command.CozyCommandType;
+import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.datatype.*;
 import com.github.cozyplugins.cozylibrary.pool.PermissionPool;
 import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
@@ -12,71 +12,94 @@ import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CozyCommandTypeAdapter implements CozyCommand {
+import java.util.ArrayList;
+
+/**
+ * <h1>Used to adapt a command type to a command</h1>
+ */
+public class CommandTypeAdapter implements CozyCommand {
 
     private final @NotNull ConfigurationSection section;
-    private final @NotNull CozyCommandType commandType;
+    private final @NotNull CommandType commandType;
 
-    public CozyCommandTypeAdapter(
+    public CommandTypeAdapter(
             @NotNull ConfigurationSection section,
-            @NotNull CozyCommandType commandType) {
+            @NotNull CommandType commandType) {
 
-        this.commandType = commandType;
         this.section = section;
+        this.commandType = commandType;
     }
 
     @Override
     public @NotNull String getName() {
-        return ;
+        return this.section.getString("name");
     }
 
     @Override
     public @Nullable CommandAliases getAliases() {
-        return null;
+        return new CommandAliases().append(this.section.getListString("aliases", new ArrayList<>()));
     }
 
     @Override
     public @Nullable String getDescription() {
-        return null;
+        return this.commandType.getDescription();
     }
 
     @Override
     public @Nullable String getSyntax() {
-        return null;
+        return this.commandType.getSyntax();
     }
 
     @Override
     public @Nullable PermissionPool getPermissionPool() {
-        return null;
+        // Check if it's only 1 permission.
+        if (this.section.getString("permissions", null) != null) {
+            return new PermissionPool().append(this.section.getString("permissions"));
+        }
+
+        // Otherwise there are multiple permissions.
+        return new PermissionPool().append(this.section.getListString("permissions"));
     }
 
     @Override
     public @Nullable CommandPool getSubCommands() {
-        return null;
+        if (this.commandType.getSubCommandTypes() == null) return null;
+        CommandPool commandPool = new CommandPool();
+
+        for (CommandType commandType : this.commandType.getSubCommandTypes()) {
+            CozyCommand command = new CommandTypeAdapter(
+                    this.section.getSection(commandType.getIdentifier()),
+                    commandType
+            );
+
+            commandPool.add(command);
+        }
+
+        return commandPool;
     }
 
     @Override
     public @Nullable CommandSuggestions getSuggestions(@NotNull User user, @NotNull CommandArguments arguments) {
-        return null;
+        return this.commandType.getSuggestions(user, this.section, arguments);
     }
 
     @Override
     public @Nullable CommandStatus onUser(@NotNull User user, @NotNull CommandArguments arguments) {
-        return null;
+        return this.commandType.onUser(user, this.section, arguments);
     }
 
     @Override
     public @Nullable CommandStatus onPlayerUser(@NotNull PlayerUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
-        return null;
+        return this.commandType.onPlayer(user, this.section, arguments);
     }
 
     @Override
     public @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
-        return null;
+        return this.commandType.onFakeUser(user, this.section, arguments);;
     }
 
     @Override
     public @Nullable CommandStatus onConsoleUser(@NotNull ConsoleUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
-        return null;
+        return this.commandType.onConsole(user, this.section, arguments);;
     }
 }
