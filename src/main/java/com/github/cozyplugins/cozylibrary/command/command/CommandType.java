@@ -18,6 +18,13 @@ import org.jetbrains.annotations.Nullable;
  * in the plugin to customise the commands.
  * A command type represents how the command
  * will function.
+ *
+ * <h1>Configuration keys</h1>
+ * <li>type ◆ Returns the identifier</li>
+ * <li>name ◆ Returns the command name</li>
+ * <li>aliases ◆ Returns the command aliases</li>
+ * <li>permission ◆ Returns the required permission</li>
+ * <li>permissions ◆ Returns a list of required permissions</li>
  */
 public interface CommandType {
 

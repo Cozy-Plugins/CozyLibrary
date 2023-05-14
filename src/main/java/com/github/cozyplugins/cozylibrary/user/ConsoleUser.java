@@ -1,7 +1,7 @@
 package com.github.cozyplugins.cozylibrary.user;
 
-import com.github.cozyplugins.cozylibrary.staticmanager.ConsoleManager;
 import com.github.cozyplugins.cozylibrary.message.MessageManager;
+import com.github.cozyplugins.cozylibrary.staticmanager.ConsoleManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

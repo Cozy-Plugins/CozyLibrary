@@ -1,7 +1,7 @@
 package com.github.cozyplugins.cozylibrary.command.adapter;
 
-import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.command.command.CommandType;
+import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.command.datatype.*;
 import com.github.cozyplugins.cozylibrary.pool.PermissionPool;
 import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
@@ -52,13 +52,17 @@ public class CommandTypeAdapter implements CozyCommand {
 
     @Override
     public @Nullable PermissionPool getPermissionPool() {
-        // Check if it's only 1 permission.
-        if (this.section.getString("permissions", null) != null) {
-            return new PermissionPool().append(this.section.getString("permissions"));
+        PermissionPool permissionPool = new PermissionPool();
+
+        // Check if there is a required permission.
+        if (this.section.getString("permission", null) != null) {
+            permissionPool.append(this.section.getString("permission"));
         }
 
-        // Otherwise there are multiple permissions.
-        return new PermissionPool().append(this.section.getListString("permissions"));
+        // Add potential multiple required permissions.
+        permissionPool.append(this.section.getListString("permissions", new ArrayList<>()));
+
+        return permissionPool;
     }
 
     @Override

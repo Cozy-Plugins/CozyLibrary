@@ -2,8 +2,8 @@ package com.github.cozyplugins.cozylibrary;
 
 import com.github.cozyplugins.cozylibrary.command.CommandTypeManager;
 import com.github.cozyplugins.cozylibrary.command.CozyCommandHandler;
-import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.command.command.CommandType;
+import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.configuration.CommandDirectory;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -14,15 +14,16 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class CozyPlugin extends JavaPlugin {
 
-    /**
-     * <h1>Used to initialise the cozy plugin</h1>
-     */
-    public CozyPlugin() {
+    @Override
+    public void onEnable() {
         CozyLibrary.setPluginName(this.getName());
 
         // Setup command directory.
         CozyLibrary.setCommandDirectory(new CommandDirectory("commands.yml"));
         CozyLibrary.getCommandDirectory().reload();
+
+        // Enable plugin.
+        this.onCozyEnable();
     }
 
     /**
@@ -31,6 +32,8 @@ public abstract class CozyPlugin extends JavaPlugin {
      * @return True if the commands directory should be enabled.
      */
     public abstract boolean enableCommandDirectory();
+
+    public abstract void onCozyEnable();
 
     /**
      * <h1>Used to get the command handler</h1>

@@ -7,7 +7,12 @@ import com.github.cozyplugins.testplugin.commands.InfoCommandType;
 public final class TestPlugin extends CozyPlugin {
 
     @Override
-    public void onEnable() {
+    public boolean enableCommandDirectory() {
+        return true;
+    }
+
+    @Override
+    public void onCozyEnable() {
         // Setup commands.
         this.addCommand(new HelloWorldCommand());
 

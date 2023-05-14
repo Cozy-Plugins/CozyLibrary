@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a45d43c1-cd7c-4ef3-8209-3a31263bf2b6" name="Changes" comment="" />
+    <list default="true" id="a45d43c1-cd7c-4ef3-8209-3a31263bf2b6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/TestPlugin/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlugin/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/commands/InfoCommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/commands/InfoCommandType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyLibrary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/CommandTypeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/CommandTypeManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/adapter/CommandTypeAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/adapter/CommandTypeAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/command/CommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/command/CommandType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/configuration/CommandDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/configuration/CommandDirectory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/staticmanager/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/staticmanager/ConsoleManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/user/ConsoleUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/user/ConsoleUser.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -217,6 +230,7 @@
       <workItem from="1683994165377" duration="5326000" />
       <workItem from="1684005584223" duration="5392000" />
       <workItem from="1684082675773" duration="1699000" />
+      <workItem from="1684089505957" duration="6617000" />
     </task>
     <servers />
   </component>

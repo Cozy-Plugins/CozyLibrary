@@ -50,6 +50,10 @@ public class ConsoleManager {
         Bukkit.getConsoleSender().sendMessage(parsedMessage);
     }
 
+    public static void rawWarn(@NotNull String message) {
+        Bukkit.getConsoleSender().sendMessage(MessageManager.parseColours("&e[WARNING] " + message));
+    }
+
     /**
      * <h1>Used to post a error message in the console</h1>
      *
