@@ -95,11 +95,11 @@ public class CommandTypeAdapter implements CozyCommand {
 
     @Override
     public @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
-        return this.commandType.onFakeUser(user, this.section, arguments);;
+        return this.commandType.onFakeUser(user, this.section, arguments);
     }
 
     @Override
     public @Nullable CommandStatus onConsoleUser(@NotNull ConsoleUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
-        return this.commandType.onConsole(user, this.section, arguments);;
+        return this.commandType.onConsole(user, this.section, arguments);
     }
 }
