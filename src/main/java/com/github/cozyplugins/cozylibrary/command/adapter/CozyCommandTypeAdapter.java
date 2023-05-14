@@ -20,7 +20,9 @@ public class CozyCommandTypeAdapter implements CozyCommand {
     public CozyCommandTypeAdapter(
             @NotNull ConfigurationSection section,
             @NotNull CozyCommandType commandType) {
+
         this.commandType = commandType;
+        this.section = section;
     }
 
     @Override

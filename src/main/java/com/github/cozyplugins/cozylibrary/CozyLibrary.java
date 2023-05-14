@@ -1,6 +1,7 @@
 package com.github.cozyplugins.cozylibrary;
 
 import com.github.cozyplugins.cozylibrary.command.CozyCommandHandler;
+import com.github.cozyplugins.cozylibrary.configuration.CommandDirectory;
 import com.github.cozyplugins.cozylibrary.staticmanager.ConsoleManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,6 +16,7 @@ public class CozyLibrary {
     private static String pluginName = null;
 
     private static final @NotNull CozyCommandHandler commandHandler = new CozyCommandHandler();
+    private static CommandDirectory commandDirectory;
 
     /**
      * <h1>Used to set the plugins name</h1>
@@ -42,6 +44,15 @@ public class CozyLibrary {
     }
 
     /**
+     * <h1>Used to set the command directory</h1>
+     *
+     * @param commandDirectory A instance of a command directory.
+     */
+    public static void setCommandDirectory(@NotNull CommandDirectory commandDirectory) {
+        CozyLibrary.commandDirectory = commandDirectory;
+    }
+
+    /**
      * <h1>Used to get the command handler</h1>
      * Used to register commands in the plugin.
      *
@@ -49,5 +60,15 @@ public class CozyLibrary {
      */
     public static @NotNull CozyCommandHandler getCommandHandler() {
         return CozyLibrary.commandHandler;
+    }
+
+    /**
+     * <h1>Used to get the command directory</h1>
+     * Represents the files in the command directory.
+     *
+     * @return The command directory.
+     */
+    public static @NotNull CommandDirectory getCommandDirectory() {
+        return CozyLibrary.commandDirectory;
     }
 }
