@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.item;
 
-import com.github.cozyplugins.cozylibrary.message.MessageManager;
+import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.google.common.collect.Multimap;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;

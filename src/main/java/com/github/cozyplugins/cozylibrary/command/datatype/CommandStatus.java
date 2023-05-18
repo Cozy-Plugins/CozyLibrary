@@ -1,8 +1,8 @@
 package com.github.cozyplugins.cozylibrary.command.datatype;
 
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
-import com.github.cozyplugins.cozylibrary.message.BaseConfigMessages;
-import com.github.cozyplugins.cozylibrary.message.DefaultMessage;
+import com.github.cozyplugins.cozylibrary.configuration.message.BaseConfigMessages;
+import com.github.cozyplugins.cozylibrary.configuration.message.DefaultMessage;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

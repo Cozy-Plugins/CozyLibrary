@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.message;
+package com.github.cozyplugins.cozylibrary.configuration.message;
 
 import com.github.cozyplugins.cozylibrary.CozyLibrary;
 import com.github.smuddgge.squishyconfiguration.ConfigurationFactory;

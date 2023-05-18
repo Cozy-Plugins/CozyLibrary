@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.staticmanager;
+package com.github.cozyplugins.cozylibrary;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

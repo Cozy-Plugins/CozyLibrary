@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.inventory;
 
-import com.github.cozyplugins.cozylibrary.message.MessageManager;
+import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

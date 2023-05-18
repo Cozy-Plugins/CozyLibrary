@@ -1,5 +1,7 @@
-package com.github.cozyplugins.cozylibrary.message;
+package com.github.cozyplugins.cozylibrary;
 
+import com.github.cozyplugins.cozylibrary.configuration.message.BaseConfigMessages;
+import com.github.cozyplugins.cozylibrary.configuration.message.DefaultMessage;
 import com.github.cozyplugins.cozylibrary.dependency.PlaceholderAPIDependency;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

@@ -2,7 +2,6 @@ package com.github.cozyplugins.cozylibrary;
 
 import com.github.cozyplugins.cozylibrary.command.CozyCommandHandler;
 import com.github.cozyplugins.cozylibrary.configuration.CommandDirectory;
-import com.github.cozyplugins.cozylibrary.staticmanager.ConsoleManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

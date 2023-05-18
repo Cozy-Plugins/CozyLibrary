@@ -1,6 +1,5 @@
-package com.github.cozyplugins.cozylibrary.staticmanager;
+package com.github.cozyplugins.cozylibrary;
 
-import com.github.cozyplugins.cozylibrary.message.MessageManager;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 

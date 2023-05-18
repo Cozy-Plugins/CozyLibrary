@@ -1,6 +1,5 @@
 package com.github.cozyplugins.cozylibrary;
 
-import com.github.cozyplugins.cozylibrary.message.MessageManager;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

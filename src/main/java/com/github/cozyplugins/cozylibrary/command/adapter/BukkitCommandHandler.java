@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.command.adapter;
 
-import com.github.cozyplugins.cozylibrary.staticmanager.ConsoleManager;
+import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;

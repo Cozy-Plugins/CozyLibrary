@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.dependency;
 
-import com.github.cozyplugins.cozylibrary.staticmanager.PlayerManager;
+import com.github.cozyplugins.cozylibrary.PlayerManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
