@@ -1,16 +1,14 @@
 package com.github.cozyplugins.cozylibrary.configuration;
 
+import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import com.github.cozyplugins.cozylibrary.CozyLibrary;
+import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.command.CommandTypeManager;
 import com.github.cozyplugins.cozylibrary.command.adapter.CommandTypeAdapter;
 import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
-import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
-import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.io.File;
 
 public class CommandDirectory extends ConfigurationDirectory {
 
@@ -19,15 +17,15 @@ public class CommandDirectory extends ConfigurationDirectory {
     /**
      * <h1>Used to create a commands configuration directory</h1>
      */
-    public CommandDirectory(@NotNull String defaultFile) {
-        super("commands");
+    public CommandDirectory(@NotNull String defaultFile, @NotNull Class<? extends CozyPlugin> clazz) {
+        super("commands", clazz);
 
         this.defaultFile = defaultFile;
     }
 
     @Override
-    public @Nullable Configuration createDefaultConfiguration(@NotNull File folder) {
-        return new YamlConfiguration(folder, this.defaultFile);
+    public @Nullable String getDefaultFileName() {
+        return this.defaultFile;
     }
 
     @Override
@@ -47,6 +45,8 @@ public class CommandDirectory extends ConfigurationDirectory {
                     this.getSection(key),
                     commandType
             );
+
+            ConsoleManager.log("[CommandDirectory] Added configuration command " + command.getName());
 
             // Add command to handler.
             CozyLibrary.getCommandHandler().add(command);

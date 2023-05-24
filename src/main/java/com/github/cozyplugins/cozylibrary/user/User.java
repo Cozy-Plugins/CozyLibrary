@@ -88,8 +88,10 @@ public interface User {
      */
     static @NotNull User from(@NotNull CommandSender commandSender) {
         if (commandSender instanceof Player player) {
+            System.out.println("player");
             return new PlayerUser(player);
         }
+        System.out.println("console");
         return new ConsoleUser();
     }
 }

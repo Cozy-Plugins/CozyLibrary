@@ -94,6 +94,7 @@ public class BukkitCommandHandler {
         // Register commands.
         for (Command command : this.commandList) {
             commandMap.register(pluginName, command);
+            ConsoleManager.log("[CommandHandler] &aRegistered command &f" + command.getName());
         }
         return this;
     }
@@ -110,6 +111,7 @@ public class BukkitCommandHandler {
         // Register commands.
         for (Command command : this.commandList) {
             command.unregister(commandMap);
+            ConsoleManager.log("[CommandHandler] &eUnRegistered command &f" + command.getName());
         }
         return this;
     }

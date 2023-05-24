@@ -19,11 +19,16 @@ public abstract class CozyPlugin extends JavaPlugin {
         CozyLibrary.setPluginName(this.getName());
 
         // Setup command directory.
-        CozyLibrary.setCommandDirectory(new CommandDirectory("commands.yml"));
-        CozyLibrary.getCommandDirectory().reload();
+        CozyLibrary.setCommandDirectory(new CommandDirectory("commands.yml", this.getClass()));
 
         // Enable plugin.
         this.onCozyEnable();
+
+        // Reload command directory and add command types.
+        CozyLibrary.getCommandDirectory().reload();
+
+        // Register commands that have been added.
+        this.registerCommands();
     }
 
     /**
@@ -33,6 +38,9 @@ public abstract class CozyPlugin extends JavaPlugin {
      */
     public abstract boolean enableCommandDirectory();
 
+    /**
+     * <h1>Called when the plugin is enabled</h1>
+     */
     public abstract void onCozyEnable();
 
     /**

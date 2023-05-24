@@ -1,6 +1,7 @@
 package com.github.cozyplugins.cozylibrary.configuration;
 
 import com.github.cozyplugins.cozylibrary.CozyLibrary;
+import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
@@ -10,6 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,24 +28,25 @@ import java.util.List;
 public abstract class ConfigurationDirectory extends MemoryConfigurationSection {
 
     private final @NotNull String directoryName;
+    private final @NotNull Class<? extends CozyPlugin> clazz;
 
     /**
      * <h1>Used to create a configuration directory</h1>
      *
      * @param directoryName The name of the directory.
      */
-    public ConfigurationDirectory(@NotNull String directoryName) {
+    public ConfigurationDirectory(@NotNull String directoryName, @NotNull Class<? extends CozyPlugin> clazz) {
         super(new HashMap<>());
         this.directoryName = directoryName;
+        this.clazz = clazz;
     }
 
     /**
-     * <h1>Used to create a default configuration file</h1>
+     * <h1>Used to get the defaults file name</h1>
      *
-     * @param folder The folder to create the file in.
-     * @return The instance of the configuration file.
+     * @return The name of the default file.
      */
-    public abstract @Nullable Configuration createDefaultConfiguration(@NotNull File folder);
+    public abstract @Nullable String getDefaultFileName();
 
     /**
      * <h1>Called when the the configuration file is reloaded</h1>
@@ -108,7 +113,35 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
      * @return True if the directory was created.
      */
     protected boolean createDirectory() {
-        return this.getDirectory().mkdir();
+        return this.getDirectory().mkdirs();
+    }
+
+    /**
+     * <h1>Creates the default file in the directory</h1>
+     *
+     * @return True If the file gets created.
+     */
+    public boolean createDefaultFile() {
+        // Check if default file name is specified.
+        if (this.getDefaultFileName() == null) return false;
+
+        // Make sure the directory is created.
+        this.createDirectory();
+
+        try (InputStream input = this.clazz.getResourceAsStream("/" + this.getDefaultFileName())) {
+
+            // Get file instance.
+            File file = new File(this.getDirectory(), this.getDefaultFileName());
+
+            if (input != null) {
+                Files.copy(input, file.toPath());
+                return true;
+            }
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -131,8 +164,10 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
         }
 
         if (isEmpty) {
-            Configuration configuration = this.createDefaultConfiguration(this.getDirectory());
-            if (configuration == null) return;
+            this.createDefaultFile();
+
+            // Load configuration.
+            Configuration configuration = new YamlConfiguration(this.getDirectory(), this.getDefaultFileName());
             configuration.load();
             this.loadConfigurationFile(configuration);
         }
