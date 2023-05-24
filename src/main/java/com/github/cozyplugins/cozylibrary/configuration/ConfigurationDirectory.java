@@ -160,7 +160,9 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
         // Load all files currently in the directory.
         for (File file : this.getFiles()) {
             isEmpty = false;
-            this.loadConfigurationFile(new YamlConfiguration(file));
+            Configuration configuration = new YamlConfiguration(file);
+            configuration.load();
+            this.loadConfigurationFile(configuration);
         }
 
         if (isEmpty) {

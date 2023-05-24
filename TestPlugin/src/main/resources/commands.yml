@@ -1,4 +1,4 @@
-info:
-  type: "info"
-  name: "info"
-  message: "Hey there!"
+test:
+  type: "test"
+  name: "test"
+  message: "Testing, testing..."

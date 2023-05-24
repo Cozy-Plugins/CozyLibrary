@@ -13,11 +13,11 @@ import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class InfoCommandType implements CommandType {
+public class TestCommandType implements CommandType {
 
     @Override
     public @NotNull String getIdentifier() {
-        return "info";
+        return "test";
     }
 
     @Override

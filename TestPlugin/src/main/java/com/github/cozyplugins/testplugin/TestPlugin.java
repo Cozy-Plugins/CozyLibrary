@@ -2,7 +2,7 @@ package com.github.cozyplugins.testplugin;
 
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.testplugin.commands.HelloWorldCommand;
-import com.github.cozyplugins.testplugin.commands.InfoCommandType;
+import com.github.cozyplugins.testplugin.commands.TestCommandType;
 
 public final class TestPlugin extends CozyPlugin {
 
@@ -17,6 +17,6 @@ public final class TestPlugin extends CozyPlugin {
         this.addCommand(new HelloWorldCommand());
 
         // Setup command types.
-        this.addCommandType(new InfoCommandType());
+        this.addCommandType(new TestCommandType());
     }
 }
