@@ -93,7 +93,7 @@ public class BukkitCommandHandler {
 
         // Register commands.
         for (Command command : this.commandList) {
-            commandMap.register(pluginName, command);
+            commandMap.register(this.pluginName, command);
             ConsoleManager.log("[CommandHandler] &aRegistered command &f" + command.getName());
         }
         return this;
