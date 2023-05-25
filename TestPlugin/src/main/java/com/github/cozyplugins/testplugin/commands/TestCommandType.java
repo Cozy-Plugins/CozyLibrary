@@ -1,6 +1,8 @@
 package com.github.cozyplugins.testplugin.commands;
 
 import com.github.cozyplugins.cozylibrary.command.command.CommandType;
+import com.github.cozyplugins.cozylibrary.command.command.commandtype.ProgrammableCommandType;
+import com.github.cozyplugins.cozylibrary.command.command.commandtype.programmable.ProgrammableExecutor;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandSuggestions;
@@ -32,7 +34,25 @@ public class TestCommandType implements CommandType {
 
     @Override
     public @Nullable CommandTypePool getSubCommandTypes() {
-        return null;
+        CommandTypePool commandTypePool = new CommandTypePool();
+
+        commandTypePool.add(new ProgrammableCommandType("1")
+                .setDescription("First type of test")
+                .setUser((user, section, arguments) -> {
+                    user.sendMessage(section.getString("message"));
+                    return new CommandStatus();
+                })
+        );
+
+        commandTypePool.add(new ProgrammableCommandType("2")
+                .setDescription("First type of test")
+                .setUser((user, section, arguments) -> {
+                    user.sendMessage(section.getString("message"));
+                    return new CommandStatus();
+                })
+        );
+
+        return commandTypePool;
     }
 
     @Override

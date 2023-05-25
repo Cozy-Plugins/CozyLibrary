@@ -2,6 +2,7 @@ package com.github.cozyplugins.cozylibrary.command.adapter;
 
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
+import com.github.cozyplugins.cozylibrary.command.datatype.CommandPool;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
 import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
 import com.github.cozyplugins.cozylibrary.user.FakeUser;
@@ -49,7 +50,26 @@ public class BukkitCommandAdapter extends Command {
     public boolean execute(@NotNull CommandSender commandSender, @NotNull String label, @NotNull String[] args) {
         CommandArguments arguments = new CommandArguments(this.cozyCommand, label, args);
         User user = User.from(commandSender);
-        this.execute(user, arguments);
+
+        if (arguments.getSubCommandNameList().isEmpty()) {
+            this.execute(user, arguments);
+            return true;
+        }
+
+        CommandPool commandPool = this.cozyCommand.getSubCommands();
+        if (commandPool == null) {
+            this.execute(user, arguments);
+            return true;
+        }
+
+        CozyCommand command = this.cozyCommand.getSubCommands().getFromName(arguments.getSubCommandNameList().get(0));
+
+        if (command == null) {
+            this.execute(user, arguments);
+            return true;
+        }
+
+        new BukkitCommandAdapter(command).execute(commandSender, label, args);
         return true;
     }
 

@@ -2,3 +2,9 @@ test:
   type: "test"
   name: "test"
   message: "Testing, testing..."
+  '1':
+    name: "1"
+    message: "response: 1"
+  '2':
+    name: "2"
+    message: "response: 2"
