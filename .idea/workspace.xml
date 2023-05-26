@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a45d43c1-cd7c-4ef3-8209-3a31263bf2b6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/command/commandtype/ProgrammableCommandType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a45d43c1-cd7c-4ef3-8209-3a31263bf2b6" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -228,6 +225,7 @@
       <workItem from="1684781336714" duration="6147000" />
       <workItem from="1684861714914" duration="7498000" />
       <workItem from="1684956911178" duration="3845000" />
+      <workItem from="1685048487308" duration="3373000" />
     </task>
     <servers />
   </component>

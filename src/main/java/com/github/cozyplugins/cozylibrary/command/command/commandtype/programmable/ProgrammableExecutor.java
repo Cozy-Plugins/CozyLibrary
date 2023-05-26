@@ -17,8 +17,8 @@ public interface ProgrammableExecutor {
     /**
      * Acts as part of {@link CommandType}
      *
-     * @param user The instance of the user executing the command.
-     * @param section The command types configuration section.
+     * @param user      The instance of the user executing the command.
+     * @param section   The command types configuration section.
      * @param arguments The command arguments.
      * @return
      */

@@ -14,7 +14,7 @@ import java.util.List;
 public class CommandPool extends Pool<CozyCommand, CommandPool> {
 
     /**
-     * <h1>Used to extract command names from a list of arguments</h1>
+     * <h1>Used to extract command names from the list of command arguments</h1>
      * Identifies which arguments are subcommand names.
      *
      * @param args The list of arguments.
@@ -24,14 +24,20 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
         if (args.isEmpty()) return new ArrayList<>();
         List<String> list = new ArrayList<>();
 
+        // The argument to check against.
+        String argument = args.get(0);
+
         for (CozyCommand cozyCommand : this) {
 
-            boolean containsArgsInAliases = cozyCommand.getAliases() != null
-                    && cozyCommand.getAliases().contains(args.get(0));
+            boolean containsTheArgumentInAliases = cozyCommand.getAliases() != null
+                    && cozyCommand.getAliases().contains(argument);
 
-            // Check if the arguments contain the commands name
-            // or aliases.
-            if (cozyCommand.getName().equals(args.get(0)) || containsArgsInAliases) {
+            boolean argumentIsCommandName = cozyCommand.getName().equals(argument);
+
+            // Check if the command is stated in the argument.
+            if (argumentIsCommandName || containsTheArgumentInAliases) {
+
+                list.add(cozyCommand.getName());
 
                 // Check if the command also have sub commands.
                 if (cozyCommand.getSubCommands() != null || cozyCommand.getSubCommands().isEmpty()) {
@@ -50,6 +56,7 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
 
     /**
      * <h1>Used to get a cozy command from its name</h1>
+     *
      * @param name The name of the command.
      * @return The instance of the command.
      */
