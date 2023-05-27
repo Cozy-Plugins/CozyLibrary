@@ -9,6 +9,9 @@ import com.github.cozyplugins.cozylibrary.user.User;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * <h1>Demonstrates a simple cozy command</h1>
+ */
 public class HelloWorldCommand implements CondensedUserCommand {
 
     @Override

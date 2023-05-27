@@ -4,6 +4,9 @@ import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.testplugin.commands.HelloWorldCommand;
 import com.github.cozyplugins.testplugin.commands.TestCommandType;
 
+/**
+ * <h1>Represents a test plugin</h1>
+ */
 public final class TestPlugin extends CozyPlugin {
 
     @Override

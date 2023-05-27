@@ -17,8 +17,8 @@ public interface ProgrammableSuggestions {
     /**
      * Acts as part of {@link CommandType}
      *
-     * @param user The user who is tab completing.
-     * @param section The configuration section.
+     * @param user      The user who is tab completing.
+     * @param section   The configuration section.
      * @param arguments The command arguments.
      * @return The command suggestions.
      */
