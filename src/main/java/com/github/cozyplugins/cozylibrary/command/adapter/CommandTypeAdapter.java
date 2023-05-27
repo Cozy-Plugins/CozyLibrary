@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 /**
  * <h1>Used to adapt a command type to a command</h1>
+ * <li>Converts sub command types to cozy commands</li>
  */
 public class CommandTypeAdapter implements CozyCommand {
 

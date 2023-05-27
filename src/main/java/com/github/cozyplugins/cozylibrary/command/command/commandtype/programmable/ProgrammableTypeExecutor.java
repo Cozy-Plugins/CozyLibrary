@@ -11,8 +11,10 @@ import org.jetbrains.annotations.Nullable;
 /**
  * <h1>Represents a command type executor</h1>
  * Can be used for when a type of user executes a command type.
+ *
+ * @param <T> The type of user.
  */
-public interface ProgrammableExecutor {
+public interface ProgrammableTypeExecutor<T extends User> {
 
     /**
      * Acts as part of {@link CommandType}
@@ -20,7 +22,7 @@ public interface ProgrammableExecutor {
      * @param user      The instance of the user executing the command.
      * @param section   The command types configuration section.
      * @param arguments The command arguments.
-     * @return
+     * @return The command status.
      */
-    @Nullable CommandStatus onUser(@NotNull User user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
+    @Nullable CommandStatus onExecute(@NotNull T user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 }

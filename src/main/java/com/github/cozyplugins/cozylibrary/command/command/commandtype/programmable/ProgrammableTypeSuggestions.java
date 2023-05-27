@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * <h1>Used to add suggestions to a {@link ProgrammableCommandType}</h1>
  */
-public interface ProgrammableSuggestions {
+public interface ProgrammableTypeSuggestions {
 
     /**
      * Acts as part of {@link CommandType}

@@ -7,6 +7,10 @@ import com.github.cozyplugins.cozylibrary.command.datatype.CommandPool;
 import com.github.cozyplugins.cozylibrary.pool.PermissionPool;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * <h1>Represents a condensed command</h1>
+ * Meta values are condensed into a single class.
+ */
 public interface CondensedCommand extends CozyCommand {
 
     /**

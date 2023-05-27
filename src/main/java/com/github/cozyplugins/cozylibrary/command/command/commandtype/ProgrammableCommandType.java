@@ -1,8 +1,8 @@
 package com.github.cozyplugins.cozylibrary.command.command.commandtype;
 
 import com.github.cozyplugins.cozylibrary.command.command.CommandType;
-import com.github.cozyplugins.cozylibrary.command.command.commandtype.programmable.ProgrammableExecutor;
-import com.github.cozyplugins.cozylibrary.command.command.commandtype.programmable.ProgrammableSuggestions;
+import com.github.cozyplugins.cozylibrary.command.command.commandtype.programmable.ProgrammableTypeExecutor;
+import com.github.cozyplugins.cozylibrary.command.command.commandtype.programmable.ProgrammableTypeSuggestions;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandSuggestions;
@@ -25,12 +25,12 @@ public class ProgrammableCommandType implements CommandType {
     private String syntax;
     private String description;
     private final CommandTypePool commandTypePool;
-    private ProgrammableSuggestions programmableSuggestions;
 
-    private ProgrammableExecutor onUserExecutor;
-    private ProgrammableExecutor onConsoleExecutor;
-    private ProgrammableExecutor onPlayerExecutor;
-    private ProgrammableExecutor onFakeUserExecutor;
+    private ProgrammableTypeSuggestions programmableSuggestions;
+    private ProgrammableTypeExecutor<User> onUserExecutor;
+    private ProgrammableTypeExecutor<ConsoleUser> onConsoleExecutor;
+    private ProgrammableTypeExecutor<PlayerUser> onPlayerExecutor;
+    private ProgrammableTypeExecutor<FakeUser> onFakeUserExecutor;
 
     public ProgrammableCommandType(@NotNull String identifier) {
         this.identifier = identifier;
@@ -66,25 +66,25 @@ public class ProgrammableCommandType implements CommandType {
     @Override
     public @Nullable CommandStatus onUser(@NotNull User user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments) {
         if (this.onUserExecutor == null) return null;
-        return this.onUserExecutor.onUser(user, section, arguments);
+        return this.onUserExecutor.onExecute(user, section, arguments);
     }
 
     @Override
     public @Nullable CommandStatus onConsole(@NotNull ConsoleUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments) {
         if (this.onConsoleExecutor == null) return null;
-        return this.onConsoleExecutor.onUser(user, section, arguments);
+        return this.onConsoleExecutor.onExecute(user, section, arguments);
     }
 
     @Override
     public @Nullable CommandStatus onPlayer(@NotNull PlayerUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments) {
         if (this.onPlayerExecutor == null) return null;
-        return this.onPlayerExecutor.onUser(user, section, arguments);
+        return this.onPlayerExecutor.onExecute(user, section, arguments);
     }
 
     @Override
     public @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments) {
         if (this.onFakeUserExecutor == null) return null;
-        return this.onFakeUserExecutor.onUser(user, section, arguments);
+        return this.onFakeUserExecutor.onExecute(user, section, arguments);
     }
 
     public @NotNull ProgrammableCommandType setSyntax(@Nullable String syntax) {
@@ -102,27 +102,27 @@ public class ProgrammableCommandType implements CommandType {
         return this;
     }
 
-    public @NotNull ProgrammableCommandType setSuggestions(@NotNull ProgrammableSuggestions suggestions) {
+    public @NotNull ProgrammableCommandType setSuggestions(@NotNull ProgrammableTypeSuggestions suggestions) {
         this.programmableSuggestions = suggestions;
         return this;
     }
 
-    public @NotNull ProgrammableCommandType setUser(@NotNull ProgrammableExecutor executor) {
+    public @NotNull ProgrammableCommandType setUser(@NotNull ProgrammableTypeExecutor<User> executor) {
         this.onUserExecutor = executor;
         return this;
     }
 
-    public @NotNull ProgrammableCommandType setConsole(@NotNull ProgrammableExecutor executor) {
+    public @NotNull ProgrammableCommandType setConsole(@NotNull ProgrammableTypeExecutor<ConsoleUser> executor) {
         this.onConsoleExecutor = executor;
         return this;
     }
 
-    public @NotNull ProgrammableCommandType setPlayer(@NotNull ProgrammableExecutor executor) {
+    public @NotNull ProgrammableCommandType setPlayer(@NotNull ProgrammableTypeExecutor<PlayerUser> executor) {
         this.onPlayerExecutor = executor;
         return this;
     }
 
-    public @NotNull ProgrammableCommandType setFakeUser(@NotNull ProgrammableExecutor executor) {
+    public @NotNull ProgrammableCommandType setFakeUser(@NotNull ProgrammableTypeExecutor<FakeUser> executor) {
         this.onFakeUserExecutor = executor;
         return this;
     }
