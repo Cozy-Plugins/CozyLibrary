@@ -70,12 +70,6 @@ public class ProgrammableCommandType implements CommandType {
     }
 
     @Override
-    public @Nullable CommandStatus onConsole(@NotNull ConsoleUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments) {
-        if (this.onConsoleExecutor == null) return null;
-        return this.onConsoleExecutor.onExecute(user, section, arguments);
-    }
-
-    @Override
     public @Nullable CommandStatus onPlayer(@NotNull PlayerUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments) {
         if (this.onPlayerExecutor == null) return null;
         return this.onPlayerExecutor.onExecute(user, section, arguments);
@@ -85,6 +79,12 @@ public class ProgrammableCommandType implements CommandType {
     public @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments) {
         if (this.onFakeUserExecutor == null) return null;
         return this.onFakeUserExecutor.onExecute(user, section, arguments);
+    }
+
+    @Override
+    public @Nullable CommandStatus onConsole(@NotNull ConsoleUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments) {
+        if (this.onConsoleExecutor == null) return null;
+        return this.onConsoleExecutor.onExecute(user, section, arguments);
     }
 
     public @NotNull ProgrammableCommandType setSyntax(@Nullable String syntax) {

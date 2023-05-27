@@ -86,17 +86,6 @@ public interface CommandType {
 
     /**
      * <h1>Ran when the console executes this command</h1>
-     * If this and {@link CommandType#onUser}  is null, it is not a console command.
-     *
-     * @param user      The user who executed the command.
-     * @param section   The configuration section of the command.
-     * @param arguments The commands arguments.
-     * @return The command status.
-     */
-    @Nullable CommandStatus onConsole(@NotNull ConsoleUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
-
-    /**
-     * <h1>Ran when the console executes this command</h1>
      * If this and {@link CommandType#onUser}  is null, this is not a player command.
      *
      * @param user      The user who executed the command.
@@ -117,4 +106,15 @@ public interface CommandType {
      * @return The command status.
      */
     @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
+
+    /**
+     * <h1>Ran when the console executes this command</h1>
+     * If this and {@link CommandType#onUser}  is null, it is not a console command.
+     *
+     * @param user      The user who executed the command.
+     * @param section   The configuration section of the command.
+     * @param arguments The commands arguments.
+     * @return The command status.
+     */
+    @Nullable CommandStatus onConsole(@NotNull ConsoleUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 }
