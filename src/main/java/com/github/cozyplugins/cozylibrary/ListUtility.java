@@ -40,6 +40,7 @@ public class ListUtility {
 
         // Find items that don't match the pattern.
         for (String item : list) {
+            if (item == null) continue;
             if (item.contains(pattern)) continue;
             toRemove.add(item);
         }

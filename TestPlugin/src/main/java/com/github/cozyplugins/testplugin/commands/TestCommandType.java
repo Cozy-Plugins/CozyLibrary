@@ -45,6 +45,7 @@ public class TestCommandType implements CommandType {
                     user.sendMessage(section.getString("message"));
                     return new CommandStatus();
                 })
+                .addSubCommandType(new ProgrammableCommandType("response"))
         );
 
         commandTypePool.add(new ProgrammableCommandType("2")

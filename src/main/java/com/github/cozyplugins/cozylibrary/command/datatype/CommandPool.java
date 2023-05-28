@@ -3,6 +3,7 @@ package com.github.cozyplugins.cozylibrary.command.datatype;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.pool.Pool;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,26 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
      * @param name The name of the command.
      * @return The instance of the command.
      */
-    public CozyCommand getFromName(String name) {
+    public @Nullable CozyCommand getFromName(String name) {
         for (CozyCommand cozyCommand : this) {
             if (cozyCommand.getName().equals(name)) return cozyCommand;
         }
         return null;
+    }
+
+    /**
+     * <h1>Extracts command names from this command pool</h1>
+     *
+     * @return The list of command names.
+     */
+    public @NotNull List<String> extractNames() {
+        List<String> nameList = new ArrayList<>();
+
+        for (CozyCommand command : this) {
+            nameList.add(command.getName());
+        }
+
+        return nameList;
     }
 
     /**
@@ -66,8 +82,37 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
 
         return list;
     }
-    
-    public @NotNull List<String> getCommandNames() {
-        return new ArrayList<>();
+
+    /**
+     * <h1>Used to get a command pool from the sub commands</h1>
+     * Example:
+     * <p>
+     * [subCommandName1, subCommandName2]
+     * Gets the sub commands of subCommandName2.
+     * </p>
+     *
+     * @param subCommandNameList The names of the sub commands in order.
+     * @return The command pool.
+     */
+    public @NotNull CommandPool getNextSubCommandList(List<String> subCommandNameList) {
+        if (subCommandNameList.isEmpty()) return new CommandPool();
+
+        System.out.println(subCommandNameList);
+
+        CozyCommand command = this.getFromName(subCommandNameList.get(0));
+        if (command == null) return new CommandPool();
+
+        CommandPool commandPool = command.getSubCommands();
+        if (commandPool == null) return new CommandPool();
+
+        // Remove the command name.
+        subCommandNameList.remove(0);
+
+        // Check if the list is now empty.
+        if (subCommandNameList.isEmpty()) {
+            return command.getSubCommands();
+        }
+
+        return commandPool.getNextSubCommandList(subCommandNameList);
     }
 }

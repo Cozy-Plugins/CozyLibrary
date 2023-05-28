@@ -16,6 +16,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,22 +83,34 @@ public class BukkitCommandAdapter extends Command {
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
         CommandArguments commandArguments = new CommandArguments(this.cozyCommand, alias, args);
+        List<String> suggestionList = new ArrayList<>();
+
+        // Get the current argument and its position.
+        int index = args.length - 1;
+        String argument = args[index];
+
+        // Check for suggestions.
         CommandSuggestions suggestions = this.cozyCommand.getSuggestions(
                 User.from(sender), commandArguments
         );
 
-        if (suggestions == null) return super.tabComplete(sender, alias, args);
+        if (suggestions != null) {
+            suggestionList.addAll(suggestions.get(index));
+        }
 
-        // Get the index of the current argument and
-        // the suggestion list of the index.
-        int index = args.length - 1;
-        List<String> suggestionList = suggestions.get(index);
+        // Check if there are sub commands.
+        if (this.cozyCommand.getSubCommands() != null) {
+            CommandPool commandPool = this.cozyCommand.getSubCommands()
+                    .getNextSubCommandList(commandArguments.getSubCommandNameList());
 
+            suggestionList.addAll(commandPool.extractNames());
+        }
+
+        // Check if any arguments are being searched for.
         if (args[index].isEmpty()) return suggestionList;
 
-        ListUtility.reduce(suggestionList, alias);
-
-        return suggestionList;
+        // Reduce to the current tab complete.
+        return ListUtility.reduce(suggestionList, argument);
     }
 
     /**
