@@ -1,17 +1,22 @@
 package com.github.cozyplugins.cozylibrary.command.adapter;
 
+import com.github.cozyplugins.cozylibrary.ListUtility;
+import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandPool;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
+import com.github.cozyplugins.cozylibrary.command.datatype.CommandSuggestions;
 import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
 import com.github.cozyplugins.cozylibrary.user.FakeUser;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.cozyplugins.cozylibrary.user.User;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -71,6 +76,28 @@ public class BukkitCommandAdapter extends Command {
 
         new BukkitCommandAdapter(command).execute(commandSender, label, args);
         return true;
+    }
+
+    @NotNull
+    @Override
+    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
+        CommandArguments commandArguments = new CommandArguments(this.cozyCommand, alias, args);
+        CommandSuggestions suggestions = this.cozyCommand.getSuggestions(
+                User.from(sender), commandArguments
+        );
+
+        if (suggestions == null) return super.tabComplete(sender, alias, args);
+
+        // Get the index of the current argument and
+        // the suggestion list of the index.
+        int index = args.length - 1;
+        List<String> suggestionList = suggestions.get(index);
+
+        if (args[index].isEmpty()) return suggestionList;
+
+        ListUtility.reduce(suggestionList, alias);
+
+        return suggestionList;
     }
 
     /**

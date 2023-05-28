@@ -14,6 +14,19 @@ import java.util.List;
 public class CommandPool extends Pool<CozyCommand, CommandPool> {
 
     /**
+     * <h1>Used to get a cozy command from its name</h1>
+     *
+     * @param name The name of the command.
+     * @return The instance of the command.
+     */
+    public CozyCommand getFromName(String name) {
+        for (CozyCommand cozyCommand : this) {
+            if (cozyCommand.getName().equals(name)) return cozyCommand;
+        }
+        return null;
+    }
+
+    /**
      * <h1>Used to extract command names from the list of command arguments</h1>
      * Identifies which arguments are subcommand names.
      *
@@ -53,17 +66,8 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
 
         return list;
     }
-
-    /**
-     * <h1>Used to get a cozy command from its name</h1>
-     *
-     * @param name The name of the command.
-     * @return The instance of the command.
-     */
-    public CozyCommand getFromName(String name) {
-        for (CozyCommand cozyCommand : this) {
-            if (cozyCommand.getName().equals(name)) return cozyCommand;
-        }
-        return null;
+    
+    public @NotNull List<String> getCommandNames() {
+        return new ArrayList<>();
     }
 }

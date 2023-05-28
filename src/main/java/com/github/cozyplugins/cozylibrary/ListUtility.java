@@ -25,4 +25,27 @@ public class ListUtility {
 
         return clone;
     }
+
+    /**
+     * <h1>Used to reduce a list</h1>
+     * <li>Matches the pattern to the items in the list.</li>
+     * <li>If the pattern doesnt match, it will be removed from the list.</li>
+     *
+     * @param list The list to reduce.
+     * @param pattern The pattern to match.
+     * @return The instance of the list.
+     */
+    public static List<String> reduce(List<String> list, String pattern) {
+        List<String> toRemove = new ArrayList<>();
+
+        // Find items that don't match the pattern.
+        for (String item : list) {
+            if (item.contains(pattern)) continue;
+            toRemove.add(item);
+        }
+
+        // Remove all the outliers.
+        list.removeAll(toRemove);
+        return list;
+    }
 }
