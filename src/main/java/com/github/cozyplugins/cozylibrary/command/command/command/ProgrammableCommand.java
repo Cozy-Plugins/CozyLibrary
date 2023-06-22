@@ -4,6 +4,8 @@ import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.command.command.command.programmable.ProgrammableExecutor;
 import com.github.cozyplugins.cozylibrary.command.command.command.programmable.ProgrammableSuggestions;
 import com.github.cozyplugins.cozylibrary.command.command.commandtype.ProgrammableCommandType;
+import com.github.cozyplugins.cozylibrary.command.command.commandtype.programmable.ProgrammableTypeExecutor;
+import com.github.cozyplugins.cozylibrary.command.command.commandtype.programmable.ProgrammableTypeSuggestions;
 import com.github.cozyplugins.cozylibrary.command.datatype.*;
 import com.github.cozyplugins.cozylibrary.pool.PermissionPool;
 import com.github.cozyplugins.cozylibrary.user.ConsoleUser;
@@ -80,21 +82,25 @@ public class ProgrammableCommand implements CozyCommand {
 
     @Override
     public @Nullable CommandStatus onUser(@NotNull User user, @NotNull CommandArguments arguments) {
+        if (this.onUserExecutor == null) return null;
         return this.onUserExecutor.onUser(user, arguments);
     }
 
     @Override
     public @Nullable CommandStatus onPlayerUser(@NotNull PlayerUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
+        if (this.onPlayerExecutor == null) return null;
         return this.onPlayerExecutor.onUser(user, arguments);
     }
 
     @Override
     public @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
+        if (this.onFakeUserExecutor == null) return null;
         return this.onFakeUserExecutor.onUser(user, arguments);
     }
 
     @Override
     public @Nullable CommandStatus onConsoleUser(@NotNull ConsoleUser user, @NotNull CommandArguments arguments, @NotNull CommandStatus status) {
+        if (this.onConsoleExecutor == null) return null;
         return this.onConsoleExecutor.onUser(user, arguments);
     }
 
@@ -120,6 +126,31 @@ public class ProgrammableCommand implements CozyCommand {
 
     public @NotNull ProgrammableCommand addSubCommand(@NotNull CozyCommand command) {
         this.commandPool.add(command);
+        return this;
+    }
+
+    public @NotNull ProgrammableCommand setSuggestions(@NotNull ProgrammableSuggestions suggestions) {
+        this.programmableSuggestions = suggestions;
+        return this;
+    }
+
+    public @NotNull ProgrammableCommand setUser(@NotNull ProgrammableExecutor<User> executor) {
+        this.onUserExecutor = executor;
+        return this;
+    }
+
+    public @NotNull ProgrammableCommand setConsole(@NotNull ProgrammableExecutor<ConsoleUser> executor) {
+        this.onConsoleExecutor = executor;
+        return this;
+    }
+
+    public @NotNull ProgrammableCommand setPlayer(@NotNull ProgrammableExecutor<PlayerUser> executor) {
+        this.onPlayerExecutor = executor;
+        return this;
+    }
+
+    public @NotNull ProgrammableCommand setFakeUser(@NotNull ProgrammableExecutor<FakeUser> executor) {
+        this.onFakeUserExecutor = executor;
         return this;
     }
 }

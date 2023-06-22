@@ -18,7 +18,7 @@ public interface ProgrammableExecutor<T extends User> {
      * <h1>Run when a user executes the command</h1>
      *
      * @param user      The instance of the user.
-     * @param arguments The commands arguments.
+     * @param arguments The command's arguments.
      * @return The command status.
      */
     @Nullable CommandStatus onUser(@NotNull T user, @NotNull CommandArguments arguments);

@@ -23,7 +23,7 @@ public class InventoryHandler implements Listener {
      * <h1>Used to add a inventory to the handler</h1>
      * Once added the inventory's actions will be processed.
      *
-     * @param inventoryInterface The instance of a inventory.
+     * @param inventoryInterface The instance of an inventory.
      */
     public static void add(@NotNull InventoryInterface inventoryInterface) {
         InventoryHandler.inventoryInterfaceList.add(inventoryInterface);
@@ -50,7 +50,7 @@ public class InventoryHandler implements Listener {
      */
     public static @Nullable InventoryInterface get(@NotNull Player player) {
         for (InventoryInterface inventoryInterface : InventoryHandler.inventoryInterfaceList) {
-            if (inventoryInterface.getPlayer().getUniqueId() == player.getUniqueId()) return inventoryInterface;
+            if (inventoryInterface.getOwner().getUniqueId() == player.getUniqueId()) return inventoryInterface;
         }
         return null;
     }

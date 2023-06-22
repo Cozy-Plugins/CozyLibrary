@@ -5,6 +5,7 @@ import com.github.cozyplugins.cozylibrary.command.CozyCommandHandler;
 import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.configuration.CommandDirectory;
+import com.github.cozyplugins.cozylibrary.inventory.InventoryHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,6 +30,9 @@ public abstract class CozyPlugin extends JavaPlugin {
 
         // Register commands that have been added.
         this.registerCommands();
+
+        // Register listeners.
+        this.getServer().getPluginManager().registerEvents(new InventoryHandler(), this);
     }
 
     /**
