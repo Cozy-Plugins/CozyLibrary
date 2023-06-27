@@ -1,19 +1,20 @@
 package com.github.cozyplugins.cozylibrary.inventory;
 
 import com.github.cozyplugins.cozylibrary.MessageManager;
+import com.github.cozyplugins.cozylibrary.inventory.action.Action;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.IntStream;
 
 /**
@@ -23,14 +24,14 @@ public abstract class InventoryInterface {
 
     private final @NotNull UUID uuid;
     private @NotNull Inventory inventory;
-    private final @NotNull List<Action> actionList;
+    private final @NotNull Map<Integer, List<Action>> actionMap;
     private @Nullable PlayerUser owner;
 
     private final @NotNull String title;
     private @Nullable InventoryType type;
     private int size = 0;
 
-    private boolean isGenerated = false;
+    private final boolean isGenerated = false;
 
     /**
      * <h1>Used to create an inventory interface</h1>
@@ -41,12 +42,12 @@ public abstract class InventoryInterface {
     public InventoryInterface(int size, @NotNull String title) {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(null, size, MessageManager.parse(title));
-        this.actionList = new ArrayList<>();
+        this.actionMap = new HashMap<>();
         this.owner = null;
         this.title = title;
         this.size = size;
 
-        InventoryHandler.add(this);
+        InventoryManager.add(this);
     }
 
     /**
@@ -58,12 +59,12 @@ public abstract class InventoryInterface {
     public InventoryInterface(@NotNull InventoryType type, @NotNull String title) {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(null, type, MessageManager.parse(title));
-        this.actionList = new ArrayList<>();
+        this.actionMap = new HashMap<>();
         this.owner = null;
         this.title = title;
         this.type = type;
 
-        InventoryHandler.add(this);
+        InventoryManager.add(this);
     }
 
     /**
@@ -76,12 +77,12 @@ public abstract class InventoryInterface {
     public InventoryInterface(@NotNull Player owner, int size, @NotNull String title) {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(owner, size, MessageManager.parse(title, owner));
-        this.actionList = new ArrayList<>();
+        this.actionMap = new HashMap<>();
         this.owner = new PlayerUser(owner);
         this.title = title;
         this.size = size;
 
-        InventoryHandler.add(this);
+        InventoryManager.add(this);
     }
 
     /**
@@ -94,18 +95,18 @@ public abstract class InventoryInterface {
     public InventoryInterface(@NotNull Player owner, @NotNull InventoryType type, @NotNull String title) {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(owner, type, MessageManager.parse(title, owner));
-        this.actionList = new ArrayList<>();
+        this.actionMap = new HashMap<>();
         this.owner = new PlayerUser(owner);
         this.title = title;
         this.type = type;
 
-        InventoryHandler.add(this);
+        InventoryManager.add(this);
     }
 
     /**
      * <h1>Called before opening the inventory</h1>
      *
-     * @param player    The instance of the player user.
+     * @param player The instance of the player user.
      */
     protected abstract void onGenerate(PlayerUser player);
 
@@ -126,7 +127,6 @@ public abstract class InventoryInterface {
      * @param item The instance of the item.
      * @param slot The slot to place the item into.
      * @return This instance.
-     *
      */
     protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, int slot) {
         this.inventory.setItem(slot, item.create());
@@ -138,9 +138,9 @@ public abstract class InventoryInterface {
      * The item will be placed in the slots between and
      * including the start and end slot.
      *
-     * @param item The instance of the item.
+     * @param item  The instance of the item.
      * @param start The first slot.
-     * @param end The last slot.
+     * @param end   The last slot.
      * @return This instance.
      */
     protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, int start, int end) {
@@ -151,7 +151,7 @@ public abstract class InventoryInterface {
     /**
      * <h1>Used to put an item into the requested slots.</h1>
      *
-     * @param item The instance of the item.
+     * @param item  The instance of the item.
      * @param slots The slots to place the item into
      * @return This instance.
      */
@@ -162,9 +162,63 @@ public abstract class InventoryInterface {
         return this;
     }
 
+    /**
+     * <h1>Used to put an item into the requested slots.</h1>
+     *
+     * @param item     The instance of the item.
+     * @param slotPool The instance of the slot pool.
+     * @return This instance.
+     */
+    protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, SlotPool slotPool) {
+        for (int slot : slotPool) {
+            this.setItem(item, slot);
+        }
+        return this;
+    }
+
+    /**
+     * <h1>Used to put an item into 3 or more slots.</h1>
+     *
+     * @param item  The instance of the item
+     * @param slot1 The first slot.
+     * @param slot2 The second slot.
+     * @param slots The rest of the slots.
+     * @return This instance.
+     */
     protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, int slot1, int slot2, int... slots) {
         this.setItem(item, slot1);
         this.setItem(item, slot2);
+
+        for (int slot : slots) {
+            this.setItem(item, slot);
+        }
+        return this;
+    }
+
+    /**
+     * <h1>Used to place the items in the inventory item into the inventory.</h1>
+     *
+     * @param item The instance of the inventory item.
+     * @return This instance.
+     */
+    protected @NotNull InventoryInterface setItem(@NotNull InventoryItem item) {
+
+        // Check if there are no slots specified.
+        if (item.getSlots().isEmpty()) {
+            int slot = this.inventory.firstEmpty();
+            item.addSlot(slot);
+        }
+
+        // Place the item into the inventory slots.
+        this.setItem(new CozyItem(item.create()), item.getSlots());
+
+        // Set the actions for the slots.
+        // This will override any actions that were also in the slots.
+        for (int slot : item.getSlots()) {
+            this.actionMap.put(slot, item.getActionList());
+        }
+
+        return this;
     }
 
     /**
@@ -187,20 +241,49 @@ public abstract class InventoryInterface {
     }
 
     /**
-     * <h1>Used to get a list of actions</h1>
+     * <h1>Used to get the list of actions for a slot</h1>
      *
-     * @param type The type of action.
-     * @return The list of actions.
-     * @param <T> The type of action.
+     * @param slot The slot.
+     * @return The list of requested actions.
      */
-    public @NotNull <T extends Action> List<T> getAction(Class<T> type) {
-        List<T> list = new ArrayList<>();
-        for (Action action : this.actionList) {
-            if (type.isInstance(action)) {
-                list.add((T) action);
-            }
+    public @NotNull List<Action> getActionList(int slot) {
+        return this.actionMap.get(slot) == null ? new ArrayList<>() : this.actionMap.get(slot);
+    }
+
+    /**
+     * <h1>Used to get the list of action types for a slot</h1>
+     *
+     * @param slot The slot.
+     * @param type The action type
+     * @param <T>  The type of action.
+     * @return The requested list of actions.
+     */
+    public @NotNull <T extends Action> List<T> getActionList(int slot, Class<T> type) {
+        List<T> actionTypeList = new ArrayList<>();
+
+        for (Action action : this.getActionList(slot)) {
+            if (type.isInstance(action)) actionTypeList.add((T) action);
         }
-        return list;
+
+        return actionTypeList;
+    }
+
+    /**
+     * <h1>Used to get the inventory's holder</h1>
+     *
+     * @return The inventory holder.
+     */
+    public @Nullable InventoryHolder getholder() {
+        return this.inventory.getHolder();
+    }
+
+    /**
+     * <h1>Used to get the inventory</h1>
+     *
+     * @return The inventory.
+     */
+    public @Nullable Inventory getInventory() {
+        return this.inventory;
     }
 
     /**
@@ -247,7 +330,7 @@ public abstract class InventoryInterface {
         for (HumanEntity player : this.inventory.getViewers()) {
             player.closeInventory();
         }
-        InventoryHandler.remove(this);
+        InventoryManager.remove(this);
         return this;
     }
 }

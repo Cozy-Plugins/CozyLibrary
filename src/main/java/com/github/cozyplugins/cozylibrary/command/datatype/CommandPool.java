@@ -97,8 +97,6 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
     public @NotNull CommandPool getNextSubCommandList(List<String> subCommandNameList) {
         if (subCommandNameList.isEmpty()) return new CommandPool();
 
-        System.out.println(subCommandNameList);
-
         CozyCommand command = this.getFromName(subCommandNameList.get(0));
         if (command == null) return new CommandPool();
 

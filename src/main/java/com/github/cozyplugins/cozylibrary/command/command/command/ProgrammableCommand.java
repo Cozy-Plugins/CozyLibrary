@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 public class ProgrammableCommand implements CozyCommand {
 
     private final @NotNull String name;
-    private CommandAliases aliases;
+    private final CommandAliases aliases;
     private String description;
     private String syntax;
     private final PermissionPool permissionPool;

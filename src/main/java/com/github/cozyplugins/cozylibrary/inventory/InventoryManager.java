@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +16,7 @@ import java.util.UUID;
 /**
  * <h1>Represents the inventory handler</h1>
  */
-public class InventoryHandler implements Listener {
+public class InventoryManager implements Listener {
 
     private static final @NotNull List<InventoryInterface> inventoryInterfaceList = new ArrayList<>();
 
@@ -26,7 +27,7 @@ public class InventoryHandler implements Listener {
      * @param inventoryInterface The instance of an inventory.
      */
     public static void add(@NotNull InventoryInterface inventoryInterface) {
-        InventoryHandler.inventoryInterfaceList.add(inventoryInterface);
+        InventoryManager.inventoryInterfaceList.add(inventoryInterface);
     }
 
     /**
@@ -36,7 +37,7 @@ public class InventoryHandler implements Listener {
      * @return The requested inventory instance.
      */
     public static @Nullable InventoryInterface get(@NotNull UUID uuid) {
-        for (InventoryInterface inventoryInterface : InventoryHandler.inventoryInterfaceList) {
+        for (InventoryInterface inventoryInterface : InventoryManager.inventoryInterfaceList) {
             if (inventoryInterface.getUuid() == uuid) return inventoryInterface;
         }
         return null;
@@ -45,12 +46,25 @@ public class InventoryHandler implements Listener {
     /**
      * <h1>Used to get a registered inventory</h1>
      *
-     * @param player The player who is using the interface.
+     * @param owner The owner.
      * @return The requested inventory instance.
      */
-    public static @Nullable InventoryInterface get(@NotNull Player player) {
-        for (InventoryInterface inventoryInterface : InventoryHandler.inventoryInterfaceList) {
-            if (inventoryInterface.getOwner().getUniqueId() == player.getUniqueId()) return inventoryInterface;
+    public static @Nullable InventoryInterface get(@NotNull Player owner) {
+        for (InventoryInterface inventoryInterface : InventoryManager.inventoryInterfaceList) {
+            if (inventoryInterface.getOwner().getUniqueId() == owner.getUniqueId()) return inventoryInterface;
+        }
+        return null;
+    }
+
+    /**
+     * <h1>Used to get a registered inventory</h1>
+     *
+     * @param inventory The instance of the inventory.
+     * @return The requested inventory interface instance.
+     */
+    public static @Nullable InventoryInterface get(@Nullable Inventory inventory) {
+        for (InventoryInterface inventoryInterface : InventoryManager.inventoryInterfaceList) {
+            if (inventoryInterface.getInventory() == inventory) return inventoryInterface;
         }
         return null;
     }
@@ -61,7 +75,7 @@ public class InventoryHandler implements Listener {
      * @param inventoryInterface The instance of the inventory.
      */
     public static void remove(@NotNull InventoryInterface inventoryInterface) {
-        InventoryHandler.inventoryInterfaceList.remove(inventoryInterface);
+        InventoryManager.inventoryInterfaceList.remove(inventoryInterface);
     }
 
     /**
@@ -70,9 +84,9 @@ public class InventoryHandler implements Listener {
      * @param uuid The uuid of the inventory.
      */
     public static void remove(@NotNull UUID uuid) {
-        InventoryInterface inventoryInterface = InventoryHandler.get(uuid);
+        InventoryInterface inventoryInterface = InventoryManager.get(uuid);
         if (inventoryInterface == null) return;
-        InventoryHandler.remove(inventoryInterface);
+        InventoryManager.remove(inventoryInterface);
     }
 
     /**
@@ -88,7 +102,7 @@ public class InventoryHandler implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
         // Attempt to get the inventory interface.
-        InventoryInterface inventoryInterface = InventoryHandler.get(player);
+        InventoryInterface inventoryInterface = InventoryManager.get(player);
         if (inventoryInterface == null) return;
 
         if (event.getRawSlot() > event.getInventory().getSize()) {

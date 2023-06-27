@@ -1,7 +1,6 @@
 package com.github.cozyplugins.cozylibrary.command.command.command.programmable;
 
 import com.github.cozyplugins.cozylibrary.command.command.command.ProgrammableCommand;
-import com.github.cozyplugins.cozylibrary.command.command.commandtype.ProgrammableCommandType;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandSuggestions;
 import com.github.cozyplugins.cozylibrary.user.User;

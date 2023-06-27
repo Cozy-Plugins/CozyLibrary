@@ -31,7 +31,7 @@ public class ListUtility {
      * <li>Matches the pattern to the items in the list.</li>
      * <li>If the pattern doesnt match, it will be removed from the list.</li>
      *
-     * @param list The list to reduce.
+     * @param list    The list to reduce.
      * @param pattern The pattern to match.
      * @return The instance of the list.
      */
