@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 /**
  * <h1>Represents an intractable inventory</h1>
@@ -133,6 +134,40 @@ public abstract class InventoryInterface {
     }
 
     /**
+     * <h1>Used to put an item in a range of slots.</h1>
+     * The item will be placed in the slots between and
+     * including the start and end slot.
+     *
+     * @param item The instance of the item.
+     * @param start The first slot.
+     * @param end The last slot.
+     * @return This instance.
+     */
+    protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, int start, int end) {
+        IntStream.range(start, end + 1).forEachOrdered(slot -> this.setItem(item, slot));
+        return this;
+    }
+
+    /**
+     * <h1>Used to put an item into the requested slots.</h1>
+     *
+     * @param item The instance of the item.
+     * @param slots The slots to place the item into
+     * @return This instance.
+     */
+    protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, int[] slots) {
+        for (int slot : slots) {
+            this.setItem(item, slot);
+        }
+        return this;
+    }
+
+    protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, int slot1, int slot2, int... slots) {
+        this.setItem(item, slot1);
+        this.setItem(item, slot2);
+    }
+
+    /**
      * <h1>Used to get the inventory's uuid</h1>
      *
      * @return The inventory's uuid.
@@ -158,7 +193,7 @@ public abstract class InventoryInterface {
      * @return The list of actions.
      * @param <T> The type of action.
      */
-    public @NotNull <T> List<T> getAction(Class<T> type) {
+    public @NotNull <T extends Action> List<T> getAction(Class<T> type) {
         List<T> list = new ArrayList<>();
         for (Action action : this.actionList) {
             if (type.isInstance(action)) {

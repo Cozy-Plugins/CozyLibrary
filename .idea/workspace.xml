@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a45d43c1-cd7c-4ef3-8209-3a31263bf2b6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/inventorys/TestInventory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/adapter/BukkitCommandAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/adapter/BukkitCommandAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/command/CommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/command/CommandType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/command/command/ProgrammableCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/command/command/ProgrammableCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/command/command/programmable/ProgrammableExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/command/command/programmable/ProgrammableExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/InventoryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/InventoryHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/InventoryInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/InventoryInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -243,6 +239,8 @@
       <workItem from="1687377505631" duration="2077000" />
       <workItem from="1687458113588" duration="115000" />
       <workItem from="1687461877102" duration="8156000" />
+      <workItem from="1687556623562" duration="1240000" />
+      <workItem from="1687869334868" duration="341000" />
     </task>
     <servers />
   </component>

@@ -1,7 +1,6 @@
 package com.github.cozyplugins.cozylibrary.command.adapter;
 
 import com.github.cozyplugins.cozylibrary.ListUtility;
-import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandPool;
@@ -13,11 +12,9 @@ import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.cozyplugins.cozylibrary.user.User;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

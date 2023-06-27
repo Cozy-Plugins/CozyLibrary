@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * <h1>Represents a command type</h1>
  * The server operator can use the command types
- * in the plugin to customise the commands.
+ * in the plugin to customize the commands.
  * A command type represents how the command
  * will function.
  *
@@ -32,7 +32,7 @@ public interface CommandType {
      * <h1>Used to get the commands type identifier</h1>
      * This identifier will be matched in the configuration.
      *
-     * @return The commands name.
+     * @return The command name.
      */
     @NotNull String getIdentifier();
 
