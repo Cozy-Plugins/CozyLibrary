@@ -3,6 +3,7 @@ package com.github.cozyplugins.cozylibrary.inventory.action.action;
 import com.github.cozyplugins.cozylibrary.inventory.action.Action;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.event.inventory.ClickType;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * <h1>Represents a click action</h1>
@@ -17,5 +18,5 @@ public interface ClickAction extends Action {
      * @param user The instance of the user.
      * @param type The type of click.
      */
-    void onClick(PlayerUser user, ClickType type);
+    void onClick(@NotNull PlayerUser user, ClickType type);
 }

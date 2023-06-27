@@ -4,15 +4,18 @@ import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
 import com.github.cozyplugins.cozylibrary.inventory.action.handler.ClickActionHandler;
+import com.github.cozyplugins.cozylibrary.inventory.action.handler.PlaceActionHandler;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <h1>Represents the action manager</h1>
@@ -32,6 +35,7 @@ public class ActionManager implements Listener {
 
         this.actionHandlerList = new ArrayList<>();
         this.actionHandlerList.add(new ClickActionHandler());
+        this.actionHandlerList.add(new PlaceActionHandler());
     }
 
     @EventHandler
@@ -41,6 +45,13 @@ public class ActionManager implements Listener {
         InventoryInterface inventory = InventoryManager.get(event.getInventory());
         if (inventory == null) return;
 
+        // Check if the slot is in the player's inventory.
+        if (event.getRawSlot() > event.getInventory().getSize()
+                && !(event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)) {
+
+            return;
+        }
+
         // Cancel event by default.
         event.setCancelled(true);
 
@@ -49,7 +60,7 @@ public class ActionManager implements Listener {
 
         // Call the method on inventory click for each action handler.
         for (ActionHandler actionHandler : this.actionHandlerList) {
-            ActionResult result = actionHandler.onInventoryClick(inventory, event.getSlot(), event.getClick(), user);
+            ActionResult result = actionHandler.onInventoryClick(inventory, user, event);
 
             if (result.isCancelTrue()) event.setCancelled(true);
             if (result.isCancelFalse()) event.setCancelled(false);

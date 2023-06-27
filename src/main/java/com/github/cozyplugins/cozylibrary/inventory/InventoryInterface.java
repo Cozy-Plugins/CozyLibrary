@@ -5,7 +5,6 @@ import com.github.cozyplugins.cozylibrary.inventory.action.Action;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -273,7 +272,7 @@ public abstract class InventoryInterface {
      *
      * @return The inventory holder.
      */
-    public @Nullable InventoryHolder getholder() {
+    public @Nullable InventoryHolder getHolder() {
         return this.inventory.getHolder();
     }
 
@@ -282,7 +281,7 @@ public abstract class InventoryInterface {
      *
      * @return The inventory.
      */
-    public @Nullable Inventory getInventory() {
+    public @NotNull Inventory getInventory() {
         return this.inventory;
     }
 

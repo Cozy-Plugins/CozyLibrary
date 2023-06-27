@@ -3,6 +3,7 @@ package com.github.cozyplugins.testplugin.inventorys;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
+import com.github.cozyplugins.cozylibrary.inventory.action.action.PlaceAction;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Material;
@@ -30,6 +31,12 @@ public class TestInventory extends InventoryInterface {
                 .setMaterial(Material.LIME_STAINED_GLASS_PANE)
                 .setName("&6&lClick to send a message")
                 .addLore("&7Sends you a message.")
+        );
+
+        this.setItem(new InventoryItem()
+                .setMaterial(Material.GOLDEN_HELMET)
+                .addAction((PlaceAction) (user, item) -> System.out.println(item.getMaterial()))
+                .setName("Replaceable")
         );
     }
 }

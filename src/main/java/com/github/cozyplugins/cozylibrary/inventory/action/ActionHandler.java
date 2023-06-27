@@ -3,6 +3,7 @@ package com.github.cozyplugins.cozylibrary.inventory.action;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -16,10 +17,10 @@ public interface ActionHandler {
      * <li>Defaults to always cancel the event.</li>
      *
      * @param inventory The instance of the inventory.
-     * @param slot      The slot that was clicked.
-     * @param type      The type of click.
+     * @param user The instance of the user.
+     * @param event The instance of the event.
      * @return The Action result.
      */
     @NotNull
-    ActionResult onInventoryClick(@NotNull InventoryInterface inventory, int slot, ClickType type, @NotNull PlayerUser user);
+    ActionResult onInventoryClick(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryClickEvent event);
 }

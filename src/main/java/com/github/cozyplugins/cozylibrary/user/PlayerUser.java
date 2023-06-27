@@ -1,6 +1,7 @@
 package com.github.cozyplugins.cozylibrary.user;
 
 import com.github.cozyplugins.cozylibrary.MessageManager;
+import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.jetbrains.annotations.NotNull;
@@ -23,10 +24,6 @@ public class PlayerUser implements User {
      */
     public PlayerUser(@NotNull Player player) {
         this.player = player;
-    }
-
-    public @NotNull Player getPlayer() {
-        return this.player;
     }
 
     @Override
@@ -60,5 +57,25 @@ public class PlayerUser implements User {
     @Override
     public boolean hasPermission(@NotNull String permission) {
         return this.player.hasPermission(permission);
+    }
+
+    /**
+     * <h1>Used to get the player instance</h1>
+     *
+     * @return The instance of the player.
+     */
+    public @NotNull Player getPlayer() {
+        return this.player;
+    }
+
+    /**
+     * <h1>Used to get a item from the players inventory</h1>
+     *
+     * @param index The slot index.
+     * @return The requested item.
+     */
+    public @NotNull CozyItem getInventoryItem(int index) {
+        if (this.player.getInventory().getItem(index) == null) return new CozyItem();
+        return new CozyItem(this.player.getInventory().getItem(index));
     }
 }
