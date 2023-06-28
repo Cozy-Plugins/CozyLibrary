@@ -1,5 +1,7 @@
 A library used to help create spigot plugins.
 
+[![](https://jitpack.io/v/Cozy-Plugins/CozyLibrary.svg)](https://jitpack.io/#Cozy-Plugins/CozyLibrary)
+
 **Maven**
 
 ```xml
