@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a45d43c1-cd7c-4ef3-8209-3a31263bf2b6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jitpack.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -183,7 +182,7 @@
       <workItem from="1687869334868" duration="341000" />
       <workItem from="1687870745593" duration="3740000" />
       <workItem from="1687880164780" duration="13637000" />
-      <workItem from="1687954533419" duration="362000" />
+      <workItem from="1687954533419" duration="1037000" />
     </task>
     <servers />
   </component>
