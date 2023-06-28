@@ -88,14 +88,27 @@
 
     <build>
         <plugins>
+            <!-- Compile -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.2</version>
-                <configuration> <!-- Compile java 7 compatible bytecode -->
-                    <source>16</source>
-                    <target>16</target>
+                <configuration> <!-- Compile java 17 compatible bytecode -->
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
