@@ -30,11 +30,6 @@ public class InputInventory extends InventoryInterface {
                     }
 
                     @Override
-                    public @NotNull String getAnvilText() {
-                        return "&7&lNew Text";
-                    }
-
-                    @Override
                     public void onValue(@Nullable String value, @NotNull PlayerUser user) {
                         if (value == null) value = "null";
 

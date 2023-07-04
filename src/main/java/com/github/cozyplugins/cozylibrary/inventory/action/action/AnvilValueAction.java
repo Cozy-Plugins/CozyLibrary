@@ -21,14 +21,6 @@ public interface AnvilValueAction extends Action {
     @NotNull String getAnvilTitle();
 
     /**
-     * Used to get the text that should be displayed
-     * in the input box.
-     *
-     * @return The input box text.
-     */
-    @NotNull String getAnvilText();
-
-    /**
      * Called when the anvil has been exited. Ether by
      * confirmation or clicking the back button.
      * <p>

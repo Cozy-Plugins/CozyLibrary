@@ -4,6 +4,7 @@ import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionHandler;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
+import com.github.cozyplugins.cozylibrary.inventory.inventory.AnvilInputInventory;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -23,6 +24,7 @@ public class AnvilValueActionHandler implements ActionHandler {
     public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryClickEvent event) {
         List<AnvilValueAction> actionList = inventory.getActionList(event.getSlot(), AnvilValueAction.class);
 
+        new AnvilInputInventory(actionList).open(user.getPlayer());
 
         return new ActionResult();
     }

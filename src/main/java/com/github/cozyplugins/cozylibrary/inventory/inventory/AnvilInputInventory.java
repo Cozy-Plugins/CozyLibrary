@@ -6,6 +6,7 @@ import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueActi
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.AnvilInventory;
 import org.jetbrains.annotations.NotNull;
@@ -29,16 +30,12 @@ public class AnvilInputInventory extends InventoryInterface {
     @Override
     protected void onGenerate(PlayerUser player) {
 
-        // Text box.
-        this.setItem(new InventoryItem()
-                .setMaterial(Material.LIGHT_GRAY_STAINED_GLASS_PANE)
-                .setName(actionList.get(0).getAnvilText())
-        );
-
         // Back button.
         this.setItem(new InventoryItem()
-                .setMaterial(Material.RED_STAINED_GLASS_PANE)
-                .setName("&c&lBack")
+                .setMaterial(Material.ENCHANTED_BOOK)
+                .addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2)
+                .setName("")
+                .addLore("&c&lBack")
                 .addLore("&7Click to go back to the previous menu.")
                 .addAction((ClickAction) (user, type) -> {
                     user.getPlayer().closeInventory();
@@ -46,20 +43,28 @@ public class AnvilInputInventory extends InventoryInterface {
                         action.onValue(null, user);
                     }
                 })
+                .addSlot(0)
         );
 
         // Confirm button.
         this.setItem(new InventoryItem()
-                .setMaterial(Material.LIME_STAINED_GLASS_PANE)
-                .setName("&a&lConfirm")
+                .setMaterial(Material.ENCHANTED_BOOK)
+                .addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1)
+                .setName("")
+                .addLore("&a&lConfirm")
                 .addLore("&7Click to confirm the value.")
                 .addAction((ClickAction) (user, type) -> {
                     user.getPlayer().closeInventory();
-                    AnvilInventory inventory = (AnvilInventory) this.getInventory();
+
+                    if (this.getInventory().getItem(2) == null) return;
+                    if (this.getInventory().getItem(2).getItemMeta() == null) return;
+                    String name = this.getInventory().getItem(2).getItemMeta().getDisplayName();
+
                     for (AnvilValueAction action : this.actionList) {
-                        action.onValue(inventory.getRenameText(), user);
+                        action.onValue(name, user);
                     }
                 })
+                .addSlot(1)
         );
     }
 }

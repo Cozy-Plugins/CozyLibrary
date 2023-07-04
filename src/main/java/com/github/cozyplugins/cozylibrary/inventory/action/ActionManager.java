@@ -3,6 +3,7 @@ package com.github.cozyplugins.cozylibrary.inventory.action;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
+import com.github.cozyplugins.cozylibrary.inventory.action.handler.AnvilValueActionHandler;
 import com.github.cozyplugins.cozylibrary.inventory.action.handler.ClickActionHandler;
 import com.github.cozyplugins.cozylibrary.inventory.action.handler.PlaceActionHandler;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
@@ -36,6 +37,7 @@ public class ActionManager implements Listener {
         this.actionHandlerList = new ArrayList<>();
         this.actionHandlerList.add(new ClickActionHandler());
         this.actionHandlerList.add(new PlaceActionHandler());
+        this.actionHandlerList.add(new AnvilValueActionHandler());
     }
 
     @EventHandler(ignoreCancelled = true)
