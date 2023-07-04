@@ -2,8 +2,8 @@ package com.github.cozyplugins.cozylibrary.inventory.action;
 
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,10 +17,19 @@ public interface ActionHandler {
      * <li>Defaults to always cancel the event.</li>
      *
      * @param inventory The instance of the inventory.
-     * @param user The instance of the user.
-     * @param event The instance of the event.
+     * @param user      The instance of the user.
+     * @param event     The instance of the event.
      * @return The Action result.
      */
     @NotNull
     ActionResult onInventoryClick(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryClickEvent event);
+
+    /**
+     * Called when an inventory is closed.
+     *
+     * @param inventory The instance of the inventory.
+     * @param user      The instance of the user.
+     * @param event     The instance of the event.
+     */
+    void onInventoryClose(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryCloseEvent event);
 }

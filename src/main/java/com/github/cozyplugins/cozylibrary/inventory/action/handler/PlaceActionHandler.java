@@ -9,6 +9,7 @@ import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class PlaceActionHandler implements ActionHandler {
 
         // Check if the player did a hotbar swap.
         if (event.getAction() == InventoryAction.HOTBAR_MOVE_AND_READD
-            || event.getAction() == InventoryAction.HOTBAR_SWAP) {
+                || event.getAction() == InventoryAction.HOTBAR_SWAP) {
 
             item = user.getInventoryItem(event.getHotbarButton());
         }
@@ -44,5 +45,10 @@ public class PlaceActionHandler implements ActionHandler {
         }
 
         return new ActionResult().setCancelled(false);
+    }
+
+    @Override
+    public void onInventoryClose(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryCloseEvent event) {
+
     }
 }

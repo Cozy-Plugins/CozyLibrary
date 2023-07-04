@@ -3,7 +3,6 @@ package com.github.cozyplugins.cozylibrary.inventory.action.action;
 import com.github.cozyplugins.cozylibrary.inventory.action.Action;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
-import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;
 
 /**

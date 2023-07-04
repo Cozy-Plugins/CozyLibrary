@@ -11,11 +11,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * <h1>Represents the action manager</h1>
@@ -38,7 +38,7 @@ public class ActionManager implements Listener {
         this.actionHandlerList.add(new PlaceActionHandler());
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     private void onInventoryClick(InventoryClickEvent event) {
 
         // Attempt to get the inventory as a registered inventory interface.
@@ -64,6 +64,22 @@ public class ActionManager implements Listener {
 
             if (result.isCancelTrue()) event.setCancelled(true);
             if (result.isCancelFalse()) event.setCancelled(false);
+        }
+    }
+
+    @EventHandler
+    private void onInventoryClose(InventoryCloseEvent event) {
+
+        // Attempt to get the inventory as a registered inventory interface.
+        InventoryInterface inventory = InventoryManager.get(event.getInventory());
+        if (inventory == null) return;
+
+        // Get the user.
+        PlayerUser user = new PlayerUser((Player) event.getPlayer());
+
+        // Call the method on inventory click for each action handler.
+        for (ActionHandler actionHandler : this.actionHandlerList) {
+            actionHandler.onInventoryClose(inventory, user, event);
         }
     }
 }
