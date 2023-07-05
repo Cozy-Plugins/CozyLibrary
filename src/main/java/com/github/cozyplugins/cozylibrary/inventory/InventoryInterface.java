@@ -31,6 +31,7 @@ public abstract class InventoryInterface {
     private int size = 0;
 
     private final boolean isGenerated = false;
+    private boolean stayActive = false;
 
     /**
      * <h1>Used to create an inventory interface</h1>
@@ -221,6 +222,17 @@ public abstract class InventoryInterface {
     }
 
     /**
+     * Used to set the inventory to stay active in the plugin if
+     * a player exits the inventory and there are no more viewers.
+     *
+     * @return This instance.
+     */
+    public @NotNull InventoryInterface setStayActive() {
+        this.stayActive = true;
+        return this;
+    }
+
+    /**
      * <h1>Used to get the inventory's uuid</h1>
      *
      * @return The inventory's uuid.
@@ -283,6 +295,15 @@ public abstract class InventoryInterface {
      */
     public @NotNull Inventory getInventory() {
         return this.inventory;
+    }
+
+    /**
+     * Used to get if the inventory should always stay active.
+     *
+     * @return True if the inventory should stay active
+     */
+    public boolean getStayActive() {
+        return this.stayActive;
     }
 
     /**

@@ -63,8 +63,16 @@ public class InventoryManager implements Listener {
      * @return The requested inventory interface instance.
      */
     public static @Nullable InventoryInterface get(@Nullable Inventory inventory) {
+        if (inventory == null) return null;
         for (InventoryInterface inventoryInterface : InventoryManager.inventoryInterfaceList) {
-            if (inventoryInterface.getInventory() == inventory) return inventoryInterface;
+            Inventory compare = inventoryInterface.getInventory();
+
+            if (compare.getViewers() != inventory.getViewers()) continue;
+            if (compare.getHolder() != inventory.getHolder()) continue;
+            if (compare.getType() != inventory.getType()) continue;
+            if (compare.getContents() != inventory.getContents()) continue;
+
+            return inventoryInterface;
         }
         return null;
     }

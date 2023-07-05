@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -82,6 +83,11 @@ public class ActionManager implements Listener {
         // Call the method on inventory click for each action handler.
         for (ActionHandler actionHandler : this.actionHandlerList) {
             actionHandler.onInventoryClose(inventory, user, event);
+        }
+
+        // If there are no viewers, close the inventory.
+        if (event.getInventory().getViewers().isEmpty() && !inventory.getStayActive()) {
+            inventory.close();
         }
     }
 }
