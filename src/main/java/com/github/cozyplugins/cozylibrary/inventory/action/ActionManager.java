@@ -11,6 +11,7 @@ import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
 import com.github.cozyplugins.cozylibrary.inventory.action.handler.AnvilValueActionHandler;
 import com.github.cozyplugins.cozylibrary.inventory.action.handler.ClickActionHandler;
+import com.github.cozyplugins.cozylibrary.inventory.action.handler.ConfirmActionHandler;
 import com.github.cozyplugins.cozylibrary.inventory.action.handler.PlaceActionHandler;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.entity.Player;
@@ -45,6 +46,7 @@ public class ActionManager implements Listener {
         ActionManager.actionHandlerList.add(new ClickActionHandler());
         ActionManager.actionHandlerList.add(new PlaceActionHandler());
         ActionManager.actionHandlerList.add(new AnvilValueActionHandler());
+        ActionManager.actionHandlerList.add(new ConfirmActionHandler());
 
         if (!ProtocolDependency.isEnabled()) return;
 

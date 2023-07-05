@@ -20,6 +20,11 @@ public class AnvilInputInventory extends InventoryInterface {
     private final @NotNull List<AnvilValueAction> actionList;
     private String input;
 
+    /**
+     * Used to create an anvil input.
+     *
+     * @param actionList The instance of the anvil action list.
+     */
     public AnvilInputInventory(@NotNull List<AnvilValueAction> actionList) {
         super(InventoryType.ANVIL, actionList.get(0).getAnvilTitle());
 
