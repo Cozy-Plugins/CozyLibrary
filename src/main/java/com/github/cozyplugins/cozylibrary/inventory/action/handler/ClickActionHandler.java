@@ -17,18 +17,23 @@ import java.util.List;
 public class ClickActionHandler implements ActionHandler {
 
     @Override
-    public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryClickEvent event) {
-        List<ClickAction> actionList = inventory.getActionList(event.getSlot(), ClickAction.class);
+    public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event) {
+        List<ClickAction> actionList = inventoryInterface.getActionList(event.getSlot(), ClickAction.class);
 
         for (ClickAction action : actionList) {
-            action.onClick(user, event.getClick());
+            action.onClick(user, event.getClick(), event.getInventory());
         }
 
         return new ActionResult();
     }
 
     @Override
-    public void onInventoryClose(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryCloseEvent event) {
+    public void onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
+
+    }
+
+    @Override
+    public void onAnvilText(@NotNull InventoryInterface inventoryInterface, @NotNull String text, @NotNull PlayerUser user) {
 
     }
 }

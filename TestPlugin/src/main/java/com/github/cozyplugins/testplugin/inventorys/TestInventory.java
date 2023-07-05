@@ -23,7 +23,7 @@ public class TestInventory extends InventoryInterface {
         );
 
         this.setItem(new InventoryItem()
-                .addAction((ClickAction) (user, type) -> user.sendMessage("&f-> &6Hi there!"))
+                .addAction((ClickAction) (user, type, inventory) -> user.sendMessage("&f-> &6Hi there!"))
                 .setMaterial(Material.LIME_STAINED_GLASS_PANE)
                 .setName("&6&lClick to send a message")
                 .addLore("&7Sends you a message.")

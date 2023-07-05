@@ -31,7 +31,7 @@ public class InputInventory extends InventoryInterface {
 
                     @Override
                     public void onValue(@Nullable String value, @NotNull PlayerUser user) {
-                        if (value == null) value = "null";
+                        if (value == null) value = text;
 
                         InputInventory inventory = new InputInventory(value);
                         inventory.open(user.getPlayer());

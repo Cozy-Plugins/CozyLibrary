@@ -18,7 +18,7 @@ import java.util.UUID;
  */
 public class InventoryManager implements Listener {
 
-    private static final @NotNull List<InventoryInterface> inventoryInterfaceList = new ArrayList<>();
+    private static @NotNull List<InventoryInterface> inventoryInterfaceList = new ArrayList<>();
 
     /**
      * <h1>Used to add a inventory to the handler</h1>
@@ -49,9 +49,23 @@ public class InventoryManager implements Listener {
      * @param owner The owner.
      * @return The requested inventory instance.
      */
-    public static @Nullable InventoryInterface get(@NotNull Player owner) {
+    public static @Nullable InventoryInterface getFromOwner(@NotNull Player owner) {
         for (InventoryInterface inventoryInterface : InventoryManager.inventoryInterfaceList) {
+            if (inventoryInterface.getOwner() == null) continue;
             if (inventoryInterface.getOwner().getUniqueId() == owner.getUniqueId()) return inventoryInterface;
+        }
+        return null;
+    }
+
+    /**
+     * Used to get a registered inventory the player is viewing.
+     *
+     * @param viewer The instance of the viewer.
+     * @return The inventory.
+     */
+    public static @Nullable InventoryInterface getFromViewer(@NotNull Player viewer) {
+        for (InventoryInterface inventoryInterface : InventoryManager.inventoryInterfaceList) {
+            if (inventoryInterface.getInventory().getViewers().contains(viewer)) return inventoryInterface;
         }
         return null;
     }
@@ -70,7 +84,6 @@ public class InventoryManager implements Listener {
             if (compare.getViewers() != inventory.getViewers()) continue;
             if (compare.getHolder() != inventory.getHolder()) continue;
             if (compare.getType() != inventory.getType()) continue;
-            if (compare.getContents() != inventory.getContents()) continue;
 
             return inventoryInterface;
         }
@@ -98,6 +111,13 @@ public class InventoryManager implements Listener {
     }
 
     /**
+     * Used to clear the active inventory's.
+     */
+    public static void removeAll() {
+        InventoryManager.inventoryInterfaceList = new ArrayList<>();
+    }
+
+    /**
      * <h1>When an inventory is clicked</h1>
      * This will handle the custom inventory's stored
      * in this class.
@@ -110,7 +130,7 @@ public class InventoryManager implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
         // Attempt to get the inventory interface.
-        InventoryInterface inventoryInterface = InventoryManager.get(player);
+        InventoryInterface inventoryInterface = InventoryManager.getFromOwner(player);
         if (inventoryInterface == null) return;
 
         if (event.getRawSlot() > event.getInventory().getSize()) {

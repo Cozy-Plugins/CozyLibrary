@@ -20,8 +20,8 @@ import java.util.List;
 public class PlaceActionHandler implements ActionHandler {
 
     @Override
-    public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryClickEvent event) {
-        List<PlaceAction> actionList = inventory.getActionList(event.getSlot(), PlaceAction.class);
+    public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event) {
+        List<PlaceAction> actionList = inventoryInterface.getActionList(event.getSlot(), PlaceAction.class);
 
         // Check if there are any actions.
         if (actionList.isEmpty()) return new ActionResult();
@@ -48,7 +48,12 @@ public class PlaceActionHandler implements ActionHandler {
     }
 
     @Override
-    public void onInventoryClose(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryCloseEvent event) {
+    public void onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
+
+    }
+
+    @Override
+    public void onAnvilText(@NotNull InventoryInterface inventoryInterface, @NotNull String text, @NotNull PlayerUser user) {
 
     }
 }

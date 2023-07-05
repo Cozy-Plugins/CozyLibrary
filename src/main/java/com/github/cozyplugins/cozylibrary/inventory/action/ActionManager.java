@@ -1,6 +1,12 @@
 package com.github.cozyplugins.cozylibrary.inventory.action;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
+import com.github.cozyplugins.cozylibrary.dependency.ProtocolDependency;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
 import com.github.cozyplugins.cozylibrary.inventory.action.handler.AnvilValueActionHandler;
@@ -9,11 +15,11 @@ import com.github.cozyplugins.cozylibrary.inventory.action.handler.PlaceActionHa
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -25,7 +31,7 @@ import java.util.List;
  */
 public class ActionManager implements Listener {
 
-    private final @NotNull List<ActionHandler> actionHandlerList;
+    private static @NotNull List<ActionHandler> actionHandlerList;
 
     /**
      * <h1>Used to create a action manager</h1>
@@ -35,13 +41,41 @@ public class ActionManager implements Listener {
     public ActionManager(CozyPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
 
-        this.actionHandlerList = new ArrayList<>();
-        this.actionHandlerList.add(new ClickActionHandler());
-        this.actionHandlerList.add(new PlaceActionHandler());
-        this.actionHandlerList.add(new AnvilValueActionHandler());
+        ActionManager.actionHandlerList = new ArrayList<>();
+        ActionManager.actionHandlerList.add(new ClickActionHandler());
+        ActionManager.actionHandlerList.add(new PlaceActionHandler());
+        ActionManager.actionHandlerList.add(new AnvilValueActionHandler());
+
+        if (!ProtocolDependency.isEnabled()) return;
+
+        // Setup packet listeners.
+        ProtocolDependency.get().addPacketListener(new PacketAdapter(
+                CozyPlugin.getPlugin(),
+                ListenerPriority.NORMAL,
+                PacketType.Play.Client.ITEM_NAME
+        ) {
+            @Override
+            public void onPacketSending(PacketEvent event) {
+            }
+
+            @Override
+            public void onPacketReceiving(PacketEvent event) {
+                PacketContainer container = event.getPacket();
+                String text = container.getStrings().read(0);
+                PlayerUser user = new PlayerUser(event.getPlayer());
+
+                // Get inventory the player is viewing.
+                InventoryInterface inventoryInterface = InventoryManager.getFromViewer(user.getPlayer());
+                if (inventoryInterface == null) return;
+
+                for (ActionHandler actionHandler : ActionManager.actionHandlerList) {
+                    actionHandler.onAnvilText(inventoryInterface, text, user);
+                }
+            }
+        });
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     private void onInventoryClick(InventoryClickEvent event) {
 
         // Attempt to get the inventory as a registered inventory interface.
@@ -62,7 +96,7 @@ public class ActionManager implements Listener {
         PlayerUser user = new PlayerUser((Player) event.getWhoClicked());
 
         // Call the method on inventory click for each action handler.
-        for (ActionHandler actionHandler : this.actionHandlerList) {
+        for (ActionHandler actionHandler : ActionManager.actionHandlerList) {
             ActionResult result = actionHandler.onInventoryClick(inventory, user, event);
 
             if (result.isCancelTrue()) event.setCancelled(true);
@@ -81,7 +115,7 @@ public class ActionManager implements Listener {
         PlayerUser user = new PlayerUser((Player) event.getPlayer());
 
         // Call the method on inventory click for each action handler.
-        for (ActionHandler actionHandler : this.actionHandlerList) {
+        for (ActionHandler actionHandler : ActionManager.actionHandlerList) {
             actionHandler.onInventoryClose(inventory, user, event);
         }
 

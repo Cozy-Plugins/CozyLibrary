@@ -21,8 +21,9 @@ import java.util.List;
 public class AnvilValueActionHandler implements ActionHandler {
 
     @Override
-    public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryClickEvent event) {
-        List<AnvilValueAction> actionList = inventory.getActionList(event.getSlot(), AnvilValueAction.class);
+    public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event) {
+        List<AnvilValueAction> actionList = inventoryInterface.getActionList(event.getSlot(), AnvilValueAction.class);
+        if (actionList.isEmpty()) return new ActionResult();
 
         new AnvilInputInventory(actionList).open(user.getPlayer());
 
@@ -30,7 +31,15 @@ public class AnvilValueActionHandler implements ActionHandler {
     }
 
     @Override
-    public void onInventoryClose(@NotNull InventoryInterface inventory, @NotNull PlayerUser user, InventoryCloseEvent event) {
+    public void onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
 
+    }
+
+    @Override
+    public void onAnvilText(@NotNull InventoryInterface inventoryInterface, @NotNull String text, @NotNull PlayerUser user) {
+        AnvilInputInventory anvilInputInventory = (AnvilInputInventory) inventoryInterface;
+
+        // Set input value.
+        anvilInputInventory.setInput(text);
     }
 }
