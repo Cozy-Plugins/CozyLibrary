@@ -13,10 +13,7 @@ import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <h1>Represents a item stack with item meta methods</h1>
@@ -102,6 +99,17 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
         itemMeta.setLore(lore);
 
         this.setItemMeta(itemMeta);
+        return (S) this;
+    }
+
+    /**
+     * Used to set the item's lore.
+     *
+     * @param lore The lore to set.
+     * @return This instance.
+     */
+    public @NotNull S setLore(@NotNull String... lore) {
+        this.setLore(new ArrayList<>(Arrays.asList(lore)));
         return (S) this;
     }
 
