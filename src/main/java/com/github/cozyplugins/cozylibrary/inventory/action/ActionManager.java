@@ -21,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.List;
  * <h1>Represents the action manager</h1>
  * Used to register the inventory action events.
  */
-public class ActionManager implements Listener {
+public final class ActionManager implements Listener {
 
     private static @NotNull List<ActionHandler> actionHandlerList;
 
@@ -43,10 +44,10 @@ public class ActionManager implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
 
         ActionManager.actionHandlerList = new ArrayList<>();
-        ActionManager.actionHandlerList.add(new ClickActionHandler());
-        ActionManager.actionHandlerList.add(new PlaceActionHandler());
-        ActionManager.actionHandlerList.add(new AnvilValueActionHandler());
-        ActionManager.actionHandlerList.add(new ConfirmActionHandler());
+        ActionManager.addActionHandler(new ClickActionHandler());
+        ActionManager.addActionHandler(new PlaceActionHandler());
+        ActionManager.addActionHandler(new AnvilValueActionHandler());
+        ActionManager.addActionHandler(new ConfirmActionHandler());
 
         if (!ProtocolDependency.isEnabled()) return;
 
@@ -125,5 +126,14 @@ public class ActionManager implements Listener {
         if (event.getInventory().getViewers().isEmpty() && !inventory.getStayActive()) {
             inventory.close();
         }
+    }
+
+    /**
+     * Used to add an action handler to the action manager.
+     *
+     * @param actionHandler The instance of the action handler.
+     */
+    public static void addActionHandler(@NotNull ActionHandler actionHandler) {
+        ActionManager.actionHandlerList.add(actionHandler);
     }
 }
