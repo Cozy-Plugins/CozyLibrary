@@ -222,6 +222,45 @@ public abstract class InventoryInterface {
     }
 
     /**
+     * Used to put replace a list of slots with an action.
+     *
+     * @param action The instance of the action.
+     * @param slotList The list of slots.
+     * @return This instance.
+     */
+    protected @NotNull InventoryInterface setAction(@Nullable Action action, int... slotList) {
+        List<Action> actionList = new ArrayList<>();
+        actionList.add(action);
+        for (int slot : slotList) {
+            this.actionMap.put(slot, actionList);
+        }
+        return this;
+    }
+
+    /**
+     * Used to remove an action from a list of slots.
+     *
+     * @param slotList The list of slots.
+     * @return This instance.
+     */
+    protected @NotNull InventoryInterface removeAction(int... slotList) {
+        this.setAction(null, slotList);
+        return this;
+    }
+
+    /**
+     * Used to remove the action from a range of slots.
+     *
+     * @param start The first slot.
+     * @param end The last slot.
+     * @return This instance.
+     */
+    protected @NotNull InventoryInterface removeActionRange(int start, int end) {
+        IntStream.range(start, end + 1).forEachOrdered(slot -> this.setAction(null, slot));
+        return this;
+    }
+
+    /**
      * Used to set the inventory to stay active in the plugin if
      * a player exits the inventory and there are no more viewers.
      *
