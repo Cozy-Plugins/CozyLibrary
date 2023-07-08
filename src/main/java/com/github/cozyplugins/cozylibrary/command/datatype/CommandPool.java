@@ -69,7 +69,7 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
                 list.add(cozyCommand.getName());
 
                 // Check if the command also have sub commands.
-                if (cozyCommand.getSubCommands() != null || cozyCommand.getSubCommands().isEmpty()) {
+                if (cozyCommand.getSubCommands() != null && !cozyCommand.getSubCommands().isEmpty()) {
                     List<String> clone = new ArrayList<>(args);
                     clone.remove(0);
 
