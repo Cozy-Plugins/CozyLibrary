@@ -94,9 +94,16 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
      * @return This instance.
      */
     public @NotNull S setLore(@NotNull List<String> lore) {
+        // Convert colors.
+        List<String> temp = new ArrayList<>();
+        for (String line : lore) {
+            temp.add(MessageManager.parse(line));
+        }
+
+        // Create lore.
         if (this.getItemMeta() == null) this.createItemMeta();
         ItemMeta itemMeta = this.getItemMeta();
-        itemMeta.setLore(lore);
+        itemMeta.setLore(temp);
 
         this.setItemMeta(itemMeta);
         return (S) this;
