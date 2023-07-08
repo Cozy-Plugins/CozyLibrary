@@ -87,6 +87,7 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
      * <h1>Used to get a command pool from the sub commands</h1>
      * Example:
      * <p>
+     * input: 
      * [subCommandName1, subCommandName2]
      * Gets the sub commands of subCommandName2.
      * </p>

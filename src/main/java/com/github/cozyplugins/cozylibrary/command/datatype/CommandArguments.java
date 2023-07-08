@@ -37,7 +37,7 @@ public class CommandArguments {
      * the subcommands.
      *
      * @param cozyCommand The instance of a cozy command.
-     * @param label       The commands name.
+     * @param label       The command's name.
      * @param args        The arguments given.
      */
     public CommandArguments(@NotNull CozyCommand cozyCommand, @NotNull String label, @NotNull String[] args) {
@@ -75,6 +75,12 @@ public class CommandArguments {
 
     /**
      * Retrieves the sub command name list.
+     * The current list of sub command names that are included in the arguments.
+     * <p>
+     * Example:
+     * /test 1
+     * [1]
+     * </p>
      *
      * @return The sub command name list.
      */

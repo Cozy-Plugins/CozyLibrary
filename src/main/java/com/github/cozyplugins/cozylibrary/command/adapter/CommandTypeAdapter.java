@@ -33,7 +33,8 @@ public class CommandTypeAdapter implements CozyCommand {
 
     @Override
     public @NotNull String getName() {
-        return this.section.getString("name");
+        System.out.println(this.section.getMap().toString());
+        return this.section.getString("name", this.commandType.getIdentifier());
     }
 
     @Override

@@ -2,18 +2,12 @@ package com.github.cozyplugins.testplugin;
 
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.command.command.command.ProgrammableCommand;
-import com.github.cozyplugins.cozylibrary.command.command.command.programmable.ProgrammableExecutor;
-import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
-import com.github.cozyplugins.cozylibrary.inventory.inventory.ConfirmationInventory;
-import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.cozyplugins.testplugin.commands.HelloWorldCommand;
 import com.github.cozyplugins.testplugin.commands.TestCommandType;
 import com.github.cozyplugins.testplugin.inventorys.InputInventory;
 import com.github.cozyplugins.testplugin.inventorys.TestConfirmInventory;
 import com.github.cozyplugins.testplugin.inventorys.TestInventory;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * <h1>Represents a test plugin</h1>
