@@ -3,6 +3,7 @@ package com.github.cozyplugins.cozylibrary;
 import com.github.cozyplugins.cozylibrary.configuration.message.BaseConfigMessages;
 import com.github.cozyplugins.cozylibrary.configuration.message.DefaultMessage;
 import com.github.cozyplugins.cozylibrary.dependency.PlaceholderAPIDependency;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -90,5 +91,17 @@ public class MessageManager {
         return message
                 .replace("{message}", BaseConfigMessages.getMessage(DefaultMessage.MESSAGE))
                 .replace("{error}", BaseConfigMessages.getMessage(DefaultMessage.ERROR));
+    }
+
+    /**
+     * Used to broadcast a message to all players.
+     * <li>The message will be parsed using the player it will be sent to.</li>
+     *
+     * @param message The instance of the message.
+     */
+    public static void broadcast(@NotNull String message) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.sendMessage(MessageManager.parse(message, player));
+        }
     }
 }
