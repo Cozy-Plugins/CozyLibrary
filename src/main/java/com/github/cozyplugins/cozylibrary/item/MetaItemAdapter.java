@@ -124,7 +124,7 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
         if (this.getItemMeta() == null) this.createItemMeta();
 
         List<String> lore = this.getLore();
-        lore.add(index, line);
+        lore.add(index, MessageManager.parse(line));
 
         ItemMeta itemMeta = this.getItemMeta();
         itemMeta.setLore(lore);
