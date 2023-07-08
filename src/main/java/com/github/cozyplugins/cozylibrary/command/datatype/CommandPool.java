@@ -87,22 +87,24 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
      * <h1>Used to get a command pool from the sub commands</h1>
      * Example:
      * <p>
-     * input: 
-     * [subCommandName1, subCommandName2]
-     * Gets the sub commands of subCommandName2.
+     * input: /test 1 = [1]
+     * output: The sub command names of test 1.
      * </p>
      *
      * @param subCommandNameList The names of the sub commands in order.
      * @return The command pool.
      */
     public @NotNull CommandPool getNextSubCommandList(List<String> subCommandNameList) {
-        if (subCommandNameList.isEmpty()) return new CommandPool();
+        // Check if there are no command names.
+        if (subCommandNameList.isEmpty()) return this;
 
+        // Get the first command.
         CozyCommand command = this.getFromName(subCommandNameList.get(0));
-        if (command == null) return new CommandPool();
+        if (command == null) return this;
 
+        // Get the sub commands.
         CommandPool commandPool = command.getSubCommands();
-        if (commandPool == null) return new CommandPool();
+        if (commandPool == null) return this;
 
         // Remove the command name.
         subCommandNameList.remove(0);
