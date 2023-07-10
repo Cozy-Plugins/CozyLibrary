@@ -15,7 +15,8 @@ import java.util.List;
  */
 public class ConfirmationInventory extends InventoryInterface {
 
-    private final List<ConfirmAction> actionList;
+    private List<ConfirmAction> actionList;
+    private final ConfirmResult result;
 
     /**
      * Creates a confirmation inventory.
@@ -26,6 +27,26 @@ public class ConfirmationInventory extends InventoryInterface {
         super(27, actionList.get(0).getTitle());
 
         this.actionList = actionList;
+        this.result = null;
+    }
+
+    public ConfirmationInventory(@NotNull ConfirmResult result) {
+        super(27, "&8&lConfirm");
+
+        this.result = result;
+    }
+
+    /**
+     * Represents a confirm result.
+     */
+    public interface ConfirmResult {
+
+        /**
+         * Called when a player has chosen a button.
+         *
+         * @param confirm True if the player has pressed the confirmation button.
+         */
+        void onConfirm(boolean confirm);
     }
 
     @Override
@@ -39,6 +60,11 @@ public class ConfirmationInventory extends InventoryInterface {
                 .addSlotRange(18, 20)
                 .addAction((ClickAction) (user, type, inventory) -> {
                     user.getPlayer().closeInventory();
+
+                    if (this.result != null) {
+                        this.result.onConfirm(false);
+                        return;
+                    }
 
                     for (ConfirmAction action : this.actionList) {
                         action.onAbort(user);
@@ -55,6 +81,11 @@ public class ConfirmationInventory extends InventoryInterface {
                 .addSlotRange(24, 26)
                 .addAction((ClickAction) (user, type, inventory) -> {
                     user.getPlayer().closeInventory();
+
+                    if (this.result != null) {
+                        this.result.onConfirm(true);
+                        return;
+                    }
 
                     for (ConfirmAction action : this.actionList) {
                         action.onConfirm(user);

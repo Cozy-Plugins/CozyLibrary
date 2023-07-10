@@ -79,7 +79,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
 
         // Check if the folder is a configuration file.
         if (folder.getName().contains(".yml")) {
-            this.close();
+            player.getPlayer().closeInventory();
             this.onOpenFile(new YamlConfiguration(folder), player);
             return;
         }
@@ -106,6 +106,11 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                 .setName("&7")
                 .addSlotRange(45, 53)
                 .addSlotRange(9, 17)
+        );
+        this.setItem(new InventoryItem()
+                .setMaterial(Material.LIGHT_GRAY_STAINED_GLASS_PANE)
+                .setName("&7")
+                .addSlotRange(0, 8)
         );
 
         // Back button.
@@ -265,16 +270,16 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
             this.setItem(new InventoryItem()
                     .setMaterial(material)
                     .setName("&6&l" + file.getName())
-                    .setLore("&fLeft click &7to move around.",
-                            "&fRight click &7to enter file or folder.")
+                    .setLore("&fLeft Click &7To move the item around.",
+                            "&fRight click &7To enter the file or folder.",
+                            "&fShift Left Click &7To delete.",
+                            "&fShift Right CLick &7To edit.")
                     .addSlot(section.getInteger("slot", defaultSlot))
                     .addAction((ClickActionWithResult) (user, type, inventory, actionResult, slot) -> {
                         // Check if it was a left click.
                         if (type == ClickType.LEFT) {
-
                             // Check if there is already an item being prepared.
                             if (nameClicked.get() != null) {
-
                                 // Check if the item has not moved.
                                 if (slot == section.getInteger("slot", defaultSlot)) {
                                     return actionResult.setCancelled(false);
@@ -288,16 +293,43 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                             return actionResult.setCancelled(false);
                         }
 
-                        // Check if the path is not defined.
-                        if (this.path != null && !this.path.equals("")) {
-                            this.path = this.path + "." + file.getName();
+                        // Check if it was a right click.
+                        if (type == ClickType.RIGHT) {
+                            // Check if this is a file.
+                            if (file.getName().contains(".yml") || file.getName().contains(".yaml")) {
+                                user.getPlayer().closeInventory();
+                                this.onOpenFile(new YamlConfiguration(file), user);
+                                return actionResult.setCancelled(true);
+                            }
+
+                            // Check if the path is not defined.
+                            if (this.path != null && !this.path.equals("")) {
+                                this.path = this.path + "." + file.getName();
+                                this.onGenerate(user);
+                                return actionResult.setCancelled(true);
+                            }
+
+                            this.path = file.getName();
                             this.onGenerate(user);
                             return actionResult.setCancelled(true);
                         }
 
-                        this.path = file.getName();
-                        this.onGenerate(user);
-                        return actionResult.setCancelled(true);
+                        if (type == ClickType.SHIFT_LEFT) {
+                            // Create a confirmation option.
+                            new ConfirmationInventory(confirm -> {
+                                if (confirm) {
+                                    file.delete();
+                                }
+                                open(user.getPlayer());
+                            }).open(user.getPlayer());
+                            return actionResult.setCancelled(true);
+                        }
+
+                        if (type == ClickType.SHIFT_RIGHT) {
+
+                        }
+
+                        return actionResult;
                     })
             );
         }
