@@ -9,10 +9,7 @@ import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.dependency.ProtocolDependency;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
-import com.github.cozyplugins.cozylibrary.inventory.action.handler.AnvilValueActionHandler;
-import com.github.cozyplugins.cozylibrary.inventory.action.handler.ClickActionHandler;
-import com.github.cozyplugins.cozylibrary.inventory.action.handler.ConfirmActionHandler;
-import com.github.cozyplugins.cozylibrary.inventory.action.handler.PlaceActionHandler;
+import com.github.cozyplugins.cozylibrary.inventory.action.handler.*;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +18,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -48,6 +44,7 @@ public final class ActionManager implements Listener {
         ActionManager.addActionHandler(new PlaceActionHandler());
         ActionManager.addActionHandler(new AnvilValueActionHandler());
         ActionManager.addActionHandler(new ConfirmActionHandler());
+        ActionManager.addActionHandler(new ClickActionWithResultHandler());
 
         if (!ProtocolDependency.isEnabled()) return;
 

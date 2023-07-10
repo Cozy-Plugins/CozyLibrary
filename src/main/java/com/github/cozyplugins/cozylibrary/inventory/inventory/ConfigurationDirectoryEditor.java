@@ -4,15 +4,14 @@ import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import com.github.cozyplugins.cozylibrary.configuration.ConfigurationDirectory;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
-import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
+import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickActionWithResult;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Represents an inventory interface for a configuration directory.
@@ -224,6 +224,23 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
      * @param fileList The list of files.
      */
     public void generateFiles(File[] fileList) {
+        // If a name is clicked.
+        AtomicReference<String> nameClicked = new AtomicReference<>(null);
+
+        // When an item is moved.
+        this.setItem(new InventoryItem()
+                .setMaterial(Material.AIR)
+                .addSlotRange(19, 43)
+                .addAction((ClickActionWithResult) (user, type, inventory, currentResult, slot) -> {
+                    if (nameClicked.get() == null) return currentResult;
+                    String name = nameClicked.get();
+                    ConfigurationSection section = this.store.getSection("base." + this.path + "." + name);
+                    section.set("slot", slot);
+                    this.store.save();
+                    return currentResult;
+                })
+        );
+
         for (File file : fileList) {
             ConfigurationSection section = this.store.getSection("base." + this.path + "." + file.getName());
 
@@ -242,18 +259,43 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
             // Slot.
             int defaultSlot = this.getInventory().firstEmpty();
 
+            // Set the item representing the file or folder.
             this.setItem(new InventoryItem()
                     .setMaterial(material)
                     .setName("&6&l" + file.getName())
                     .setLore("&fLeft click &7to move around.",
                             "&fRight click &7to enter file or folder.")
                     .addSlot(section.getInteger("slot", defaultSlot))
-                    .addAction((ClickAction) (user, type, inventory) -> {
+                    .addAction((ClickActionWithResult) (user, type, inventory, actionResult, slot) -> {
+                        // Check if it was a left click.
                         if (type == ClickType.LEFT) {
-                            return new ActionResult().setCancelled(false);
+
+                            // Check if there is already an item being prepared.
+                            if (nameClicked.get() != null) {
+
+                                // Check if the item has not moved.
+                                if (slot == section.getInteger("slot", defaultSlot)) {
+                                    return actionResult.setCancelled(false);
+                                }
+
+                                user.sendMessage("&8You must place the item in a empty space");
+                                return actionResult.setCancelled(true);
+                            }
+
+                            nameClicked.set(file.getName());
+                            return actionResult.setCancelled(false);
                         }
 
+                        // Check if the path is not defined.
+                        if (this.path != null && !this.path.equals("")) {
+                            this.path = this.path + "." + file.getName();
+                            this.onGenerate(user);
+                            return actionResult.setCancelled(true);
+                        }
 
+                        this.path = file.getName();
+                        this.onGenerate(user);
+                        return actionResult.setCancelled(true);
                     })
             );
         }

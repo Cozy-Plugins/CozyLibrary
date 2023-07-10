@@ -224,7 +224,7 @@ public abstract class InventoryInterface {
     /**
      * Used to put replace a list of slots with an action.
      *
-     * @param action The instance of the action.
+     * @param action   The instance of the action.
      * @param slotList The list of slots.
      * @return This instance.
      */
@@ -252,7 +252,7 @@ public abstract class InventoryInterface {
      * Used to remove the action from a range of slots.
      *
      * @param start The first slot.
-     * @param end The last slot.
+     * @param end   The last slot.
      * @return This instance.
      */
     protected @NotNull InventoryInterface removeActionRange(int start, int end) {

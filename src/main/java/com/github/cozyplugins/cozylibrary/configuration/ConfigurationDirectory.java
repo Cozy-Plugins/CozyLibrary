@@ -2,7 +2,6 @@ package com.github.cozyplugins.cozylibrary.configuration;
 
 import com.github.cozyplugins.cozylibrary.CozyLibrary;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
-import com.github.cozyplugins.cozylibrary.inventory.inventory.ConfigurationDirectoryEditor;
 import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
@@ -81,7 +80,7 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
      * untitled_folder.untitled_folder_2
      *
      * <li>
-     *     Returns null if the folder doesnt exist.
+     * Returns null if the folder doesnt exist.
      * </li>
      *
      * @param path The path.
