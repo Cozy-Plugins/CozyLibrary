@@ -180,6 +180,8 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
      * Used to create the location bar.
      */
     public void generateLocationBar() {
+        if (this.path == null) return;
+
         // Get location item names in reverse order.
         List<String> locationItemNames = new ArrayList<>(Arrays.asList(this.path.split("\\.")));
         Collections.reverse(locationItemNames);
