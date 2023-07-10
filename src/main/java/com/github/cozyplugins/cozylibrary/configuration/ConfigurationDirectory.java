@@ -2,6 +2,7 @@ package com.github.cozyplugins.cozylibrary.configuration;
 
 import com.github.cozyplugins.cozylibrary.CozyLibrary;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
+import com.github.cozyplugins.cozylibrary.inventory.inventory.ConfigurationDirectoryEditor;
 import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
@@ -64,6 +65,7 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
 
     /**
      * <h1>Used to get the directory</h1>
+     * This configuration directory as a file.
      *
      * @return The directory as a file.
      */
@@ -71,6 +73,22 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
         Plugin plugin = Bukkit.getPluginManager().getPlugin(CozyLibrary.getPluginName());
         assert plugin != null;
         return new File(plugin.getDataFolder() + File.separator + this.directoryName);
+    }
+
+    /**
+     * Used to get the directory within this directory given a path.
+     * Example path:
+     * untitled_folder.untitled_folder_2
+     *
+     * <li>
+     *     Returns null if the folder doesnt exist.
+     * </li>
+     *
+     * @param path The path.
+     * @return The folder instance.
+     */
+    public @Nullable File getDirectory(@Nullable String path) {
+        return ConfigurationDirectory.getFolder(this.getDirectory(), path);
     }
 
     /**
@@ -122,7 +140,7 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
      * @return True If the file gets created.
      */
     public boolean createDefaultFile() {
-        // Check if default file name is specified.
+        // Check if the default file name is specified.
         if (this.getDefaultFileName() == null) return false;
 
         // Make sure the directory is created.
@@ -145,6 +163,25 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
     }
 
     /**
+     * Used to create if the store file doesn't exist or return the store file.
+     * The store file contains the folder settings given by this plugin.
+     *
+     * @return The folder's configuration.
+     */
+    public @NotNull YamlConfiguration createStore() {
+        for (File file : this.getFiles()) {
+            if (!file.getName().equals(".cozystore")) continue;
+            YamlConfiguration configuration = new YamlConfiguration(file);
+            configuration.load();
+            return configuration;
+        }
+
+        YamlConfiguration configuration = new YamlConfiguration(this.getDirectory(), ".cozystore");
+        configuration.load();
+        return configuration;
+    }
+
+    /**
      * <h1>Used to reload the configuration files</h1>
      */
     public void reload() {
@@ -159,6 +196,7 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
 
         // Load all files currently in the directory.
         for (File file : this.getFiles()) {
+            System.out.println(file.getName());
             isEmpty = false;
             Configuration configuration = new YamlConfiguration(file);
             configuration.load();
@@ -191,6 +229,7 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
 
         List<File> finalFileList = new ArrayList<>();
         for (File file : fileList) {
+            if (file.getName().equals(".DS_Store")) continue;
             List<File> filesInFile = ConfigurationDirectory.getFiles(file);
             if (filesInFile.isEmpty()) {
                 finalFileList.add(file);
@@ -201,5 +240,27 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
         }
 
         return finalFileList;
+    }
+
+    /**
+     * Used to recursively get a file instance from the given file.
+     *
+     * @param file The file instance.
+     * @param path The path within the file.
+     * @return The requested file. Null, if the file doesn't exist.
+     */
+    public static @Nullable File getFolder(@NotNull File file, @Nullable String path) {
+        if (path == null || path.equals("")) return file;
+
+        String folderName = path.split("\\.")[0];
+        File[] fileList = file.listFiles();
+        if (fileList == null) return null;
+
+        for (File temp : fileList) {
+            if (!temp.getName().equals(folderName)) continue;
+            return ConfigurationDirectory.getFolder(temp, path.substring(folderName.length()));
+        }
+
+        return null;
     }
 }

@@ -1,0 +1,261 @@
+package com.github.cozyplugins.cozylibrary.inventory.inventory;
+
+import com.github.cozyplugins.cozylibrary.ConsoleManager;
+import com.github.cozyplugins.cozylibrary.configuration.ConfigurationDirectory;
+import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
+import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
+import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
+import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
+import com.github.cozyplugins.cozylibrary.user.PlayerUser;
+import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
+import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
+import org.bukkit.Material;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Represents an inventory interface for a configuration directory.
+ */
+public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
+
+    private final @NotNull ConfigurationDirectory directory;
+    private final @NotNull YamlConfiguration store;
+    private String path;
+
+    /**
+     * Used to create a configuration directory editor.
+     *
+     * @param directory The directory being represented.
+     */
+    public ConfigurationDirectoryEditor(@NotNull ConfigurationDirectory directory) {
+        super(54, "&8&l" + directory.getDirectoryName());
+
+        this.directory = directory;
+
+        // Get or create if the store file doesn't exist.
+        // This file represents the folder's settings.
+        this.store = directory.createStore();
+    }
+
+    /**
+     * Used to create a configuration directory in a certain path.
+     *
+     * @param directory The instance of the directory.
+     * @param path      The path.
+     */
+    public ConfigurationDirectoryEditor(@NotNull ConfigurationDirectory directory, @Nullable String path) {
+        this(directory);
+
+        this.path = path;
+    }
+
+    /**
+     * Called when a file is opened.
+     *
+     * @param configuration The instance of the configuration file.
+     */
+    public abstract void onOpenFile(@NotNull YamlConfiguration configuration);
+
+    @Override
+    protected void onGenerate(PlayerUser player) {
+        // Clear
+        this.removeActionRange(0, 53);
+        this.setItem(new InventoryItem().setMaterial(Material.AIR).addSlotRange(0, 53));
+
+        File folder = this.directory.getDirectory(this.path);
+        if (folder == null) {
+            ConsoleManager.error("Unable to get directory &f" + this.path" &cfrom &f" + this.directory.getDirectoryName());
+            return;
+        }
+
+        // Check if the folder is a configuration file.
+        if (folder.getName().contains(".yml")) {
+            this.close();
+            this.onOpenFile(new YamlConfiguration(folder));
+            return;
+        }
+
+        // Get the files and folders, in this folder.
+        File[] fileList = folder.listFiles();
+
+        // Check if this is not a folder.
+        if (fileList == null) {
+            player.sendMessage("&7This location is not a folder or configuration file.");
+            player.sendMessage("&7Returning to the main editor page.");
+            this.path = "";
+            try {
+                this.onGenerate(player);
+            } catch (StackOverflowError error) {
+                ConsoleManager.error("Configuration directory is not a directory. Directory is named &f" + this.directory.getDirectoryName());
+            }
+            return;
+        }
+
+        // Set background.
+        this.setItem(new InventoryItem()
+                .setMaterial(Material.GRAY_STAINED_GLASS_PANE)
+                .setName("&7")
+                .addSlotRange(45, 53)
+                .addSlotRange(9, 17)
+        );
+
+        // Back button.
+        if (this.path != null && this.path.length() > 0) {
+            this.setItem(new InventoryItem()
+                    .setMaterial(Material.YELLOW_STAINED_GLASS_PANE)
+                    .setName("&e&lBack")
+                    .setLore("&7Click to go back to the previously viewed folder.")
+                    .addSlot(45)
+                    .addAction((ClickAction) (user, type, inventory) -> {
+                        String[] folderNames = this.path.split("\\.");
+                        String current = folderNames[folderNames.length - 1];
+                        String previous = this.path.substring(0, this.path.length() - current.length());
+                        this.path = previous;
+                        this.onGenerate(player);
+                    })
+            );
+        }
+
+        // Create folder button.
+        this.setItem(new InventoryItem()
+                .setMaterial(Material.LIME_STAINED_GLASS_PANE)
+                .setName("&a&lCreate Folder")
+                .setLore("&7Click to create a new folder.")
+                .addSlot(48)
+                .addAction(new AnvilValueAction() {
+                    @Override
+                    public @NotNull String getAnvilTitle() {
+                        return "&8&lFolder name";
+                    }
+
+                    @Override
+                    public void onValue(@Nullable String value, @NotNull PlayerUser user) {
+                        File newFolder = new File(folder.getAbsolutePath(), "new_folder");
+                        newFolder.mkdir();
+
+                        open(user.getPlayer());
+                    }
+                })
+        );
+
+        // Create file button.
+        this.setItem(new InventoryItem()
+                .setMaterial(Material.LIME_STAINED_GLASS_PANE)
+                .setName("&a&lCreate Configuration File")
+                .setLore("&7Used to create a new configuration file.")
+                .addSlot(50)
+                .addAction(new AnvilValueAction() {
+                    @Override
+                    public @NotNull String getAnvilTitle() {
+                        return "&8&lFile name";
+                    }
+
+                    @Override
+                    public void onValue(@Nullable String value, @NotNull PlayerUser user) {
+                        YamlConfiguration configuration = new YamlConfiguration(folder, value + ".yml");
+                        configuration.load();
+
+                        open(user.getPlayer());
+                    }
+                })
+        );
+
+        // File Location bar.
+        this.generateLocationBar();
+
+        // File items.
+        this.generateFiles(fileList);
+    }
+
+    /**
+     * Used to create the location bar.
+     */
+    public void generateLocationBar() {
+        // Get location item names in reverse order.
+        List<String> locationItemNames = new ArrayList<>(Arrays.asList(this.path.split("\\.")));
+        Collections.reverse(locationItemNames);
+
+        int slot = 9;
+        for (String name : locationItemNames) {
+            // Start slots at 8.
+            slot -= 1;
+            if (slot < 0) return;
+
+            int finalSlot = slot;
+            this.setItem(new InventoryItem()
+                    .setMaterial(Material.BOOK)
+                    .setName("&6&l" + name)
+                    .setLore("&7Click to go back to this location.")
+                    .addSlot(slot)
+                    .addAction((ClickAction) (user, type, inventory) -> {
+                        int maxIndex = locationItemNames.size() - 1;
+                        int fromTheRight = Math.abs(finalSlot - 8);
+
+                        // Repeat fromTheRight number of times.
+                        for (int i = 0; i <= fromTheRight; i++) {
+                            locationItemNames.remove(locationItemNames.size() - 1);
+                        }
+
+                        // Reverse back.
+                        Collections.reverse(locationItemNames);
+
+                        // Get the new path.
+                        this.path = String.join(".", locationItemNames);
+
+                        // Generate.
+                        onGenerate(user);
+                    })
+            );
+        }
+    }
+
+    /**
+     * Used to create the file items.
+     *
+     * @param fileList The list of files.
+     */
+    public void generateFiles(File[] fileList) {
+        for (File file : fileList) {
+            ConfigurationSection section = this.store.getSection("base." + this.path + "." + file.getName());
+
+            // Material.
+            Material defaultMaterial = Material.PAPER;
+            if (file.listFiles() != null) {
+                defaultMaterial = Material.BOOK;
+            }
+
+            Material material = Material.getMaterial(section.getString("material", defaultMaterial.toString()));
+            if (material == null) {
+                ConsoleManager.warn("Material doesnt exist for " + file.getName() + " in " + this.path + " in " + this.directory.getDirectoryName());
+                material = defaultMaterial;
+            }
+
+            // Slot.
+            int defaultSlot = this.getInventory().firstEmpty();
+
+            this.setItem(new InventoryItem()
+                    .setMaterial(material)
+                    .setName("&6&l" + file.getName())
+                    .setLore("&fLeft click &7to move around.",
+                            "&fRight click &7to enter file or folder.")
+                    .addSlot(section.getInteger("slot", defaultSlot))
+                    .addAction((ClickAction) (user, type, inventory) -> {
+                        if (type == ClickType.LEFT) {
+                            return new ActionResult().setCancelled(false);
+                        }
+
+
+                    })
+            );
+        }
+    }
+}
