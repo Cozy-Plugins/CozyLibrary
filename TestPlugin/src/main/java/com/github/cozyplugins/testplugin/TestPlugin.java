@@ -1,13 +1,18 @@
 package com.github.cozyplugins.testplugin;
 
+import com.github.cozyplugins.cozylibrary.CozyLibrary;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.command.command.command.ProgrammableCommand;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
+import com.github.cozyplugins.cozylibrary.inventory.inventory.ConfigurationDirectoryEditor;
+import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.cozyplugins.testplugin.commands.HelloWorldCommand;
 import com.github.cozyplugins.testplugin.commands.TestCommandType;
 import com.github.cozyplugins.testplugin.inventorys.InputInventory;
 import com.github.cozyplugins.testplugin.inventorys.TestConfirmInventory;
 import com.github.cozyplugins.testplugin.inventorys.TestInventory;
+import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * <h1>Represents a test plugin</h1>
@@ -33,6 +38,18 @@ public final class TestPlugin extends CozyPlugin {
         }));
         this.addCommand(new ProgrammableCommand("confirminventory").setPlayer((user, arguments) -> {
             new TestConfirmInventory().open(user.getPlayer());
+            return new CommandStatus();
+        }));
+
+        // Editor.
+        this.addCommand(new ProgrammableCommand("editor").setPlayer((user, arguments) -> {
+            new ConfigurationDirectoryEditor(CozyLibrary.getCommandDirectory()) {
+                @Override
+                public void onOpenFile(@NotNull YamlConfiguration configuration, @NotNull PlayerUser user) {
+                    user.sendMessage("Opened " + configuration.getAbsolutePath());
+                }
+            }.open(user.getPlayer());
+
             return new CommandStatus();
         }));
 

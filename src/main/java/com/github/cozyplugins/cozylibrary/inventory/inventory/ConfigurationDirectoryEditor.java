@@ -63,7 +63,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
      *
      * @param configuration The instance of the configuration file.
      */
-    public abstract void onOpenFile(@NotNull YamlConfiguration configuration);
+    public abstract void onOpenFile(@NotNull YamlConfiguration configuration, @NotNull PlayerUser user);
 
     @Override
     protected void onGenerate(PlayerUser player) {
@@ -80,7 +80,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
         // Check if the folder is a configuration file.
         if (folder.getName().contains(".yml")) {
             this.close();
-            this.onOpenFile(new YamlConfiguration(folder));
+            this.onOpenFile(new YamlConfiguration(folder), player);
             return;
         }
 
