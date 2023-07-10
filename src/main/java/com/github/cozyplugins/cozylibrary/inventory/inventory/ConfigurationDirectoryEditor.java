@@ -73,7 +73,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
 
         File folder = this.directory.getDirectory(this.path);
         if (folder == null) {
-            ConsoleManager.error("Unable to get directory &f" + this.path" &cfrom &f" + this.directory.getDirectoryName());
+            ConsoleManager.error("Unable to get directory &f" + this.path + " &cfrom &f" + this.directory.getDirectoryName());
             return;
         }
 
