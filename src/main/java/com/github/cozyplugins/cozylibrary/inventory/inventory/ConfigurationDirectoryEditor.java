@@ -7,6 +7,7 @@ import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickActionWithResult;
+import com.github.cozyplugins.cozylibrary.inventory.action.action.ConfirmAction;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
@@ -29,7 +30,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
 
     private final @NotNull ConfigurationDirectory directory;
     private final @NotNull YamlConfiguration store;
-    private String path;
+    private @NotNull String path;
 
     /**
      * Used to create a configuration directory editor.
@@ -44,6 +45,9 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
         // Get or create if the store file doesn't exist.
         // This file represents the folder's settings.
         this.store = directory.createStore();
+
+        // Make sure the path is not null.
+        this.path = "";
     }
 
     /**
@@ -52,7 +56,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
      * @param directory The instance of the directory.
      * @param path      The path.
      */
-    public ConfigurationDirectoryEditor(@NotNull ConfigurationDirectory directory, @Nullable String path) {
+    public ConfigurationDirectoryEditor(@NotNull ConfigurationDirectory directory, @NotNull String path) {
         this(directory);
 
         this.path = path;
@@ -114,7 +118,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
         );
 
         // Back button.
-        if (this.path != null && this.path.length() > 0) {
+        if (this.path.length() > 0) {
             this.setItem(new InventoryItem()
                     .setMaterial(Material.YELLOW_STAINED_GLASS_PANE)
                     .setName("&e&lBack")
@@ -185,8 +189,6 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
      * Used to create the location bar.
      */
     public void generateLocationBar() {
-        if (this.path == null) return;
-
         // Get location item names in reverse order.
         List<String> locationItemNames = new ArrayList<>(Arrays.asList(this.path.split("\\.")));
         Collections.reverse(locationItemNames);
@@ -231,7 +233,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
      * @param fileList The list of files.
      */
     public void generateFiles(File[] fileList) {
-        // If a name is clicked.
+        // This will hold the current item being moved in the inventory.
         AtomicReference<String> nameClicked = new AtomicReference<>(null);
 
         // When an item is moved.
@@ -240,15 +242,28 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                 .addSlotRange(19, 43)
                 .addAction((ClickActionWithResult) (user, type, inventory, currentResult, slot) -> {
                     if (nameClicked.get() == null) return currentResult;
+
+                    // Get and save the new file slot.
                     String name = nameClicked.get();
                     ConfigurationSection section = this.store.getSection("base." + this.path + "." + name);
                     section.set("slot", slot);
                     this.store.save();
-                    return currentResult;
+
+                    user.sendMessage("&7Changed location of " + name + " to " + slot);
+
+                    // Re-place items.
+                    this.onGenerate(user);
+
+                    // Return false.
+                    return currentResult.setCancelled(false);
                 })
         );
 
         for (File file : fileList) {
+            // Ignore system files.
+            if (file.getName().contains("cozystore")) continue;
+            if (file.getName().contains("DS_Store")) continue;
+
             ConfigurationSection section = this.store.getSection("base." + this.path + "." + file.getName());
 
             // Material.
@@ -263,6 +278,8 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                 material = defaultMaterial;
             }
 
+            section.set("material", material.toString());
+
             // Slot.
             int defaultSlot = this.getInventory().firstEmpty();
 
@@ -270,22 +287,34 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
             this.setItem(new InventoryItem()
                     .setMaterial(material)
                     .setName("&6&l" + file.getName())
-                    .setLore("&fLeft Click &7To move the item around.",
-                            "&fRight click &7To enter the file or folder.",
-                            "&fShift Left Click &7To delete.",
-                            "&fShift Right CLick &7To edit.")
+                    .setLore("&eMove file &fLeft Click",
+                            "&eEnter file &fRight click",
+                            "&eDelete file &fShift Left Click",
+                            "&eEdit file &fShift Right Click",
+                            "&7When moving a file, you can click another",
+                            "&7folder to change its location.")
+                    .setAmount(1)
                     .addSlot(section.getInteger("slot", defaultSlot))
                     .addAction((ClickActionWithResult) (user, type, inventory, actionResult, slot) -> {
-                        // Check if it was a left click.
+                        // Check if the player wants to move the item.
                         if (type == ClickType.LEFT) {
-                            // Check if there is already an item being prepared.
+                            // Check if there is already an item being processed.
                             if (nameClicked.get() != null) {
                                 // Check if the item has not moved.
                                 if (slot == section.getInteger("slot", defaultSlot)) {
+                                    nameClicked.set(null);
                                     return actionResult.setCancelled(false);
                                 }
 
-                                user.sendMessage("&8You must place the item in a empty space");
+                                // Attempting to put the file into a file.
+                                if (file.listFiles() == null) {
+                                    user.sendMessage("&7You cannot put a file into a configuration file.");
+                                    return actionResult.setCancelled(true);
+                                }
+
+                                // Attempting to put a file into a folder.
+                                
+
                                 return actionResult.setCancelled(true);
                             }
 
@@ -293,7 +322,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                             return actionResult.setCancelled(false);
                         }
 
-                        // Check if it was a right click.
+                        // Check if the player wants to enter the file or folder.
                         if (type == ClickType.RIGHT) {
                             // Check if this is a file.
                             if (file.getName().contains(".yml") || file.getName().contains(".yaml")) {
@@ -303,7 +332,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                             }
 
                             // Check if the path is not defined.
-                            if (this.path != null && !this.path.equals("")) {
+                            if (!this.path.equals("")) {
                                 this.path = this.path + "." + file.getName();
                                 this.onGenerate(user);
                                 return actionResult.setCancelled(true);
@@ -314,19 +343,36 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                             return actionResult.setCancelled(true);
                         }
 
+                        // Check if the player wants to delete this file or folder.
                         if (type == ClickType.SHIFT_LEFT) {
-                            // Create a confirmation option.
-                            new ConfirmationInventory(confirm -> {
-                                if (confirm) {
-                                    file.delete();
+                            // Ask for confirmation.
+                            new ConfirmationInventory(new ConfirmAction() {
+                                @Override
+                                public @NotNull String getTitle() {
+                                    return "&8&lDelete " + file.getName();
                                 }
-                                open(user.getPlayer());
+
+                                @Override
+                                public void onConfirm(@NotNull PlayerUser user) {
+                                    file.delete();
+                                    open(user.getPlayer());
+                                }
+
+                                @Override
+                                public void onAbort(@NotNull PlayerUser user) {
+                                    open(user.getPlayer());
+                                }
                             }).open(user.getPlayer());
                             return actionResult.setCancelled(true);
                         }
 
+                        // Check if the player wants to edit the file or folder.
                         if (type == ClickType.SHIFT_RIGHT) {
-
+                            FileEditor editor = new FileEditor(
+                                    file, this.directory.getSection("base." + this.path), section, this
+                            );
+                            editor.open(user.getPlayer());
+                            return actionResult.setCancelled(true);
                         }
 
                         return actionResult;

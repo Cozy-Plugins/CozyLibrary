@@ -8,15 +8,16 @@ import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents the confirmation inventory.
+ * Plugins can use this interface to ask a player for confirmation.
  */
 public class ConfirmationInventory extends InventoryInterface {
 
-    private List<ConfirmAction> actionList;
-    private final ConfirmResult result;
+    private final @NotNull List<ConfirmAction> actionList;
 
     /**
      * Creates a confirmation inventory.
@@ -27,26 +28,19 @@ public class ConfirmationInventory extends InventoryInterface {
         super(27, actionList.get(0).getTitle());
 
         this.actionList = actionList;
-        this.result = null;
-    }
-
-    public ConfirmationInventory(@NotNull ConfirmResult result) {
-        super(27, "&8&lConfirm");
-
-        this.result = result;
     }
 
     /**
-     * Represents a confirm result.
+     * Used to create a confirmation inventory.
+     *
+     * @param action The instance of the confirmation action.
+     *               This will return the result.
      */
-    public interface ConfirmResult {
+    public ConfirmationInventory(@NotNull ConfirmAction action) {
+        super(27, action.getTitle());
 
-        /**
-         * Called when a player has chosen a button.
-         *
-         * @param confirm True if the player has pressed the confirmation button.
-         */
-        void onConfirm(boolean confirm);
+        this.actionList = new ArrayList<>();
+        this.actionList.add(action);
     }
 
     @Override
@@ -60,11 +54,6 @@ public class ConfirmationInventory extends InventoryInterface {
                 .addSlotRange(18, 20)
                 .addAction((ClickAction) (user, type, inventory) -> {
                     user.getPlayer().closeInventory();
-
-                    if (this.result != null) {
-                        this.result.onConfirm(false);
-                        return;
-                    }
 
                     for (ConfirmAction action : this.actionList) {
                         action.onAbort(user);
@@ -81,11 +70,6 @@ public class ConfirmationInventory extends InventoryInterface {
                 .addSlotRange(24, 26)
                 .addAction((ClickAction) (user, type, inventory) -> {
                     user.getPlayer().closeInventory();
-
-                    if (this.result != null) {
-                        this.result.onConfirm(true);
-                        return;
-                    }
 
                     for (ConfirmAction action : this.actionList) {
                         action.onConfirm(user);

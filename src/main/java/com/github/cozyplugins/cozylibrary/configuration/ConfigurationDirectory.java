@@ -195,7 +195,6 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
 
         // Load all files currently in the directory.
         for (File file : this.getFiles()) {
-            System.out.println(file.getName());
             isEmpty = false;
             Configuration configuration = new YamlConfiguration(file);
             configuration.load();
@@ -250,6 +249,9 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
      */
     public static @Nullable File getFolder(@NotNull File file, @Nullable String path) {
         if (path == null || path.equals("")) return file;
+
+        // Check if there is a dot at the start.
+        if (path.startsWith(".")) path = path.substring(1);
 
         String folderName = path.split("\\.")[0];
         File[] fileList = file.listFiles();
