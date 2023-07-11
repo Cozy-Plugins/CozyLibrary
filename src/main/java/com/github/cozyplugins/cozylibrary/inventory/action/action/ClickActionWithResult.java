@@ -4,6 +4,7 @@ import com.github.cozyplugins.cozylibrary.inventory.action.Action;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,12 +21,14 @@ public interface ClickActionWithResult extends Action {
      * @param inventory     The instance of the inventory.
      * @param currentResult The current instance of the action result.
      * @param slot          The slot clicked.
+     * @param event         The instance of the event.
      */
     @NotNull ActionResult onClick(
             @NotNull PlayerUser user,
             ClickType type,
             @NotNull Inventory inventory,
             @NotNull ActionResult currentResult,
-            int slot
+            int slot,
+            @NotNull InventoryClickEvent event
     );
 }

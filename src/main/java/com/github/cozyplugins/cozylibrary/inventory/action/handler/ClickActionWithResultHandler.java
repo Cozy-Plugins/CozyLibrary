@@ -24,7 +24,7 @@ public class ClickActionWithResultHandler implements ActionHandler {
         ActionResult actionResult = new ActionResult();
 
         for (ClickActionWithResult action : actionList) {
-            actionResult = action.onClick(user, event.getClick(), event.getInventory(), actionResult, event.getSlot());
+            actionResult = action.onClick(user, event.getClick(), event.getInventory(), actionResult, event.getSlot(), event);
         }
 
         return actionResult;

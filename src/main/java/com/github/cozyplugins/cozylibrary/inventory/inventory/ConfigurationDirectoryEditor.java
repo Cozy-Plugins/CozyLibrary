@@ -148,8 +148,18 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
 
                     @Override
                     public void onValue(@Nullable String value, @NotNull PlayerUser user) {
-                        File newFolder = new File(folder.getAbsolutePath(), "new_folder");
-                        newFolder.mkdir();
+                        File newFolder = new File(folder.getAbsolutePath(), value);
+                        boolean success;
+                        try {
+                            success = newFolder.mkdir();
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
+                            success = false;
+                        }
+
+                        if (!success) {
+                            user.sendMessage("&8&lUnable to create folder.");
+                        }
 
                         open(user.getPlayer());
                     }
@@ -235,12 +245,13 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
     public void generateFiles(File[] fileList) {
         // This will hold the current item being moved in the inventory.
         AtomicReference<String> nameClicked = new AtomicReference<>(null);
+        AtomicReference<Integer> slotClicked = new AtomicReference<>(-1);
 
         // When an item is moved.
         this.setItem(new InventoryItem()
                 .setMaterial(Material.AIR)
-                .addSlotRange(19, 43)
-                .addAction((ClickActionWithResult) (user, type, inventory, currentResult, slot) -> {
+                .addSlotRange(18, 44)
+                .addAction((ClickActionWithResult) (user, type, inventory, currentResult, slot, event) -> {
                     if (nameClicked.get() == null) return currentResult;
 
                     // Get and save the new file slot.
@@ -295,14 +306,16 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                             "&7folder to change its location.")
                     .setAmount(1)
                     .addSlot(section.getInteger("slot", defaultSlot))
-                    .addAction((ClickActionWithResult) (user, type, inventory, actionResult, slot) -> {
+                    .addAction((ClickActionWithResult) (user, type, inventory, actionResult, slot, event) -> {
                         // Check if the player wants to move the item.
                         if (type == ClickType.LEFT) {
                             // Check if there is already an item being processed.
                             if (nameClicked.get() != null) {
                                 // Check if the item has not moved.
-                                if (slot == section.getInteger("slot", defaultSlot)) {
+                                if (slot == slotClicked.get()) {
+                                    user.sendMessage("&7Moving file canceled.");
                                     nameClicked.set(null);
+                                    slotClicked.set(-1);
                                     return actionResult.setCancelled(false);
                                 }
 
@@ -313,12 +326,27 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                                 }
 
                                 // Attempting to put a file into a folder.
-                                
+                                File fileToChangeDirectory = new File(
+                                        this.directory.getDirectory().getAbsolutePath()
+                                                + "/" + this.path.replace(".", "/")
+                                                + nameClicked.get()
+                                );
 
+                                // Rename.
+                                fileToChangeDirectory.renameTo(new File(file.getAbsoluteFile() + "/" + nameClicked.get()));
+
+                                // Remove the item.
+                                if (event.getCursor() != null) {
+                                    event.getCursor().setAmount(0);
+                                }
+
+                                user.sendMessage("&7Moved file into folder.");
                                 return actionResult.setCancelled(true);
                             }
 
+                            user.sendMessage("&7Moving " + file.getName());
                             nameClicked.set(file.getName());
+                            slotClicked.set(slot);
                             return actionResult.setCancelled(false);
                         }
 
@@ -354,7 +382,22 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
 
                                 @Override
                                 public void onConfirm(@NotNull PlayerUser user) {
-                                    file.delete();
+                                    boolean success;
+                                    try {
+                                        success = file.delete();
+                                    } catch (Exception exception) {
+                                        exception.printStackTrace();
+                                        success = false;
+                                    }
+
+                                    if (!success) {
+                                        user.sendMessage("&7Unable to delete file.");
+                                    }
+
+                                    if (success) {
+                                        user.sendMessage("&7Deleted file.");
+                                    }
+
                                     open(user.getPlayer());
                                 }
 
@@ -369,7 +412,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                         // Check if the player wants to edit the file or folder.
                         if (type == ClickType.SHIFT_RIGHT) {
                             FileEditor editor = new FileEditor(
-                                    file, this.directory.getSection("base." + this.path), section, this
+                                    file, this.store, this.directory.getSection("base." + this.path), section, this
                             );
                             editor.open(user.getPlayer());
                             return actionResult.setCancelled(true);

@@ -6,10 +6,12 @@ import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueActi
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.PlaceAction;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
+import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 
@@ -20,6 +22,7 @@ import java.io.File;
 public class FileEditor extends InventoryInterface {
 
     private final @NotNull File file;
+    private final @NotNull YamlConfiguration store;
     private final @NotNull ConfigurationSection folder;
     private final @NotNull ConfigurationSection section;
     private final @NotNull ConfigurationDirectoryEditor editor;
@@ -34,6 +37,7 @@ public class FileEditor extends InventoryInterface {
      */
     public FileEditor(
             @NotNull File file,
+            @NotNull YamlConfiguration store,
             @NotNull ConfigurationSection folder,
             @NotNull ConfigurationSection section,
             @NotNull ConfigurationDirectoryEditor editor) {
@@ -41,6 +45,7 @@ public class FileEditor extends InventoryInterface {
         super(27, "&8&lFile Editor");
 
         this.file = file;
+        this.store = store;
         this.folder = folder;
         this.section = section;
         this.editor = editor;
@@ -129,7 +134,7 @@ public class FileEditor extends InventoryInterface {
                 .addAction((PlaceAction) (user, item) -> {
                     user.sendMessage("&7Changed file to " + item.getMaterial());
                     section.set("material", item.getMaterial().toString());
-                    this.open(user.getPlayer());
+                    this.store.save();
                 })
         );
     }
