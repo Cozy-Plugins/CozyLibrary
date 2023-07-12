@@ -266,7 +266,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                     this.onGenerate(user);
 
                     // Return false.
-                    return currentResult.setCancelled(false);
+                    return currentResult.setCancelled(true);
                 })
         );
 
@@ -316,7 +316,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                                     user.sendMessage("&7Moving file canceled.");
                                     nameClicked.set(null);
                                     slotClicked.set(-1);
-                                    return actionResult.setCancelled(false);
+                                    return actionResult.setCancelled(true);
                                 }
 
                                 // Attempting to put the file into a file.
@@ -335,11 +335,6 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                                 // Rename.
                                 fileToChangeDirectory.renameTo(new File(file.getAbsoluteFile() + "/" + nameClicked.get()));
 
-                                // Remove the item.
-                                if (event.getCursor() != null) {
-                                    event.getCursor().setAmount(0);
-                                }
-
                                 user.sendMessage("&7Moved file into folder.");
                                 return actionResult.setCancelled(true);
                             }
@@ -347,7 +342,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                             user.sendMessage("&7Moving " + file.getName());
                             nameClicked.set(file.getName());
                             slotClicked.set(slot);
-                            return actionResult.setCancelled(false);
+                            return actionResult.setCancelled(true);
                         }
 
                         // Check if the player wants to enter the file or folder.
