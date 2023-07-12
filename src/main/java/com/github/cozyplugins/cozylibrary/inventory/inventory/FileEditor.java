@@ -89,7 +89,7 @@ public class FileEditor extends InventoryInterface {
                     }
 
                     @Override
-                    public void onValue(@Nullable String value, @NotNull PlayerUser user) {
+                    public void call(@Nullable String value, @NotNull PlayerUser user) {
                         String currentName = file.getName();
                         String currentPath = file.getAbsolutePath().substring(0, (file.getAbsolutePath().length() - currentName.length()));
 

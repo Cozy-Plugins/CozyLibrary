@@ -43,7 +43,7 @@ public class AnvilInputInventory extends InventoryInterface {
                 .addAction((ClickAction) (user, type, inventory) -> {
                     user.getPlayer().closeInventory();
                     for (AnvilValueAction action : this.actionList) {
-                        action.onValue(null, user);
+                        action.call(null, user);
                     }
                 })
                 .addSlot(0)
@@ -58,7 +58,7 @@ public class AnvilInputInventory extends InventoryInterface {
                     user.getPlayer().closeInventory();
 
                     for (AnvilValueAction action : this.actionList) {
-                        action.onValue(this.input, user);
+                        action.call(this.input, user);
                     }
                 })
                 .addSlot(1)
