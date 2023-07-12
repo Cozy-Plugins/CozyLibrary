@@ -12,6 +12,8 @@ import com.github.cozyplugins.testplugin.inventorys.TestInventory;
 import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+
 /**
  * <h1>Represents a test plugin</h1>
  */
@@ -35,8 +37,8 @@ public final class TestPlugin extends CozyPlugin {
         this.addCommand(new ProgrammableCommand("editor").setPlayer((user, arguments) -> {
             new ConfigurationDirectoryEditor(CozyLibrary.getCommandDirectory()) {
                 @Override
-                public void onOpenFile(@NotNull YamlConfiguration configuration, @NotNull PlayerUser user) {
-                    user.sendMessage("Opened " + configuration.getAbsolutePath());
+                public void onOpenFile(@NotNull File file, @NotNull PlayerUser user) {
+                    user.sendMessage("Opened " + file.getAbsolutePath());
                 }
             }.open(user.getPlayer());
 

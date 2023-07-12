@@ -64,9 +64,9 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
     /**
      * Called when a file is opened.
      *
-     * @param configuration The instance of the configuration file.
+     * @param file The instance of the configuration file.
      */
-    public abstract void onOpenFile(@NotNull YamlConfiguration configuration, @NotNull PlayerUser user);
+    public abstract void onOpenFile(@NotNull File file, @NotNull PlayerUser user);
 
     @Override
     protected void onGenerate(PlayerUser player) {
@@ -305,7 +305,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                             // Check if this is a file.
                             if (file.getName().contains(".yml") || file.getName().contains(".yaml")) {
                                 user.getPlayer().closeInventory();
-                                this.onOpenFile(new YamlConfiguration(file), user);
+                                this.onOpenFile(file, user);
                                 return actionResult.setCancelled(true);
                             }
 
