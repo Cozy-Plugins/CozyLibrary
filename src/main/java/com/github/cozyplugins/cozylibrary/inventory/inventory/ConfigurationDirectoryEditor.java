@@ -15,11 +15,8 @@ import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -48,7 +45,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
         this.store = directory.createStore();
 
         // Make sure the path is not null.
-        this.path = new Path();
+        this.path = new Path(this.directory.getDirectory());
     }
 
     /**
@@ -60,7 +57,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
     public ConfigurationDirectoryEditor(@NotNull ConfigurationDirectory directory, @NotNull String path) {
         this(directory);
 
-        this.path = new Path(path);
+        this.path = new Path(this.directory.getDirectory(), path);
     }
 
     /**
@@ -311,38 +308,24 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                         // Check if the player wants to delete this file or folder.
                         if (type == ClickType.SHIFT_LEFT) {
                             // Ask for confirmation.
-                            new ConfirmationInventory(new ConfirmAction() {
-                                @Override
-                                public @NotNull String getTitle() {
-                                    return "&8&lDelete " + file.getName();
-                                }
+                            new ConfirmationInventory(new ConfirmAction()
+                                    .setAnvilTitle("&8&lDelete " + file.getName())
+                                    .setConfirm(user1 -> {
+                                        boolean success;
+                                        try {
+                                            success = file.delete();
+                                        } catch (Exception exception) {
+                                            exception.printStackTrace();
+                                            success = false;
+                                        }
 
-                                @Override
-                                public void confirm(@NotNull PlayerUser user) {
-                                    boolean success;
-                                    try {
-                                        success = file.delete();
-                                    } catch (Exception exception) {
-                                        exception.printStackTrace();
-                                        success = false;
-                                    }
+                                        if (!success) user1.sendMessage("&7Unable to delete file.");
+                                        if (success) user1.sendMessage("&7Deleted file.");
 
-                                    if (!success) {
-                                        user.sendMessage("&7Unable to delete file.");
-                                    }
-
-                                    if (success) {
-                                        user.sendMessage("&7Deleted file.");
-                                    }
-
-                                    open(user.getPlayer());
-                                }
-
-                                @Override
-                                public void abort(@NotNull PlayerUser user) {
-                                    open(user.getPlayer());
-                                }
-                            }).open(user.getPlayer());
+                                        open(user1.getPlayer());
+                                    })
+                                    .setAbort(user1 -> open(user1.getPlayer()))
+                            ).open(user.getPlayer());
                             return actionResult.setCancelled(true);
                         }
 
@@ -370,7 +353,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
      */
     public void reset(@NotNull PlayerUser player) {
         try {
-            this.path = new Path();
+            this.path = new Path(this.directory.getDirectory());
             this.onGenerate(player);
         } catch (StackOverflowError error) {
             ConsoleManager.error("Configuration directory is not a directory. Directory is named &f" + this.directory.getDirectoryName());
