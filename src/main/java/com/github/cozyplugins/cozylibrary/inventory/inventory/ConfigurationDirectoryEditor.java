@@ -289,6 +289,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                                 // Rename the file to change the location.
                                 fileToChangeDirectory.renameTo(new File(file.getAbsoluteFile() + "/" + nameClicked.get()));
                                 user.sendMessage("&7Moved file into folder.");
+                                this.onGenerate(user);
                                 return actionResult.setCancelled(true);
                             }
 
