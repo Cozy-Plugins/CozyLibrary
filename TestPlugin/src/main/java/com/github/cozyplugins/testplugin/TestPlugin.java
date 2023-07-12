@@ -8,8 +8,6 @@ import com.github.cozyplugins.cozylibrary.inventory.inventory.ConfigurationDirec
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.cozyplugins.testplugin.commands.HelloWorldCommand;
 import com.github.cozyplugins.testplugin.commands.TestCommandType;
-import com.github.cozyplugins.testplugin.inventorys.InputInventory;
-import com.github.cozyplugins.testplugin.inventorys.TestConfirmInventory;
 import com.github.cozyplugins.testplugin.inventorys.TestInventory;
 import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -30,14 +28,6 @@ public final class TestPlugin extends CozyPlugin {
         this.addCommand(new HelloWorldCommand());
         this.addCommand(new ProgrammableCommand("testinventory").setPlayer((user, arguments) -> {
             new TestInventory().open(user.getPlayer());
-            return new CommandStatus();
-        }));
-        this.addCommand(new ProgrammableCommand("inputinventory").setPlayer((user, arguments) -> {
-            new InputInventory("test").open(user.getPlayer());
-            return new CommandStatus();
-        }));
-        this.addCommand(new ProgrammableCommand("confirminventory").setPlayer((user, arguments) -> {
-            new TestConfirmInventory().open(user.getPlayer());
             return new CommandStatus();
         }));
 

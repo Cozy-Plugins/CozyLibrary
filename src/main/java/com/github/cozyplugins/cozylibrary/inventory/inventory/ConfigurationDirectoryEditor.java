@@ -17,6 +17,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -78,7 +79,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
 
         // Check if the folder does not exist.
         if (folder == null) {
-            ConsoleManager.error("Unable to get directory &f" + this.path + " &cfrom &f" + this.directory.getDirectoryName());
+            ConsoleManager.error("Unable to get directory &f" + this.path.getSlashPath() + " &cfrom &f" + this.directory.getDirectoryName());
             player.sendMessage("&7Returning to the main editor page.");
             this.reset(player);
             return;
@@ -157,11 +158,16 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                 )
         );
 
-        // File Location bar.
-        this.generateLocationBar();
+        try {
+            // File Location bar.
+            this.generateLocationBar();
 
-        // File items.
-        this.generateFiles(fileList);
+            // File items.
+            this.generateFiles(fileList);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            ConsoleManager.error(this.path.asString());
+        }
     }
 
     /**
@@ -170,7 +176,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
      */
     public void generateLocationBar() {
         // Get location item names in reverse order.
-        List<String> locationItemNames = this.path.getAsList();
+        List<String> locationItemNames = new ArrayList<>(this.path.getAsList());
         Collections.reverse(locationItemNames); // [Top, ...]
 
         int slot = 9;

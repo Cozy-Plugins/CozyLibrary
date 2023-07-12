@@ -114,10 +114,14 @@ public class Path {
      * @return The top location.
      */
     public @Nullable String pop() {
+        // Check if the path has no file separators.
+        if (!this.path.contains("/")) this.path = "";
+
+        // Get the top.
         String top = this.getTop();
 
         // Remove the top path.
-        this.path = this.path.substring(0, this.path.length() - top.length());
+        this.path = this.path.substring(0, (this.path.length() - top.length()) - 1);
 
         // Return the top.
         return top;
@@ -184,5 +188,14 @@ public class Path {
         );
         configuration.load();
         return this;
+    }
+
+    /**
+     * Used to get the path info as a string.
+     *
+     * @return Into on this class.
+     */
+    public @NotNull String asString() {
+        return "{Path: " + this.getSlashPath() + ", AsList: " + this.getAsList() + "}";
     }
 }
