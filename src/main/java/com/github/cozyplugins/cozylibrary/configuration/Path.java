@@ -141,6 +141,17 @@ public class Path {
         return this;
     }
 
+    public @NotNull Path push(@NotNull String name) {
+        // Check if the path is empty.
+        if (this.isBase()) {
+            this.path = name;
+            return this;
+        }
+
+        this.path = this.path + "/" + name;
+        return this;
+    }
+
     /**
      * Used to create a folder in this path location.
      *

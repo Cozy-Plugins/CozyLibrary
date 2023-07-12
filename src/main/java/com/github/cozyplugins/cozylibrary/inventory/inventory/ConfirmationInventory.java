@@ -56,7 +56,7 @@ public class ConfirmationInventory extends InventoryInterface {
                     user.getPlayer().closeInventory();
 
                     for (ConfirmAction action : this.actionList) {
-                        action.onAbort(user);
+                        action.abort(user);
                     }
                 })
         );
@@ -72,7 +72,7 @@ public class ConfirmationInventory extends InventoryInterface {
                     user.getPlayer().closeInventory();
 
                     for (ConfirmAction action : this.actionList) {
-                        action.onConfirm(user);
+                        action.confirm(user);
                     }
                 })
         );

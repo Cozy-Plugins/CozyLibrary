@@ -212,48 +212,41 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                     if (nameClicked.get() == null) return currentResult;
 
                     // Get and save the new file slot.
-                    String name = nameClicked.get();
-                    ConfigurationSection section = this.store.getSection("base." + this.path + "." + name);
-                    section.set("slot", slot);
+                    String name = nameClicked.get().replace(".yml", "").replace(".yaml", "");
+                    this.store.set("base." + this.path.getDotPath() + "." + name + ".slot", slot);
                     this.store.save();
 
                     user.sendMessage("&7Changed location of " + name + " to " + slot);
 
                     // Re-place items.
                     this.onGenerate(user);
-
-                    // Return false.
                     return currentResult.setCancelled(true);
                 })
         );
 
+        // Place files within this directory.
         for (File file : fileList) {
             // Ignore system files.
             if (file.getName().contains("cozystore")) continue;
             if (file.getName().contains("DS_Store")) continue;
 
-            ConfigurationSection section = this.store.getSection("base." + this.path + "." + file.getName());
+            // Get bare name and section.
+            String name = file.getName().replace(".yml", "").replace(".yaml", "");
+            ConfigurationSection section = this.store.getSection("base." + this.path.getDotPath() + "." + name);
 
-            // Material.
+            // Get the default material.
             Material defaultMaterial = Material.PAPER;
-            if (file.listFiles() != null) {
-                defaultMaterial = Material.BOOK;
-            }
+            if (file.listFiles() != null) defaultMaterial = Material.BOOK;
 
+            // Get the material.
             Material material = Material.getMaterial(section.getString("material", defaultMaterial.toString()));
             if (material == null) {
                 ConsoleManager.warn("Material doesnt exist for " + file.getName() + " in " + this.path + " in " + this.directory.getDirectoryName());
                 material = defaultMaterial;
             }
 
-            section.set("material", material.toString());
-
-            // Slot.
-            int defaultSlot = this.getInventory().firstEmpty();
-
             // Set the item representing the file or folder.
-            this.setItem(new InventoryItem()
-                    .setMaterial(material)
+            this.setItem(new InventoryItem().setMaterial(material)
                     .setName("&6&l" + file.getName())
                     .setLore("&eMove file &fLeft Click",
                             "&eEnter file &fRight click",
@@ -261,8 +254,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                             "&eEdit file &fShift Right Click",
                             "&7When moving a file, you can click another",
                             "&7folder to change its location.")
-                    .setAmount(1)
-                    .addSlot(section.getInteger("slot", defaultSlot))
+                    .addSlot(section.getInteger("slot", this.getInventory().firstEmpty()))
                     .addAction((ClickActionWithResult) (user, type, inventory, actionResult, slot, event) -> {
                         // Check if the player wants to move the item.
                         if (type == ClickType.LEFT) {
@@ -285,17 +277,16 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                                 // Attempting to put a file into a folder.
                                 File fileToChangeDirectory = new File(
                                         this.directory.getDirectory().getAbsolutePath()
-                                                + "/" + this.path.replace(".", "/")
-                                                + nameClicked.get()
+                                                + "/" + this.path.getSlashPath() + nameClicked.get()
                                 );
 
-                                // Rename.
+                                // Rename the file to change the location.
                                 fileToChangeDirectory.renameTo(new File(file.getAbsoluteFile() + "/" + nameClicked.get()));
-
                                 user.sendMessage("&7Moved file into folder.");
                                 return actionResult.setCancelled(true);
                             }
 
+                            // Moving a file or folder.
                             user.sendMessage("&7Moving " + file.getName());
                             nameClicked.set(file.getName());
                             slotClicked.set(slot);
@@ -311,14 +302,8 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                                 return actionResult.setCancelled(true);
                             }
 
-                            // Check if the path is not defined.
-                            if (!this.path.equals("")) {
-                                this.path = this.path + "." + file.getName();
-                                this.onGenerate(user);
-                                return actionResult.setCancelled(true);
-                            }
-
-                            this.path = file.getName();
+                            // Enter the folder.
+                            this.path.push(file.getName());
                             this.onGenerate(user);
                             return actionResult.setCancelled(true);
                         }
@@ -333,7 +318,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                                 }
 
                                 @Override
-                                public void onConfirm(@NotNull PlayerUser user) {
+                                public void confirm(@NotNull PlayerUser user) {
                                     boolean success;
                                     try {
                                         success = file.delete();
@@ -354,7 +339,7 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
                                 }
 
                                 @Override
-                                public void onAbort(@NotNull PlayerUser user) {
+                                public void abort(@NotNull PlayerUser user) {
                                     open(user.getPlayer());
                                 }
                             }).open(user.getPlayer());
