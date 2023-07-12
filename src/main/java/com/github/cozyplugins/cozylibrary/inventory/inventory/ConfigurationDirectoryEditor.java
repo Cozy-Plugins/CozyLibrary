@@ -175,6 +175,9 @@ public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
      * Places the top path on the right.
      */
     public void generateLocationBar() {
+        // Check if the location is already at the base.
+        if (this.path.isBase()) return;
+
         // Get location item names in reverse order.
         List<String> locationItemNames = new ArrayList<>(this.path.getAsList());
         Collections.reverse(locationItemNames); // [Top, ...]

@@ -115,7 +115,11 @@ public class Path {
      */
     public @Nullable String pop() {
         // Check if the path has no file separators.
-        if (!this.path.contains("/")) this.path = "";
+        if (!this.path.contains("/")) {
+            String temp = this.path;
+            this.path = "";
+            return temp;
+        }
 
         // Get the top.
         String top = this.getTop();
