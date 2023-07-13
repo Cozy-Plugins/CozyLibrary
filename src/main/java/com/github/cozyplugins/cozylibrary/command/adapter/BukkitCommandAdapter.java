@@ -104,8 +104,14 @@ public class BukkitCommandAdapter extends Command {
             CozyCommand command = this.cozyCommand.getSubCommands()
                     .getCommand(commandArguments.getSubCommandNameList());
 
-            // Add the sub command names.
-            if (command != null && command.getSubCommands() != null) {
+            boolean commandHasSubCommands = command != null
+                    && command.getSubCommands() != null
+                    && !command.getSubCommands().isEmpty();
+
+            // Add the sub command names if:
+            // - There are no arguments.
+            // - The last argument is a command with sub commands.
+            if (args.length == 1 || commandHasSubCommands) {
                 suggestionList.addAll(commandPool.extractNames());
             }
 
