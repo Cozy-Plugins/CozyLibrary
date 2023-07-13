@@ -74,6 +74,7 @@ public class ProgrammableCommand implements CozyCommand {
 
     @Override
     public @Nullable CommandSuggestions getSuggestions(@NotNull User user, @NotNull CommandArguments arguments) {
+        if (this.programmableSuggestions == null) return null;
         return this.programmableSuggestions.getSuggestions(user, arguments);
     }
 

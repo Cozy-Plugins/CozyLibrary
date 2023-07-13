@@ -96,10 +96,33 @@ public class BukkitCommandAdapter extends Command {
 
         // Check if there are sub commands and add them.
         if (this.cozyCommand.getSubCommands() != null) {
+            // Get the subcommand pool.
             CommandPool commandPool = this.cozyCommand.getSubCommands()
                     .getNextSubCommandList(commandArguments.getSubCommandNameList());
 
+            // Add the sub command names.
             suggestionList.addAll(commandPool.extractNames());
+
+            // Get the current sub command.
+            CozyCommand command = this.cozyCommand.getSubCommands()
+                    .getCommand(commandArguments.getSubCommandNameList());
+
+            // Check if the command exists.
+            if (command != null) {
+
+                // Get the number of subcommand arguments after the sub command.
+                int amountOfSubCommandArguments = index - commandArguments.getSubCommandNameList().size();
+
+                // Get the command suggestions.
+                CommandSuggestions subCommandSuggestions = command.getSuggestions(
+                        User.from(sender), commandArguments
+                );
+
+                // Check if there are sub command suggestions.
+                if (subCommandSuggestions != null) {
+                    suggestionList.addAll(subCommandSuggestions.get(amountOfSubCommandArguments));
+                }
+            }
         }
 
         // Check if any arguments are being searched for.

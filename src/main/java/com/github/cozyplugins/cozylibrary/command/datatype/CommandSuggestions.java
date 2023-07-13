@@ -83,7 +83,8 @@ public class CommandSuggestions {
      * @param index The argument index.
      * @return The list of suggestions.
      */
-    public List<String> get(int index) {
+    public @NotNull List<String> get(int index) {
+        if (this.suggestions.size() - 1 < index) return new ArrayList<>();
         return this.suggestions.get(index);
     }
 }

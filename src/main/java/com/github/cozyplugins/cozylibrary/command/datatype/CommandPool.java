@@ -66,7 +66,8 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
             // Check if the command is stated in the argument.
             if (argumentIsCommandName || containsTheArgumentInAliases) {
 
-                list.add(cozyCommand.getName());
+                // Add the correct name/alias.
+                list.add(argument);
 
                 // Check if the command also have sub commands.
                 if (cozyCommand.getSubCommands() != null && !cozyCommand.getSubCommands().isEmpty()) {
@@ -94,12 +95,14 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
      * @param subCommandNameList The names of the sub commands in order.
      * @return The command pool.
      */
-    public @NotNull CommandPool getNextSubCommandList(List<String> subCommandNameList) {
+    public @NotNull CommandPool getNextSubCommandList(@NotNull List<String> subCommandNameList) {
+        List<String> clone = new ArrayList<>(subCommandNameList);
+
         // Check if there are no command names.
-        if (subCommandNameList.isEmpty()) return this;
+        if (clone.isEmpty()) return this;
 
         // Get the first command.
-        CozyCommand command = this.getFromName(subCommandNameList.get(0));
+        CozyCommand command = this.getFromName(clone.get(0));
         if (command == null) return this;
 
         // Get the sub commands.
@@ -107,13 +110,49 @@ public class CommandPool extends Pool<CozyCommand, CommandPool> {
         if (commandPool == null) return this;
 
         // Remove the command name.
-        subCommandNameList.remove(0);
+        clone.remove(0);
 
         // Check if the list is now empty.
-        if (subCommandNameList.isEmpty()) {
+        if (clone.isEmpty()) {
             return command.getSubCommands();
         }
 
-        return commandPool.getNextSubCommandList(subCommandNameList);
+        return commandPool.getNextSubCommandList(clone);
+    }
+
+    /**
+     * <h1>Used to get the current cozy command being used</h1>
+     * Example:
+     * <p>
+     * input: /test 1 = [1]
+     * output: The instance of the command representing 1.
+     * </p>
+     *
+     * @param subCommandNameList The names of the sub commands in order.
+     * @return Null if the list is empty. Otherwise, the requested command.
+     */
+    public @Nullable CozyCommand getCommand(@NotNull List<String> subCommandNameList) {
+        List<String> clone = new ArrayList<>(subCommandNameList);
+
+        // Check if there are no command names.
+        if (clone.isEmpty()) return null;
+
+        // Get the first command.
+        CozyCommand command = this.getFromName(clone.get(0));
+        if (command == null) return null;
+
+        // Get the sub commands.
+        CommandPool commandPool = command.getSubCommands();
+        if (commandPool == null) return command;
+
+        // Remove the command name.
+        clone.remove(0);
+
+        // Check if the list is now empty.
+        if (clone.isEmpty()) {
+            return command;
+        }
+
+        return commandPool.getCommand(clone);
     }
 }
