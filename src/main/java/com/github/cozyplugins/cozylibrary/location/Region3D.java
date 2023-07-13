@@ -90,7 +90,7 @@ public class Region3D implements Replicable<Region3D> {
      *
      * @return The location of the min point.
      */
-    public Location getMinPoint() {
+    public @NotNull Location getMinPoint() {
         return new Location(
                 this.position1.getWorld(),
                 Math.min(this.position1.getBlockX(), this.position2.getBlockX()),
@@ -105,13 +105,37 @@ public class Region3D implements Replicable<Region3D> {
      *
      * @return The location of the max point.
      */
-    public Location getMaxPoint() {
+    public @NotNull Location getMaxPoint() {
         return new Location(
                 this.position1.getWorld(),
                 Math.max(this.position1.getBlockX(), this.position2.getBlockX()),
                 Math.max(this.position1.getBlockY(), this.position2.getBlockY()),
                 Math.max(this.position1.getBlockZ(), this.position2.getBlockZ())
         );
+    }
+
+    /**
+     * Used to get the center of the region.
+     *
+     * @return The center of the region.
+     */
+    public @NotNull Location getCenter() {
+        return new Location(
+                this.position1.getWorld(),
+                (this.getMinPoint().getX() + this.getMaxPoint().getX()) / 2,
+                (this.getMinPoint().getY() + this.getMaxPoint().getY()) / 2,
+                (this.getMinPoint().getZ() + this.getMaxPoint().getZ()) / 2
+        );
+    }
+
+    /**
+     * Used to get the distance from the center of the region.
+     *
+     * @param location The instance of the location.
+     * @return The distance between the center and given location.
+     */
+    public double getDistanceFromCenter(@NotNull Location location) {
+        return Region3D.getDistance(location, this.getCenter());
     }
 
     /**
@@ -132,5 +156,21 @@ public class Region3D implements Replicable<Region3D> {
         return location.getBlockX() >= min.getBlockX() && location.getBlockX() <= max.getBlockX()
                 && location.getBlockY() >= min.getBlockY() && location.getBlockY() <= max.getBlockY()
                 && location.getBlockZ() >= min.getBlockZ() && location.getBlockZ() <= max.getBlockZ();
+    }
+
+    /**
+     * Used to get the distance between two locations
+     * in 3 dimensions.
+     *
+     * @param position1 The first position.
+     * @param position2 The second position.
+     * @return The distance between the two locations.
+     */
+    public static double getDistance(@NotNull Location position1, @NotNull Location position2) {
+        return Math.abs(Math.sqrt(
+                Math.pow((position1.getX() - position2.getX()), 2) +
+                Math.pow((position1.getY() - position2.getY()), 2) +
+                Math.pow((position1.getZ() - position2.getZ()), 2)
+        ));
     }
 }
