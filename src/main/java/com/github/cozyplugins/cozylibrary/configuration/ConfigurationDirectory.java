@@ -227,7 +227,10 @@ public abstract class ConfigurationDirectory extends MemoryConfigurationSection 
 
         List<File> finalFileList = new ArrayList<>();
         for (File file : fileList) {
+            // Ignore system files.
             if (file.getName().equals(".DS_Store")) continue;
+            if (file.getName().contains("cozystore")) continue;
+
             List<File> filesInFile = ConfigurationDirectory.getFiles(file);
             if (filesInFile.isEmpty()) {
                 finalFileList.add(file);
