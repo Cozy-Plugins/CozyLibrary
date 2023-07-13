@@ -12,7 +12,7 @@ public class ListUtility {
      * <h1>Used to remove the first items from the list</h1>
      *
      * @param list   The instance of a list.
-     * @param amount The amount of items to remove.
+     * @param amount The number of items to remove.
      * @return The new instance of the list.
      */
     public static List<String> removeTheFirst(List<String> list, int amount) {

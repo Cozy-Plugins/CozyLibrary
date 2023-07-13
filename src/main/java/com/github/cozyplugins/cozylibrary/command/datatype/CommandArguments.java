@@ -50,11 +50,10 @@ public class CommandArguments {
 
         // Check if there are sub commands.
         if (cozyCommand.getSubCommands() != null && !cozyCommand.getSubCommands().isEmpty()) {
-            List<String> leftOverArgs = new ArrayList<>(argsList);
+            List<String> subCommandNames = new ArrayList<>(cozyCommand.getSubCommands().extractNames(argsList));
 
             arguments = new CommandArguments(
-                    label, cozyCommand.getSubCommands().extractNames(argsList),
-                    ListUtility.removeTheFirst(leftOverArgs, argsList.size())
+                    label, subCommandNames, ListUtility.removeTheFirst(argsList, subCommandNames.size())
             );
         }
 
