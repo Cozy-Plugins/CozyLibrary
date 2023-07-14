@@ -1,13 +1,25 @@
 package com.github.cozyplugins.cozylibrary.location;
 
+import com.github.cozyplugins.cozylibrary.indicator.ConfigurationConvertable;
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
+import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
+import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.jetbrains.annotations.NotNull;
+import org.yaml.snakeyaml.error.YAMLException;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Represents a 3 dimensional region.
  */
-public class Region3D implements Replicable<Region3D> {
+public class Region3D implements Replicable<Region3D>, ConfigurationConvertable {
 
     private @NotNull Location position1;
     private @NotNull Location position2;
@@ -36,8 +48,62 @@ public class Region3D implements Replicable<Region3D> {
     }
 
     @Override
+    public String toString() {
+        assert this.position1.getWorld() != null;
+        return "{Region3D: {world: " + this.position1.getWorld().getName()
+                + ", pos1: " + this.position1.getX() + " " + this.position1.getY() + " " + this.position1.getZ()
+                + ", pos2: " + this.position2.getX() + " " + this.position2.getY() + " " + this.position2.getZ()
+                + "}}";
+    }
+
+    @Override
     public Region3D duplicate() {
         return new Region3D(this.position1.clone(), this.position2.clone());
+    }
+
+    @Override
+    public @NotNull ConfigurationSection convert() {
+        ConfigurationSection section = new MemoryConfigurationSection(new HashMap<>());
+
+        assert this.position1.getWorld() != null;
+
+        section.set("world", this.position1.getWorld().getName());
+
+        section.set("position1.x", this.position1.getX());
+        section.set("position1.y", this.position1.getY());
+        section.set("position1.z", this.position1.getZ());
+
+        section.set("position2.x", this.position2.getX());
+        section.set("position2.y", this.position2.getY());
+        section.set("position2.z", this.position2.getZ());
+
+        return section;
+    }
+
+    @Override
+    public void convert(ConfigurationSection section) {
+        World world = Bukkit.getWorld(section.getString("world", null));
+
+        // Check if the world is null.
+        if (world == null) {
+            throw new YAMLException("Unable to load world from configuration. World does not exists : " + section.getString("world"));
+        }
+
+        // Set first position.
+        this.position1 = new Location(
+                world,
+                (double) section.get("position1.x"),
+                (double) section.get("position1.y"),
+                (double) section.get("position1.z")
+        );
+
+        // Set second position.
+        this.position2 = new Location(
+                world,
+                (double) section.get("position2.x"),
+                (double) section.get("position2.y"),
+                (double) section.get("position2.z")
+        );
     }
 
     /**
@@ -56,32 +122,6 @@ public class Region3D implements Replicable<Region3D> {
      */
     public @NotNull Location getPosition2() {
         return this.position2;
-    }
-
-    /**
-     * Used to expand the region in all directions.
-     *
-     * @param amount The amount to expand the region by.
-     * @return This instance.
-     */
-    public @NotNull Region3D expand(double amount) {
-        this.position1.add(amount, amount, amount);
-        this.position2.add(amount, amount, amount);
-        return this;
-    }
-
-    /**
-     * Used to expand the region in all directions.
-     *
-     * @param x The amount to expand in the x direction.
-     * @param y The amount to expand in the y direction.
-     * @param z The amount to expand in the z direction.
-     * @return This instance.
-     */
-    public @NotNull Region3D expand(double x, double y, double z) {
-        this.position1.add(x, y, z);
-        this.position2.add(x, y, z);
-        return this;
     }
 
     /**
@@ -139,6 +179,72 @@ public class Region3D implements Replicable<Region3D> {
     }
 
     /**
+     * Used to get the list of blocks in this region.
+     *
+     * @return The list of blocks.
+     */
+    public @NotNull List<Block> getBlockList() {
+        List<Block> blockList = new ArrayList<>();
+
+        for (int x = this.getMinPoint().getBlockX(); x < this.getMaxPoint().getBlockX(); x++) {
+            for (int y = this.getMinPoint().getBlockY(); y < this.getMaxPoint().getBlockY(); y++) {
+                for (int z = this.getMinPoint().getBlockZ(); z < this.getMaxPoint().getBlockZ(); z++) {
+
+                    Location location = new Location(this.position1.getWorld(), x, y, z);
+                    blockList.add(location.getBlock());
+                }
+            }
+        }
+
+        return blockList;
+    }
+
+    /**
+     * Used to expand the region in all directions.
+     * <li>
+     * The minimum point will be decreased and the max will be increased.
+     * </li>
+     * <li>
+     * This process will also change the location
+     * of the 2 positions entered originally.
+     * </li>
+     *
+     * @param x The amount to expand in the x direction.
+     * @param y The amount to expand in the y direction.
+     * @param z The amount to expand in the z direction.
+     * @return This instance.
+     */
+    public @NotNull Region3D expand(double x, double y, double z) {
+        Location min = this.getMinPoint();
+        Location max = this.getMaxPoint();
+
+        min.add(-x, -y, -z);
+        max.add(x, y, z);
+
+        this.position1 = min;
+        this.position2 = max;
+        return this;
+    }
+
+    /**
+     * Used to expand the region in all directions.
+     * <li>
+     * The minimum point will be decreased and the max will be increased.
+     * </li>
+     * <li>
+     * This process will also change the location
+     * of the 2 positions entered originally.
+     * </li>
+     *
+     * @param amount The amount to expand the region by.
+     * @return This instance.
+     */
+    public @NotNull Region3D expand(double amount) {
+        this.expand(amount, amount, amount);
+        return this;
+    }
+
+    /**
      * Used to check if a location is within the region.
      *
      * @param location The instance of the location.
@@ -159,6 +265,75 @@ public class Region3D implements Replicable<Region3D> {
     }
 
     /**
+     * Used to check if the region contains a material.
+     * <li>
+     * To find the material, the method goes though each
+     * location, checking for the material.
+     * </li>
+     *
+     * @param material The material to look for.
+     * @return True if the region contains the material.
+     */
+    public boolean contains(@NotNull Material material) {
+        // Loop though all blocks.
+        for (int x = this.getMinPoint().getBlockX(); x < this.getMaxPoint().getBlockX(); x++) {
+            for (int y = this.getMinPoint().getBlockY(); y < this.getMaxPoint().getBlockY(); y++) {
+                for (int z = this.getMinPoint().getBlockZ(); z < this.getMaxPoint().getBlockZ(); z++) {
+
+                    Location location = new Location(this.position1.getWorld(), x, y, z);
+                    if (location.getBlock().getType() == material) return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Used to check if the region is all 1 type of material.
+     * <li>
+     * This method has a time complexity of O(n) ~ O(2n)
+     * where n is the number of blocks.
+     * </li>
+     *
+     * @param material The material to check for.
+     * @return True if the region is all 1 material.
+     */
+    public boolean isMaterial(@NotNull Material material) {
+        for (Block block : this.getBlockList()) {
+            if (block.getType() != material) return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Used to check if the region is all 1 type of material.
+     * <li>
+     * This method has a time complexity of O(n) ~ O(2n)
+     * where n is the number of blocks.
+     * </li>
+     *
+     * @return True if the region is the same material.
+     */
+    public boolean isMaterial() {
+        return this.isMaterial(this.position1.getBlock().getType());
+    }
+
+    /**
+     * Used to check if the region is all air.
+     * <li>
+     * This method has a time complexity of O(n) ~ O(2n)
+     * where n is the number of blocks.
+     * </li>
+     *
+     * @return True if the region is all air.
+     */
+    public boolean isAir() {
+        return this.isMaterial(Material.AIR);
+    }
+
+    /**
      * Used to get the distance between two locations
      * in 3 dimensions.
      *
@@ -169,8 +344,8 @@ public class Region3D implements Replicable<Region3D> {
     public static double getDistance(@NotNull Location position1, @NotNull Location position2) {
         return Math.abs(Math.sqrt(
                 Math.pow((position1.getX() - position2.getX()), 2) +
-                Math.pow((position1.getY() - position2.getY()), 2) +
-                Math.pow((position1.getZ() - position2.getZ()), 2)
+                        Math.pow((position1.getY() - position2.getY()), 2) +
+                        Math.pow((position1.getZ() - position2.getZ()), 2)
         ));
     }
 }
