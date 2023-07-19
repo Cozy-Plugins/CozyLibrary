@@ -1,7 +1,9 @@
 package com.github.cozyplugins.cozylibrary.inventory;
 
 import com.github.cozyplugins.cozylibrary.inventory.action.Action;
+import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.item.NBTItemAdapter;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -25,6 +27,17 @@ public class InventoryItem extends NBTItemAdapter<InventoryItem> {
 
         this.slotPool = new SlotPool();
         this.actionList = new ArrayList<>();
+    }
+
+    /**
+     * Used to create an inventory item given an item stack base.
+     *
+     * @param itemStack The instance of the item stack.
+     */
+    public InventoryItem(@NotNull ItemStack itemStack) {
+        this();
+
+        this.itemStack = itemStack;
     }
 
     /**

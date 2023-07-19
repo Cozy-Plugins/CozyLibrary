@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class ItemStackAdapter<S extends ItemStackAdapter<S>> {
 
-    protected final @NotNull ItemStack itemStack;
+    protected @NotNull ItemStack itemStack;
 
     /**
      * <h1>Initialises the cozy item</h1>
