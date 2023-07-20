@@ -8,11 +8,7 @@ import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickActionWithResult;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents the pages in the reward bundle editor.
@@ -76,7 +72,7 @@ public enum RewardBundleEditorPage {
 
         @Override
         public void goBack(@NotNull RewardBundleEditorInventory inventory, @NotNull PlayerUser user) {
-            InventoryInterface backInventory = inventory.onBackButton();
+            InventoryInterface backInventory = inventory.onBackButton(user);
             user.getPlayer().closeInventory();
 
             // Check if the inventory is null.
@@ -147,7 +143,7 @@ public enum RewardBundleEditorPage {
      * Used to generate the page.
      *
      * @param inventory The instance of the inventory.
-     * @param user The instance of the user.
+     * @param user      The instance of the user.
      */
     public abstract void generate(@NotNull RewardBundleEditorInventory inventory, @NotNull PlayerUser user);
 

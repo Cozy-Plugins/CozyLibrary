@@ -18,7 +18,7 @@ import java.util.List;
  */
 public abstract class RewardBundleEditorInventory extends InventoryInterface {
 
-    private @NotNull RewardBundle rewardBundle;
+    private final @NotNull RewardBundle rewardBundle;
     private @NotNull RewardBundleEditorPage page;
 
     /**
@@ -46,7 +46,7 @@ public abstract class RewardBundleEditorInventory extends InventoryInterface {
      *
      * @return The inventory to go back to when the back button is pressed.
      */
-    protected abstract @Nullable InventoryInterface onBackButton();
+    protected abstract @Nullable InventoryInterface onBackButton(@NotNull PlayerUser user);
 
     @Override
     protected void onGenerate(PlayerUser player) {

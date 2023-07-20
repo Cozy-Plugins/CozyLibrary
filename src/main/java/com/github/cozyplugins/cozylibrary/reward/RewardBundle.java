@@ -115,7 +115,7 @@ public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConv
         }
 
         this.commandList = section.getListString("commands", new ArrayList<>());
-        this.money = section.getClass("money", Double.class,0d);
+        this.money = section.getClass("money", Double.class, 0d);
 
         return this;
     }

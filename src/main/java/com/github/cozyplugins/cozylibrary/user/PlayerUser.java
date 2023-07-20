@@ -107,7 +107,7 @@ public class PlayerUser implements User {
     /**
      * Used to run commands as operator.
      *
-     * @param command1 The first command.
+     * @param command1      The first command.
      * @param otherCommands Other commands to run.
      * @return This instance.
      */

@@ -1,7 +1,5 @@
 package com.github.cozyplugins.cozylibrary.dependency;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
@@ -56,7 +54,7 @@ public class VaultAPIDependency {
     /**
      * Used to give a player money.
      *
-     * @param user The instance of the user.
+     * @param user   The instance of the user.
      * @param amount The amount to give.
      * @return If the deposit was a success.
      */
@@ -69,7 +67,7 @@ public class VaultAPIDependency {
     /**
      * Used to remove money from a player.
      *
-     * @param user The instance of the user.
+     * @param user   The instance of the user.
      * @param amount The amount to remove.
      * @return If the withdrawal was a success.
      */
