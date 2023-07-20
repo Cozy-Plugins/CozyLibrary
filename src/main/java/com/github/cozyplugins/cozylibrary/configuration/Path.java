@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Path {
 
-    private @NotNull File base;
+    private final @NotNull File base;
     /**
      * The instance of the path with slashes.
      */

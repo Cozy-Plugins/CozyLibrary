@@ -21,7 +21,8 @@ public class AnvilValueAction implements Action {
      */
     public AnvilValueAction() {
         this.anvilTitle = "&7";
-        this.valueAction = (value, user) -> {};
+        this.valueAction = (value, user) -> {
+        };
     }
 
     /**
@@ -38,7 +39,7 @@ public class AnvilValueAction implements Action {
          * </p>
          *
          * @param value The value that was given.
-         * @param user The instance of the user.
+         * @param user  The instance of the user.
          */
         void onValue(@Nullable String value, @NotNull PlayerUser user);
     }
@@ -82,7 +83,7 @@ public class AnvilValueAction implements Action {
      * </p>
      *
      * @param value The value that was given.
-     * @param user The instance of the user.
+     * @param user  The instance of the user.
      */
     public void call(@Nullable String value, @NotNull PlayerUser user) {
         this.valueAction.onValue(value, user);

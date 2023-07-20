@@ -19,8 +19,10 @@ public class ConfirmAction implements Action {
 
     public ConfirmAction() {
         this.title = "&7";
-        this.confirm = (user) -> {};
-        this.abort = (user) -> {};
+        this.confirm = (user) -> {
+        };
+        this.abort = (user) -> {
+        };
     }
 
     public interface ValueAction {

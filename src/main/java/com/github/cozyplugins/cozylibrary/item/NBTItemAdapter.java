@@ -1,10 +1,20 @@
 package com.github.cozyplugins.cozylibrary.item;
 
+import com.github.cozyplugins.cozylibrary.ConsoleManager;
+import com.github.cozyplugins.cozylibrary.indicator.ConfigurationConvertable;
+import com.github.cozyplugins.cozylibrary.indicator.Replicable;
+import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
+import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <h1>Represents an nbt item adapter</h1>
@@ -12,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @param <S> The return type.
  */
-public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter<S> {
+public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter<S> implements ConfigurationConvertable, Replicable<NBTItemAdapter<S>> {
 
     /**
      * <h1>Used to create an empty item</h1>
@@ -100,6 +110,22 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
     }
 
     /**
+     * Used to get the nbt as a map.
+     *
+     * @return The nbt as a map.
+     */
+    public @NotNull Map<String, Object> getNBT() {
+        Map<String, Object> nbtMap = new HashMap<>();
+        NBTItem item = this.createNBTItem();
+
+        for (String key : item.getKeys()) {
+            nbtMap.put(key, item.getObject(key, Object.class));
+        }
+
+        return nbtMap;
+    }
+
+    /**
      * <h1>Used to get a nbt value</h1>
      *
      * @param key  The name of the key.
@@ -167,5 +193,62 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
             return nbtItem;
         });
         return (S) this;
+    }
+
+    @Override
+    public @NotNull ConfigurationSection convert() {
+        ConfigurationSection section = new MemoryConfigurationSection(new HashMap<>());
+
+        // Item stack adapter.
+        section.set("material", this.getMaterial());
+        section.set("amount", this.getAmount());
+        section.set("durability", this.getDurability());
+        section.set("enchantments", this.getEnchantments());
+
+        // Meta item adapter.
+        section.set("name", this.getName());
+        section.set("lore", this.getLore());
+        section.set("custom_model_data", this.getCustomModelData());
+        section.set("item_flags", this.getItemFlags());
+        section.set("unbreakable", this.isUnbreakable());
+
+        // NBT item adapter.
+        section.set("nbt", this.getNBT());
+
+        return section;
+    }
+
+    @Override
+    public void convert(ConfigurationSection section) {
+        String materialName = section.getString("material", "AIR");
+        if (materialName != null && Material.getMaterial(materialName.toUpperCase()) != null) {
+            this.setMaterial(Material.getMaterial(materialName));
+        } else {
+            ConsoleManager.warn("Could not find material : " + section.getString("material") + " for item with map " + section.getMap());
+            this.setMaterial(Material.AIR);
+        }
+
+        this.setAmount(section.getInteger("amount", 1));
+
+        if (section.getInteger("durability", -1) != -1) {
+            this.setDurability(section.getInteger("durability"));
+        }
+
+        this.addEnchantments(section.getSection("enchantments"));
+        this.setName(section.getString("name", "&7"));
+        this.setLore(section.getListString("lore", new ArrayList<>()));
+
+        if (section.getInteger("custom_model_data", -1) != -1) {
+            this.setCustomModelData(section.getInteger("custom_model_data"));
+        }
+
+        this.addItemFlags(section.getListString("item_flags", new ArrayList<>()));
+        this.setUnbreakable(section.getBoolean("unbreakable", false));
+    }
+
+    @Override
+    public NBTItemAdapter<S> duplicate() {
+        ItemStack item = this.create().clone();
+        return new NBTItemAdapter<>(item);
     }
 }

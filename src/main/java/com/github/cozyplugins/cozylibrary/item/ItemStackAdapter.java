@@ -1,5 +1,6 @@
 package com.github.cozyplugins.cozylibrary.item;
 
+import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.Material;
 import org.bukkit.Utility;
 import org.bukkit.enchantments.Enchantment;
@@ -188,6 +189,21 @@ public class ItemStackAdapter<S extends ItemStackAdapter<S>> {
      */
     public @NotNull S addEnchantments(@NotNull Map<Enchantment, Integer> enchantmentList) {
         this.itemStack.addUnsafeEnchantments(enchantmentList);
+        return (S) this;
+    }
+
+    /**
+     * Used to add enchantments from a configuration section.
+     *
+     * @param section The configuration section that contains
+     *                the key value pairs on enchant to integer.
+     * @return This instance.
+     */
+    public @NotNull S addEnchantments(@NotNull ConfigurationSection section) {
+        for (String key : section.getKeys()) {
+            Enchantment enchantment = Enchantment.getByName(key);
+            this.addEnchantment(enchantment, section.getInteger(key, 0));
+        }
         return (S) this;
     }
 

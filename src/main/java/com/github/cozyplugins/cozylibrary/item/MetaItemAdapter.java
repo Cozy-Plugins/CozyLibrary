@@ -218,6 +218,19 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
     }
 
     /**
+     * Used to add a list of item flags to the item.
+     *
+     * @param itemFlags The list of item flags.
+     * @return This instance.
+     */
+    public @NotNull S addItemFlags(@NotNull List<String> itemFlags) {
+        for (String itemFlagName : itemFlags) {
+            this.addItemFlags(ItemFlag.valueOf(itemFlagName));
+        }
+        return (S) this;
+    }
+
+    /**
      * <h1>Removes item flags from the item</h1>
      *
      * @param itemFlags The item flags to remove.
@@ -298,6 +311,35 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
     }
 
     /**
+     * <h1>Used to get the items attribute modifiers as a map.</h1>
+     *
+     * @return The instance of the map of modifiers.
+     */
+    public @Nullable Map<Attribute, List<AttributeModifier>> getAttributeModifiersAsMap() {
+        Multimap<Attribute, AttributeModifier> multimap = this.getAttributeModifiers();
+        if (multimap == null) return null;
+
+        // The map to return.
+        Map<Attribute, List<AttributeModifier>> map = new HashMap<>();
+
+        // Go through each value.
+        for (Map.Entry<Attribute, AttributeModifier> entry : multimap.entries()) {
+            // Check if the map already contains this key.
+            if (map.containsKey(entry.getKey())) {
+                map.get(entry.getKey()).add(entry.getValue());
+                continue;
+            }
+
+            List<AttributeModifier> list = new ArrayList<>();
+            list.add(entry.getValue());
+
+            map.put(entry.getKey(), list);
+        }
+
+        return map;
+    }
+
+    /**
      * <h1>Used to get the items attribute modifiers for an equipment slot</h1>
      *
      * @param slot The equipment slot.
@@ -345,6 +387,23 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
         ItemMeta itemMeta = this.getItemMeta();
         itemMeta.setAttributeModifiers(attributeModifiers);
         this.setItemMeta(itemMeta);
+        return (S) this;
+    }
+
+    /**
+     * Used to set the attribute modifiers to a map.
+     *
+     * @param attributeModifiers The map of attribute modifiers.
+     * @return This instance.
+     */
+    public @NotNull S setAttributeModifiers(@Nullable Map<Attribute, List<AttributeModifier>> attributeModifiers) {
+        if (attributeModifiers == null) return (S) this;
+        for (Map.Entry<Attribute, List<AttributeModifier>> entry : attributeModifiers.entrySet()) {
+            for (AttributeModifier attributeModifier : entry.getValue()) {
+                this.addAttributeModifier(entry.getKey(), attributeModifier);
+            }
+        }
+
         return (S) this;
     }
 
