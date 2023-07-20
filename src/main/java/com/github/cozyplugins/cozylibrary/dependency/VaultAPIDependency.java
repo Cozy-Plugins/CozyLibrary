@@ -7,6 +7,7 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -25,12 +26,16 @@ public class VaultAPIDependency {
             return;
         }
 
-        VaultAPIDependency.economy = CozyPlugin
-                .getPlugin()
-                .getServer()
-                .getServicesManager()
-                .getRegistration(Economy.class)
-                .getProvider();
+        RegisteredServiceProvider<Economy> economyProvider = CozyPlugin.getPlugin().getServer()
+                .getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+
+        // Check if the economy provider exists.
+        if (economyProvider == null) {
+            ConsoleManager.warn("Unable to get the economy provider from the plugin vault. Some features may be disabled as a result.");
+            return;
+        }
+
+        VaultAPIDependency.economy = economyProvider.getProvider();
     }
 
     /**
