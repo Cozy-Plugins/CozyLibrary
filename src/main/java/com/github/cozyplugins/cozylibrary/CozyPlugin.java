@@ -6,6 +6,7 @@ import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.configuration.CommandDirectory;
 import com.github.cozyplugins.cozylibrary.dependency.ProtocolDependency;
+import com.github.cozyplugins.cozylibrary.dependency.VaultAPIDependency;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,8 +29,9 @@ public abstract class CozyPlugin extends JavaPlugin {
         // Set up the plugin instance.
         CozyPlugin.plugin = this;
 
-        // Set up the protocol dependency.
+        // Set up the dependency's.
         ProtocolDependency.setup();
+        VaultAPIDependency.setup();
 
         // Setup command directory.
         CozyLibrary.setCommandDirectory(new CommandDirectory("commands.yml", this.getClass()));

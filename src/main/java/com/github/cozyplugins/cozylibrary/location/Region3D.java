@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Represents a 3 dimensional region.
  */
-public class Region3D implements Replicable<Region3D>, ConfigurationConvertable {
+public class Region3D implements Replicable<Region3D>, ConfigurationConvertable<Region3D> {
 
     private @NotNull Location position1;
     private @NotNull Location position2;
@@ -81,7 +81,7 @@ public class Region3D implements Replicable<Region3D>, ConfigurationConvertable 
     }
 
     @Override
-    public void convert(ConfigurationSection section) {
+    public Region3D convert(ConfigurationSection section) {
         World world = Bukkit.getWorld(section.getString("world", null));
 
         // Check if the world is null.
@@ -104,6 +104,8 @@ public class Region3D implements Replicable<Region3D>, ConfigurationConvertable 
                 (double) section.get("position2.y"),
                 (double) section.get("position2.z")
         );
+
+        return this;
     }
 
     /**

@@ -23,8 +23,10 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates if a class can be converted into a {@link ConfigurationSection}.
+ *
+ * @param <T> The class instance to return.
  */
-public interface ConfigurationConvertable {
+public interface ConfigurationConvertable<T> {
 
     /**
      * Used to convert the class into an unlinked configuration section.
@@ -43,5 +45,5 @@ public interface ConfigurationConvertable {
      *
      * @param section The instance of the configuration section.
      */
-    void convert(ConfigurationSection section);
+    T convert(ConfigurationSection section);
 }

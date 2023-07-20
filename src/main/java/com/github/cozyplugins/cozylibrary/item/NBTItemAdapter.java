@@ -22,7 +22,7 @@ import java.util.Map;
  *
  * @param <S> The return type.
  */
-public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter<S> implements ConfigurationConvertable, Replicable<NBTItemAdapter<S>> {
+public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter<S> implements ConfigurationConvertable<S>, Replicable<ItemStack> {
 
     /**
      * <h1>Used to create an empty item</h1>
@@ -219,7 +219,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
     }
 
     @Override
-    public void convert(ConfigurationSection section) {
+    public S convert(ConfigurationSection section) {
         String materialName = section.getString("material", "AIR");
         if (materialName != null && Material.getMaterial(materialName.toUpperCase()) != null) {
             this.setMaterial(Material.getMaterial(materialName));
@@ -244,11 +244,12 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
 
         this.addItemFlags(section.getListString("item_flags", new ArrayList<>()));
         this.setUnbreakable(section.getBoolean("unbreakable", false));
+
+        return (S) this;
     }
 
     @Override
-    public NBTItemAdapter<S> duplicate() {
-        ItemStack item = this.create().clone();
-        return new NBTItemAdapter<>(item);
+    public ItemStack duplicate() {
+        return this.create().clone();
     }
 }
