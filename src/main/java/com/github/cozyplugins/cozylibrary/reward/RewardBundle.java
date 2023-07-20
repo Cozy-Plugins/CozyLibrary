@@ -20,7 +20,7 @@ public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConv
 
     private final @NotNull List<CozyItem> itemList;
     private @NotNull List<String> commandList;
-    private int money;
+    private double money;
 
     /**
      * Used to create a reward bundle.
@@ -54,7 +54,7 @@ public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConv
      *
      * @return The amount of money.
      */
-    public int getMoney() {
+    public double getMoney() {
         return money;
     }
 
@@ -64,7 +64,7 @@ public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConv
      * @param money The amount of money.
      * @return This instance.
      */
-    public @NotNull RewardBundle setMoney(int money) {
+    public @NotNull RewardBundle setMoney(double money) {
         this.money = money;
         return this;
     }
@@ -115,7 +115,7 @@ public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConv
         }
 
         this.commandList = section.getListString("commands", new ArrayList<>());
-        this.money = section.getInteger("money", 0);
+        this.money = section.getClass("money", Double.class,0d);
 
         return this;
     }
