@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +24,7 @@ public abstract class InventoryInterface {
 
     private final @NotNull UUID uuid;
     private @NotNull Inventory inventory;
-    private final @NotNull Map<Integer, List<Action>> actionMap;
+    private @NotNull Map<Integer, List<Action>> actionMap;
     private @Nullable PlayerUser owner;
 
     private final @NotNull String title;
@@ -390,6 +391,17 @@ public abstract class InventoryInterface {
             player.closeInventory();
         }
         InventoryManager.remove(this);
+        return this;
+    }
+
+    /**
+     * Used to completely reset the inventory's contents and actions.
+     *
+     * @return This instance.
+     */
+    protected @NotNull InventoryInterface resetInventory() {
+        this.actionMap = new HashMap<>();
+        this.inventory.setContents(new ItemStack[]{});
         return this;
     }
 }
