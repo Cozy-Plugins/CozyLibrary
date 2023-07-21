@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,25 +68,6 @@ public abstract class RewardBundleEditorInventory extends InventoryInterface {
 
         // Generate page.
         this.page.generate(this, player);
-    }
-
-    @Override
-    public @NotNull InventoryInterface close() {
-        // Check if the page is the item page.
-        // This is where the player can add items to
-        // save to the reward bundle.
-        if (this.page == RewardBundleEditorPage.ITEM) {
-            Inventory inventory = this.getInventory();
-
-            // Add items in inventory to the bundle.
-            List<CozyItem> itemList = this.rewardBundle.getItemList();
-            for (ItemStack item : inventory.getContents()) {
-                itemList.add(new CozyItem(item));
-            }
-        }
-
-        super.close();
-        return this;
     }
 
     /**

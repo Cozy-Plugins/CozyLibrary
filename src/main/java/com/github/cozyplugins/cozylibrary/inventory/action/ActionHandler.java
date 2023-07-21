@@ -30,8 +30,9 @@ public interface ActionHandler {
      * @param inventoryInterface The instance of the inventory.
      * @param user               The instance of the user.
      * @param event              The instance of the event.
+     * @return True if the inventory should not be un-registered.
      */
-    void onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event);
+    boolean onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event);
 
     /**
      * Called everytime a player edits a character in an anvil.

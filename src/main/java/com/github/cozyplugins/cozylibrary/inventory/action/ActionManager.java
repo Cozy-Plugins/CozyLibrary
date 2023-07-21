@@ -20,8 +20,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * <h1>Represents the action manager</h1>
@@ -30,6 +29,11 @@ import java.util.List;
 public final class ActionManager implements Listener {
 
     private static @NotNull List<ActionHandler> actionHandlerList;
+
+    /*
+    Used to stop inventory's infinatly closing.
+     */
+    private static Map<UUID, Long> lastClose = new HashMap<>();
 
     /**
      * <h1>Used to create a action manager</h1>
@@ -45,6 +49,7 @@ public final class ActionManager implements Listener {
         ActionManager.addActionHandler(new AnvilValueActionHandler());
         ActionManager.addActionHandler(new ConfirmActionHandler());
         ActionManager.addActionHandler(new ClickActionWithResultHandler());
+        ActionManager.addActionHandler(new CloseActionHandler());
 
         if (!ProtocolDependency.isEnabled()) return;
 
@@ -89,8 +94,8 @@ public final class ActionManager implements Listener {
             return;
         }
 
-        // Cancel event by default.
-        event.setCancelled(true);
+        // Cancel event by default if nto placeable.
+        if (!inventory.isPlaceable()) event.setCancelled(true);
 
         // Get the user.
         PlayerUser user = new PlayerUser((Player) event.getWhoClicked());
@@ -107,6 +112,20 @@ public final class ActionManager implements Listener {
     @EventHandler
     private void onInventoryClose(InventoryCloseEvent event) {
 
+        // If the player is in the map.
+        if (ActionManager.lastClose.containsKey(event.getPlayer().getUniqueId())) {
+            long lastClose = ActionManager.lastClose.get(event.getPlayer().getUniqueId());
+            long now = System.currentTimeMillis();
+
+            // Check if they have closed the inventory withing 0.5s.
+            if (now - lastClose < 500) return;
+
+            ActionManager.lastClose = new HashMap<>();
+        }
+
+        // Add the player to the map.
+        ActionManager.lastClose.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
+
         // Attempt to get the inventory as a registered inventory interface.
         InventoryInterface inventory = InventoryManager.get(event.getInventory());
         if (inventory == null) return;
@@ -114,13 +133,15 @@ public final class ActionManager implements Listener {
         // Get the user.
         PlayerUser user = new PlayerUser((Player) event.getPlayer());
 
+        boolean notUnregister = false;
+
         // Call the method on inventory click for each action handler.
         for (ActionHandler actionHandler : ActionManager.actionHandlerList) {
-            actionHandler.onInventoryClose(inventory, user, event);
+            if (actionHandler.onInventoryClose(inventory, user, event)) notUnregister = true;
         }
 
-        // If there are no viewers, close the inventory.
-        if (event.getInventory().getViewers().isEmpty() && !inventory.getStayActive()) {
+        // If it can be unregistered and there are no viewers, close the inventory.
+        if (!notUnregister && event.getInventory().getViewers().isEmpty() && !inventory.getStayActive()) {
             inventory.close();
         }
     }

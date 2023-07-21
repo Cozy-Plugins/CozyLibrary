@@ -2,6 +2,7 @@ package com.github.cozyplugins.cozylibrary.inventory;
 
 import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.github.cozyplugins.cozylibrary.inventory.action.Action;
+import com.github.cozyplugins.cozylibrary.inventory.action.action.CloseAction;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Bukkit;
@@ -25,6 +26,7 @@ public abstract class InventoryInterface {
     private final @NotNull UUID uuid;
     private @NotNull Inventory inventory;
     private @NotNull Map<Integer, List<Action>> actionMap;
+    private @NotNull List<CloseAction> closeActionList;
     private @Nullable PlayerUser owner;
 
     private final @NotNull String title;
@@ -33,6 +35,7 @@ public abstract class InventoryInterface {
 
     private final boolean isGenerated = false;
     private boolean stayActive = false;
+    private boolean isPlaceable = false;
 
     /**
      * <h1>Used to create an inventory interface</h1>
@@ -44,6 +47,7 @@ public abstract class InventoryInterface {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(null, size, MessageManager.parse(title));
         this.actionMap = new HashMap<>();
+        this.closeActionList = new ArrayList<>();
         this.owner = null;
         this.title = title;
         this.size = size;
@@ -61,6 +65,7 @@ public abstract class InventoryInterface {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(null, type, MessageManager.parse(title));
         this.actionMap = new HashMap<>();
+        this.closeActionList = new ArrayList<>();
         this.owner = null;
         this.title = title;
         this.type = type;
@@ -79,6 +84,7 @@ public abstract class InventoryInterface {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(owner, size, MessageManager.parse(title, owner));
         this.actionMap = new HashMap<>();
+        this.closeActionList = new ArrayList<>();
         this.owner = new PlayerUser(owner);
         this.title = title;
         this.size = size;
@@ -97,6 +103,7 @@ public abstract class InventoryInterface {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(owner, type, MessageManager.parse(title, owner));
         this.actionMap = new HashMap<>();
+        this.closeActionList = new ArrayList<>();
         this.owner = new PlayerUser(owner);
         this.title = title;
         this.type = type;
@@ -110,6 +117,29 @@ public abstract class InventoryInterface {
      * @param player The instance of the player user.
      */
     protected abstract void onGenerate(PlayerUser player);
+
+
+    /**
+     * Used to set if players can place items in the inventory.
+     * This defaults to false.
+     *
+     * @param isPlaceable True if the inventory should be placeable.
+     * @return This instance.
+     */
+    public @NotNull InventoryInterface setPlaceable(boolean isPlaceable) {
+        this.isPlaceable = isPlaceable;
+        return this;
+    }
+
+    /**
+     * Used to check if the inventory is placeable.
+     * Determines if players can place items in the inventory by default.
+     *
+     * @return True if placeable.
+     */
+    public boolean isPlaceable() {
+        return this.isPlaceable;
+    }
 
     /**
      * <h1>Used to put a item into the inventory</h1>
@@ -262,6 +292,17 @@ public abstract class InventoryInterface {
     }
 
     /**
+     * Used to add a close action.
+     *
+     * @param closeAction The instance of a close action.
+     * @return This instance.
+     */
+    public @NotNull InventoryInterface addCloseAction(@NotNull CloseAction closeAction) {
+        this.closeActionList.add(closeAction);
+        return this;
+    }
+
+    /**
      * Used to set the inventory to stay active in the plugin if
      * a player exits the inventory and there are no more viewers.
      *
@@ -317,6 +358,15 @@ public abstract class InventoryInterface {
         }
 
         return actionTypeList;
+    }
+
+    /**
+     * Used to get the close action list.
+     *
+     * @return The list of close actions.
+     */
+    public @NotNull List<CloseAction> getCloseActionList() {
+        return this.closeActionList;
     }
 
     /**
@@ -399,8 +449,9 @@ public abstract class InventoryInterface {
      *
      * @return This instance.
      */
-    protected @NotNull InventoryInterface resetInventory() {
+    public @NotNull InventoryInterface resetInventory() {
         this.actionMap = new HashMap<>();
+        this.closeActionList = new ArrayList<>();
         this.inventory.setContents(new ItemStack[]{});
         return this;
     }

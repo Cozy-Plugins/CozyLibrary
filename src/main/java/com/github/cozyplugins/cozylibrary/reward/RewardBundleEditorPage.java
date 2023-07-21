@@ -6,9 +6,16 @@ import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickActionWithResult;
+import com.github.cozyplugins.cozylibrary.inventory.action.action.CloseAction;
+import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the pages in the reward bundle editor.
@@ -84,11 +91,31 @@ public enum RewardBundleEditorPage {
     }, ITEM {
         @Override
         public void generate(@NotNull RewardBundleEditorInventory inventory, @NotNull PlayerUser user) {
-            // Make the inventory placeable.
-            // When closed the inventory will detect and go back, saving the content to the bundle.
-            inventory.insertItem(new InventoryItem()
-                    .addAction((ClickActionWithResult) (user1, type, inventory1, currentResult, slot, event)
-                            -> new ActionResult().setCancelled(false)));
+            inventory.resetInventory();
+            inventory.setPlaceable(true);
+
+            // Add close action.
+            inventory.addCloseAction((user1, inventory1) -> {
+                // Add items in inventory to the bundle.
+                List<CozyItem> itemList = new ArrayList<>();
+                for (ItemStack item : inventory1.getContents()) {
+                    if (item == null) continue;
+                    itemList.add(new CozyItem(item));
+                }
+
+                inventory.getBundle().setItemList(itemList);
+                inventory.setPage(RewardBundleEditorPage.MAIN);
+                inventory.setPlaceable(false);
+                inventory.onGenerate(user1);
+                inventory.open(user1.getPlayer());
+
+                return true;
+            });
+
+            // Generate items.
+            for (CozyItem item : inventory.getBundle().getItemList()) {
+                inventory.insertItem(new InventoryItem(item.create()));
+            }
         }
 
         @Override

@@ -3,33 +3,31 @@ package com.github.cozyplugins.cozylibrary.inventory.action.handler;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionHandler;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
-import com.github.cozyplugins.cozylibrary.inventory.action.action.ConfirmAction;
-import com.github.cozyplugins.cozylibrary.inventory.inventory.ConfirmationInventory;
+import com.github.cozyplugins.cozylibrary.inventory.action.action.CloseAction;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 /**
- * Represents the confirmation action.
+ * Represents the close action handler.
  */
-public class ConfirmActionHandler implements ActionHandler {
+public class CloseActionHandler implements ActionHandler {
 
     @Override
     public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event) {
-        List<ConfirmAction> actionList = inventoryInterface.getActionList(event.getSlot(), ConfirmAction.class);
-        if (actionList.isEmpty()) return new ActionResult();
-
-        new ConfirmationInventory(actionList).open(user.getPlayer());
-
         return new ActionResult();
     }
 
     @Override
     public boolean onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
-        return false;
+        boolean notUnregister = false;
+
+        for (CloseAction closeAction : inventoryInterface.getCloseActionList()) {
+            if (closeAction.onClose(user, event.getInventory())) notUnregister = true;
+        }
+
+        return notUnregister;
     }
 
     @Override

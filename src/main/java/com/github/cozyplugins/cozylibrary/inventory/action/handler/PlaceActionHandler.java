@@ -48,8 +48,8 @@ public class PlaceActionHandler implements ActionHandler {
     }
 
     @Override
-    public void onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
-
+    public boolean onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
+        return false;
     }
 
     @Override

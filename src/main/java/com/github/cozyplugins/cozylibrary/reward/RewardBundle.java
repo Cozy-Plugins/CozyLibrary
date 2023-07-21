@@ -18,7 +18,7 @@ import java.util.UUID;
  */
 public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConvertable<RewardBundle> {
 
-    private final @NotNull List<CozyItem> itemList;
+    private @NotNull List<CozyItem> itemList;
     private @NotNull List<String> commandList;
     private double money;
 
@@ -66,6 +66,17 @@ public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConv
      */
     public @NotNull RewardBundle setMoney(double money) {
         this.money = money;
+        return this;
+    }
+
+    /**
+     * Used to set the item list.
+     *
+     * @param itemList The instance of a item list.
+     * @return This instance.
+     */
+    public @NotNull RewardBundle setItemList(@NotNull List<CozyItem> itemList) {
+        this.itemList = itemList;
         return this;
     }
 
