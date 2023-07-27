@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
+import org.checkerframework.checker.index.qual.Positive;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -167,5 +168,20 @@ public class PlayerUser implements User {
     public boolean removeMoney(double amount) {
         if (!VaultAPIDependency.isEnabled()) return false;
         return VaultAPIDependency.removeMoney(this, amount);
+    }
+
+    /**
+     * Used to change the amount of money the
+     * player has by a certain amount.
+     * If the amount is positive the money will be given.
+     * If its negative the money will be taken away.
+     *
+     * @param amount The amount of money to change by.
+     * @return True if the money was changed successfully.
+     */
+    public boolean changeMoney(double amount) {
+        if (amount > 0) return this.giveMoney(amount);
+        if (amount < 0) return this.removeMoney(Math.abs(amount));
+        return false;
     }
 }

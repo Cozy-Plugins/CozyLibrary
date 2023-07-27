@@ -99,8 +99,13 @@ public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConv
         user.runCommandsAsOp(this.commandList);
 
         // Give money.
-        if (user.giveMoney(this.money)) {
-            user.sendMessage("&7You have received &f$" + this.money);
+        if (user.changeMoney(this.money)) {
+            if (this.money > 0) {
+                user.sendMessage("&7You have received &f$" + this.money + "&7.");
+            }
+            if (this.money < 0) {
+                user.sendMessage("&7&f$" + this.money + " &7has been taken from your balance.");
+            }
         }
         return this;
     }
@@ -114,9 +119,9 @@ public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConv
             itemSection.set(UUID.randomUUID().toString(), item.convert().getMap());
         }
 
-        section.set("items", itemSection.getMap());
-        section.set("commands", this.commandList);
-        section.set("money", this.money);
+        if (!this.itemList.isEmpty()) section.set("items", itemSection.getMap());
+        if (!this.commandList.isEmpty()) section.set("commands", this.commandList);
+        if (this.money != 0) section.set("money", this.money);
 
         return section;
     }
