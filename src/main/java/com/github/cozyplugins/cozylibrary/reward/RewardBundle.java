@@ -1,6 +1,5 @@
 package com.github.cozyplugins.cozylibrary.reward;
 
-import com.github.cozyplugins.cozylibrary.dependency.VaultAPIDependency;
 import com.github.cozyplugins.cozylibrary.indicator.ConfigurationConvertable;
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;

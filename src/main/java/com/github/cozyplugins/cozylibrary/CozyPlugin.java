@@ -5,10 +5,14 @@ import com.github.cozyplugins.cozylibrary.command.CozyCommandHandler;
 import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.cozyplugins.cozylibrary.configuration.CommandDirectory;
+import com.github.cozyplugins.cozylibrary.dependency.PlaceholderAPIDependency;
 import com.github.cozyplugins.cozylibrary.dependency.ProtocolDependency;
 import com.github.cozyplugins.cozylibrary.dependency.VaultAPIDependency;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionManager;
+import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholder;
+import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholderExpansion;
+import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholderManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +36,7 @@ public abstract class CozyPlugin extends JavaPlugin {
         // Set up the dependency's.
         ProtocolDependency.setup();
         VaultAPIDependency.setup();
+        CozyPlaceholderManager.setup();
 
         // Setup command directory.
         CozyLibrary.setCommandDirectory(new CommandDirectory("commands.yml", this.getClass()));
@@ -50,6 +55,12 @@ public abstract class CozyPlugin extends JavaPlugin {
 
         // Register inventory events.
         new ActionManager(this);
+
+        // Check if the placeholder api is enabled.
+        if (PlaceholderAPIDependency.isEnabled()) {
+            // Register placeholder expansion.
+            new CozyPlaceholderExpansion().register();
+        }
     }
 
     @Override
@@ -105,6 +116,17 @@ public abstract class CozyPlugin extends JavaPlugin {
      */
     public @NotNull CozyPlugin addCommandType(CommandType commandType) {
         CommandTypeManager.register(commandType);
+        return this;
+    }
+
+    /**
+     * Used to add a cozy placeholder to the manager.
+     *
+     * @param placeholder The instance of the placeholder.
+     * @return This instance.
+     */
+    public @NotNull CozyPlugin addPlaceholder(@NotNull CozyPlaceholder placeholder) {
+        CozyPlaceholderManager.add(placeholder);
         return this;
     }
 

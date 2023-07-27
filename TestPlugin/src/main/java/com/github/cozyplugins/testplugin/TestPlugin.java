@@ -6,12 +6,15 @@ import com.github.cozyplugins.cozylibrary.command.command.command.ProgrammableCo
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandSuggestions;
 import com.github.cozyplugins.cozylibrary.inventory.inventory.ConfigurationDirectoryEditor;
+import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholder;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.cozyplugins.testplugin.commands.HelloWorldCommand;
 import com.github.cozyplugins.testplugin.commands.TestCommandType;
 import com.github.cozyplugins.testplugin.inventorys.RewardInventory;
 import com.github.cozyplugins.testplugin.inventorys.TestInventory;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
@@ -62,5 +65,18 @@ public final class TestPlugin extends CozyPlugin {
 
         // Setup command types.
         this.addCommandType(new TestCommandType());
+
+        // Add placeholder.
+        this.addPlaceholder(new CozyPlaceholder() {
+            @Override
+            public @NotNull String getIdentifier() {
+                return "test";
+            }
+
+            @Override
+            public @NotNull String getValue(@Nullable Player player, @NotNull String params) {
+                return "testing 123";
+            }
+        });
     }
 }

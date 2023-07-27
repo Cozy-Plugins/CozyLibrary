@@ -2,15 +2,11 @@ package com.github.cozyplugins.cozylibrary.reward;
 
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
-import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
-import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickActionWithResult;
-import com.github.cozyplugins.cozylibrary.inventory.action.action.CloseAction;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Material;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -105,7 +101,7 @@ public enum RewardBundleEditorPage {
             List<CozyItem> itemList = new ArrayList<>();
             int slot = -1;
             for (ItemStack item : inventory.getInventory().getContents()) {
-                slot ++;
+                slot++;
                 if (item == null) continue;
                 if (slot >= 45) continue;
 
