@@ -1,5 +1,6 @@
 package com.github.cozyplugins.cozylibrary.reward;
 
+import com.github.cozyplugins.cozylibrary.dependency.VaultAPIDependency;
 import com.github.cozyplugins.cozylibrary.indicator.ConfigurationConvertable;
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
@@ -98,7 +99,9 @@ public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConv
         user.runCommandsAsOp(this.commandList);
 
         // Give money.
-        user.giveMoney(this.money);
+        if (user.giveMoney(this.money)) {
+            user.sendMessage("&7You have received &f$" + this.money);
+        }
         return this;
     }
 

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CozyLibrary.iml" filepath="$PROJECT_DIR$/CozyLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CozyLibrary.iml" filepath="$PROJECT_DIR$/.idea/CozyLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestPlugin/TestPlugin.iml" filepath="$PROJECT_DIR$/TestPlugin/TestPlugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/com.github.cozyplugins.cozylibrary.CozyLibrary.iml" filepath="$PROJECT_DIR$/com.github.cozyplugins.cozylibrary.CozyLibrary.iml" />
     </modules>

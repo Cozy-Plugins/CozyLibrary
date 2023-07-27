@@ -6,13 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="com.github.cozyplugins.cozylibrary.CozyLibrary" />
-        <module name="TestPlugin" />
         <module name="CozyLibrary" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="com.github.cozyplugins.cozylibrary.CozyLibrary" target="16" />
-    </bytecodeTargetLevel>
   </component>
 </project>

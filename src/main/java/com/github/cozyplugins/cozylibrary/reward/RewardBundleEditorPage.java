@@ -91,26 +91,7 @@ public enum RewardBundleEditorPage {
     }, ITEM {
         @Override
         public void generate(@NotNull RewardBundleEditorInventory inventory, @NotNull PlayerUser user) {
-            inventory.resetInventory();
             inventory.setPlaceable(true);
-
-            // Add close action.
-            inventory.addCloseAction((user1, inventory1) -> {
-                // Add items in inventory to the bundle.
-                List<CozyItem> itemList = new ArrayList<>();
-                for (ItemStack item : inventory1.getContents()) {
-                    if (item == null) continue;
-                    itemList.add(new CozyItem(item));
-                }
-
-                inventory.getBundle().setItemList(itemList);
-                inventory.setPage(RewardBundleEditorPage.MAIN);
-                inventory.setPlaceable(false);
-                inventory.onGenerate(user1);
-                inventory.open(user1.getPlayer());
-
-                return true;
-            });
 
             // Generate items.
             for (CozyItem item : inventory.getBundle().getItemList()) {
@@ -120,6 +101,22 @@ public enum RewardBundleEditorPage {
 
         @Override
         public void goBack(@NotNull RewardBundleEditorInventory inventory, @NotNull PlayerUser user) {
+            // Add items in inventory to the bundle.
+            List<CozyItem> itemList = new ArrayList<>();
+            int slot = -1;
+            for (ItemStack item : inventory.getInventory().getContents()) {
+                slot ++;
+                if (item == null) continue;
+                if (slot >= 45) continue;
+
+                itemList.add(new CozyItem(item));
+            }
+
+            // Add items to the bundle.
+            inventory.getBundle().setItemList(itemList);
+
+            // Set main inventory.
+            inventory.setPlaceable(false);
             inventory.setPage(RewardBundleEditorPage.MAIN);
             inventory.onGenerate(user);
         }
@@ -131,7 +128,9 @@ public enum RewardBundleEditorPage {
                     .setMaterial(Material.LIME_STAINED_GLASS_PANE)
                     .setName("&a&lCreate A Command")
                     .setLore("&7Click to create a command that",
-                            "&7will be executed with the rewards.")
+                            "&7will be executed with the rewards.",
+                            "&7You may use the placeholder &f{player}",
+                            "&7for the players name.")
                     .addSlot(49)
                     .addAction(new AnvilValueAction()
                             .setAnvilTitle("&8&lCommand")

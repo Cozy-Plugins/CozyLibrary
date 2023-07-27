@@ -30,11 +30,6 @@ public final class ActionManager implements Listener {
 
     private static @NotNull List<ActionHandler> actionHandlerList;
 
-    /*
-    Used to stop inventory's infinatly closing.
-     */
-    private static Map<UUID, Long> lastClose = new HashMap<>();
-
     /**
      * <h1>Used to create a action manager</h1>
      *
@@ -111,21 +106,6 @@ public final class ActionManager implements Listener {
 
     @EventHandler
     private void onInventoryClose(InventoryCloseEvent event) {
-
-        // If the player is in the map.
-        if (ActionManager.lastClose.containsKey(event.getPlayer().getUniqueId())) {
-            long lastClose = ActionManager.lastClose.get(event.getPlayer().getUniqueId());
-            long now = System.currentTimeMillis();
-
-            // Check if they have closed the inventory withing 0.5s.
-            if (now - lastClose < 500) return;
-
-            ActionManager.lastClose = new HashMap<>();
-        }
-
-        // Add the player to the map.
-        ActionManager.lastClose.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
-
         // Attempt to get the inventory as a registered inventory interface.
         InventoryInterface inventory = InventoryManager.get(event.getInventory());
         if (inventory == null) return;

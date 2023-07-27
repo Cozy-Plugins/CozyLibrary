@@ -4,34 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a45d43c1-cd7c-4ef3-8209-3a31263bf2b6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/action/CloseAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/CloseActionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/InventoryInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/InventoryInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/ActionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/ActionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/ActionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/ActionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/AnvilValueActionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/AnvilValueActionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/ClickActionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/ClickActionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/ClickActionWithResultHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/ClickActionWithResultHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/ConfirmActionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/ConfirmActionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/PlaceActionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/PlaceActionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/reward/RewardBundle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/reward/RewardBundle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/reward/RewardBundleEditorInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/reward/RewardBundleEditorInventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/reward/RewardBundleEditorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/reward/RewardBundleEditorPage.java" afterDir="false" />
+    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="package-info" />
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -46,7 +29,7 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="2NvV5FuHVLnTCuPbqMmg9nDic5J" />
+  <component name="ProjectId" id="2Svq4b6k0kErBZRbQ7MPIp2YD6q" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -58,193 +41,26 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/joshuasmith/Dropbox/Responsorys/CozyPlugins/CozyLibrary&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/TestPlugin" />
-      <recent name="$PROJECT_DIR$/library" />
-      <recent name="$PROJECT_DIR$/src" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.github.cozyplugins.cozylibrary" />
-      <recent name="" />
-      <recent name="com.github.cozyplugins" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.github.cozyplugins.cozylibrary.indicator" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="CozyCommandLibary" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="CozyCommandLibary" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestPlugin" type="MavenRunConfiguration" factoryName="Maven">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="package" />
-              </list>
-            </option>
-            <option name="pomFileName" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$/TestPlugin" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a45d43c1-cd7c-4ef3-8209-3a31263bf2b6" name="Changes" comment="" />
-      <created>1680544357616</created>
+      <changelist id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="" />
+      <created>1690037215990</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1680544357616</updated>
-      <workItem from="1680544358926" duration="76000" />
-      <workItem from="1680544438875" duration="7000" />
-      <workItem from="1680544448511" duration="829000" />
-      <workItem from="1680545364824" duration="5522000" />
-      <workItem from="1680559216056" duration="2646000" />
-      <workItem from="1680636001380" duration="5660000" />
-      <workItem from="1680644524097" duration="4396000" />
-      <workItem from="1680717199070" duration="843000" />
-      <workItem from="1680718362782" duration="150000" />
-      <workItem from="1680718536069" duration="60000" />
-      <workItem from="1680718700640" duration="6364000" />
-      <workItem from="1680730123412" duration="4776000" />
-      <workItem from="1680792911255" duration="612000" />
-      <workItem from="1680799740941" duration="10000" />
-      <workItem from="1680889746185" duration="933000" />
-      <workItem from="1680897142662" duration="617000" />
-      <workItem from="1680983954794" duration="6287000" />
-      <workItem from="1681061798419" duration="19871000" />
-      <workItem from="1681163689710" duration="2119000" />
-      <workItem from="1681234396089" duration="16000" />
-      <workItem from="1681247881267" duration="11862000" />
-      <workItem from="1681259875590" duration="84000" />
-      <workItem from="1681259970578" duration="1000" />
-      <workItem from="1681259985317" duration="126000" />
-      <workItem from="1681260116342" duration="11000" />
-      <workItem from="1681260179015" duration="417000" />
-      <workItem from="1681262683327" duration="571000" />
-      <workItem from="1681263263429" duration="360000" />
-      <workItem from="1681319808178" duration="3763000" />
-      <workItem from="1681333019953" duration="7310000" />
-      <workItem from="1681494156191" duration="5225000" />
-      <workItem from="1681569138410" duration="1000" />
-      <workItem from="1681585513715" duration="2468000" />
-      <workItem from="1681595753366" duration="85000" />
-      <workItem from="1681595843196" duration="5848000" />
-      <workItem from="1681673359727" duration="6533000" />
-      <workItem from="1681748753399" duration="8242000" />
-      <workItem from="1681767676876" duration="799000" />
-      <workItem from="1682019146785" duration="4389000" />
-      <workItem from="1683232712725" duration="4424000" />
-      <workItem from="1683994165377" duration="5326000" />
-      <workItem from="1684005584223" duration="5392000" />
-      <workItem from="1684082675773" duration="1699000" />
-      <workItem from="1684089505957" duration="6617000" />
-      <workItem from="1684168481748" duration="1995000" />
-      <workItem from="1684441911759" duration="1426000" />
-      <workItem from="1684525204396" duration="1123000" />
-      <workItem from="1684781336714" duration="6147000" />
-      <workItem from="1684861714914" duration="7498000" />
-      <workItem from="1684956911178" duration="3845000" />
-      <workItem from="1685048487308" duration="3373000" />
-      <workItem from="1685123590290" duration="5724000" />
-      <workItem from="1685215724023" duration="3096000" />
-      <workItem from="1685271306622" duration="2098000" />
-      <workItem from="1685278382089" duration="5041000" />
-      <workItem from="1687377505631" duration="2077000" />
-      <workItem from="1687458113588" duration="115000" />
-      <workItem from="1687461877102" duration="8156000" />
-      <workItem from="1687556623562" duration="1240000" />
-      <workItem from="1687869334868" duration="341000" />
-      <workItem from="1687870745593" duration="3740000" />
-      <workItem from="1687880164780" duration="13637000" />
-      <workItem from="1687954533419" duration="1486000" />
-      <workItem from="1687967862881" duration="621000" />
-      <workItem from="1688477538611" duration="31000" />
-      <workItem from="1688563728662" duration="12950000" />
-      <workItem from="1688585675086" duration="5040000" />
-      <workItem from="1688657204490" duration="2113000" />
-      <workItem from="1688832677134" duration="602000" />
-      <workItem from="1688841496886" duration="3484000" />
-      <workItem from="1688845298812" duration="2006000" />
-      <workItem from="1689015497876" duration="9149000" />
-      <workItem from="1689088091790" duration="2985000" />
-      <workItem from="1689091136038" duration="5356000" />
-      <workItem from="1689182109849" duration="9054000" />
-      <workItem from="1689201106861" duration="388000" />
-      <workItem from="1689258690274" duration="133000" />
-      <workItem from="1689260206539" duration="3384000" />
-      <workItem from="1689267440322" duration="43000" />
-      <workItem from="1689267487555" duration="1065000" />
-      <workItem from="1689275846728" duration="1631000" />
-      <workItem from="1689284102026" duration="1000" />
-      <workItem from="1689284268079" duration="1831000" />
-      <workItem from="1689286180728" duration="673000" />
-      <workItem from="1689339263368" duration="2420000" />
-      <workItem from="1689346952554" duration="92000" />
-      <workItem from="1689695383168" duration="29000" />
-      <workItem from="1689790838236" duration="169000" />
-      <workItem from="1689859574776" duration="18824000" />
+      <updated>1690037215990</updated>
+      <workItem from="1690037217530" duration="34000" />
+      <workItem from="1690041105323" duration="211000" />
+      <workItem from="1690041684014" duration="34000" />
+      <workItem from="1690204937616" duration="23000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

@@ -2,12 +2,17 @@ package com.github.cozyplugins.cozylibrary.reward;
 
 import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
+import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
+import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickActionWithResult;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,7 +60,13 @@ public abstract class RewardBundleEditorInventory extends InventoryInterface {
         this.resetInventory();
 
         // Set background.
-        this.setItem(new CozyItem(Material.GRAY_STAINED_GLASS_PANE).setName("&7"), 45, 53);
+        this.setItem(new InventoryItem()
+                .setMaterial(Material.GRAY_STAINED_GLASS_PANE)
+                .setName("&7")
+                .addSlotRange(45, 53)
+                .addAction((ClickActionWithResult) (user, type, inventory, currentResult, slot, event)
+                        -> new ActionResult().setCancelled(true))
+        );
 
         // Set back button.
         this.setItem(new InventoryItem()
@@ -63,7 +74,10 @@ public abstract class RewardBundleEditorInventory extends InventoryInterface {
                 .setName("&a&lBack")
                 .setLore("&7Click to go back.")
                 .addSlot(45)
-                .addAction((ClickAction) (user, type, inventory) -> this.page.goBack(this, user))
+                .addAction((ClickActionWithResult) (user, type, inventory, currentResult, slot, event) -> {
+                    this.page.goBack(this, user);
+                    return new ActionResult().setCancelled(true);
+                })
         );
 
         // Generate page.

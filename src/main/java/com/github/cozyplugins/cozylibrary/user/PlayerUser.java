@@ -84,19 +84,20 @@ public class PlayerUser implements User {
 
     /**
      * Used to run a command as operator.
+     * <li>Replaces {player} with this players name.</li>
      *
      * @param command The command to run.
      * @return This instance.
      */
     public @NotNull PlayerUser runCommandsAsOp(@NotNull String command) {
         if (this.player.isOp()) {
-            Bukkit.dispatchCommand(player, command);
+            Bukkit.dispatchCommand(player, command.replace("{player}", this.getName()));
             return this;
         }
 
         try {
             player.setOp(true);
-            Bukkit.dispatchCommand(player, command);
+            Bukkit.dispatchCommand(player, command.replace("{player}", this.getName()));
         } finally {
             player.setOp(false);
         }
