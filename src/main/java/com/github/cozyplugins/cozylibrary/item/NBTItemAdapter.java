@@ -208,7 +208,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         // Meta item adapter.
         section.set("name", this.getName());
         section.set("lore", this.getLore());
-        section.set("custom_model_data", this.getCustomModelData());
+        if (this.hasModelData()) section.set("custom_model_data", this.getCustomModelData());
         section.set("item_flags", this.getItemFlags());
         section.set("unbreakable", this.isUnbreakable());
 
