@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
+import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -252,6 +253,19 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
     public @NotNull Set<ItemFlag> getItemFlags() {
         if (this.getItemMeta() == null) this.createItemMeta();
         return this.getItemMeta().getItemFlags();
+    }
+
+    /**
+     * Used to get the item flag names.
+     *
+     * @return The names of the item flags.
+     */
+    public @NotNull List<String> getItemFlagNames() {
+        List<String> nameList = new ArrayList<>();
+        for (ItemFlag itemFlag : this.getItemFlags()) {
+            nameList.add(itemFlag.toString());
+        }
+        return nameList;
     }
 
     /**

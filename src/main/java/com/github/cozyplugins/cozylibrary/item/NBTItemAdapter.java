@@ -203,17 +203,17 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         section.set("material", this.getMaterial().toString());
         section.set("amount", this.getAmount());
         section.set("durability", this.getDurability());
-        section.set("enchantments", this.getEnchantments());
+        if (!this.getEnchantments().isEmpty()) section.set("enchantments", this.getEnchantments());
 
         // Meta item adapter.
-        section.set("name", this.getName());
-        section.set("lore", this.getLore());
+        if (!this.getName().equals("")) section.set("name", this.getName());
+        if (!this.getLore().isEmpty()) section.set("lore", this.getLore());
         if (this.hasModelData()) section.set("custom_model_data", this.getCustomModelData());
-        section.set("item_flags", this.getItemFlags());
+        if (!this.getItemFlags().isEmpty()) section.set("item_flags", this.getItemFlagNames());
         section.set("unbreakable", this.isUnbreakable());
 
         // NBT item adapter.
-        section.set("nbt", this.getNBT());
+        if (!this.getNBT().isEmpty()) section.set("nbt", this.getNBT());
 
         return section;
     }
@@ -234,15 +234,15 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
             this.setDurability(section.getInteger("durability"));
         }
 
-        this.addEnchantments(section.getSection("enchantments"));
-        this.setName(section.getString("name", "&7"));
-        this.setLore(section.getListString("lore", new ArrayList<>()));
+        if (section.getKeys().contains("enchantments")) this.addEnchantments(section.getSection("enchantments"));
+        if (section.getKeys().contains("name")) this.setName(section.getString("name"));
+        if (section.getKeys().contains("lore")) this.setLore(section.getListString("lore", new ArrayList<>()));
 
         if (section.getInteger("custom_model_data", -1) != -1) {
             this.setCustomModelData(section.getInteger("custom_model_data"));
         }
 
-        this.addItemFlags(section.getListString("item_flags", new ArrayList<>()));
+        if (section.getKeys().contains("item_flags")) this.addItemFlags(section.getListString("item_flags", new ArrayList<>()));
         this.setUnbreakable(section.getBoolean("unbreakable", false));
 
         return (S) this;
