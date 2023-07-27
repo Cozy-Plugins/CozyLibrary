@@ -1,7 +1,9 @@
 package com.github.cozyplugins.cozylibrary.item;
 
+import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Utility;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -191,7 +193,7 @@ public class ItemStackAdapter<S extends ItemStackAdapter<S>> {
         Map<String, Integer> map = new HashMap<>();
 
         for (Map.Entry<Enchantment, Integer> entry : this.getEnchantments().entrySet()) {
-            map.put(entry.getKey().toString(), entry.getValue());
+            map.put(entry.getKey().getKey().toString(), entry.getValue());
         }
 
         return map;
@@ -218,7 +220,11 @@ public class ItemStackAdapter<S extends ItemStackAdapter<S>> {
      */
     public @NotNull S addEnchantments(@NotNull ConfigurationSection section) {
         for (String key : section.getKeys()) {
-            Enchantment enchantment = Enchantment.getByName(key);
+            Enchantment enchantment = Enchantment.getByKey(NamespacedKey.fromString(key));
+            if (enchantment == null) {
+                ConsoleManager.warn("Enchantment null. Could not find the enchantment : " + key);
+                continue;
+            }
             this.addEnchantment(enchantment, section.getInteger(key, 0));
         }
         return (S) this;
