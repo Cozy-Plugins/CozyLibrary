@@ -203,7 +203,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         section.set("material", this.getMaterial().toString());
         section.set("amount", this.getAmount());
         section.set("durability", this.getDurability());
-        if (!this.getEnchantments().isEmpty()) section.set("enchantments", this.getEnchantments());
+        if (!this.getEnchantments().isEmpty()) section.set("enchantments", this.getEnchantmentNames());
 
         // Meta item adapter.
         if (!this.getName().equals("")) section.set("name", this.getName());

@@ -11,6 +11,7 @@ import org.bukkit.material.MaterialData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -178,6 +179,22 @@ public class ItemStackAdapter<S extends ItemStackAdapter<S>> {
      */
     public @NotNull Map<Enchantment, Integer> getEnchantments() {
         return this.itemStack.getEnchantments();
+    }
+
+    /**
+     * Used to convert the map of enchantments to
+     * the enchantment name and level.
+     *
+     * @return The enchantment names.
+     */
+    public @NotNull Map<String, Integer> getEnchantmentNames() {
+        Map<String, Integer> map = new HashMap<>();
+
+        for (Map.Entry<Enchantment, Integer> entry : this.getEnchantments()) {
+            map.put(entry.getKey().toString(), entry.getValue());
+        }
+
+        return map;
     }
 
     /**
