@@ -190,7 +190,7 @@ public class ItemStackAdapter<S extends ItemStackAdapter<S>> {
     public @NotNull Map<String, Integer> getEnchantmentNames() {
         Map<String, Integer> map = new HashMap<>();
 
-        for (Map.Entry<Enchantment, Integer> entry : this.getEnchantments()) {
+        for (Map.Entry<Enchantment, Integer> entry : this.getEnchantments().entrySet()) {
             map.put(entry.getKey().toString(), entry.getValue());
         }
 
