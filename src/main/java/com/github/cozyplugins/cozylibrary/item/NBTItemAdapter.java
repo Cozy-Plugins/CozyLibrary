@@ -200,7 +200,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         ConfigurationSection section = new MemoryConfigurationSection(new HashMap<>());
 
         // Item stack adapter.
-        section.set("material", this.getMaterial());
+        section.set("material", this.getMaterial().toString());
         section.set("amount", this.getAmount());
         section.set("durability", this.getDurability());
         section.set("enchantments", this.getEnchantments());
