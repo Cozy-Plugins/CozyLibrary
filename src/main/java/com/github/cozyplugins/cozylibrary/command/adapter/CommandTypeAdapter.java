@@ -72,6 +72,11 @@ public class CommandTypeAdapter implements CozyCommand {
         CommandPool commandPool = new CommandPool();
 
         for (CommandType commandType : this.commandType.getSubCommandTypes()) {
+            // Check if the command type is enabled.
+            if (!this.section.getKeys().contains(commandType.getIdentifier())) continue;
+            if (!this.section.getSection(commandType.getIdentifier()).getBoolean("enable", true)) continue;
+
+            // Create command and add to the sub command pool.
             CozyCommand command = new CommandTypeAdapter(
                     this.section.getSection(commandType.getIdentifier()),
                     commandType

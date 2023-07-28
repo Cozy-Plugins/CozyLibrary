@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/placeholder/CozyPlaceholder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/placeholder/CozyPlaceholderExpansion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/placeholder/CozyPlaceholderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CozyLibrary.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CozyLibrary.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlugin/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/resources/plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/action/CloseAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/action/CloseAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/item/NBTItemAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/item/NBTItemAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/reward/RewardBundleEditorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/reward/RewardBundleEditorPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,22 +38,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/joshuasmith/Dropbox/Responsorys/CozyPlugins/CozyLibrary/src/main/java/com/github/cozyplugins/cozylibrary/placeholder",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/joshuasmith/Dropbox/Responsorys/CozyPlugins/CozyLibrary/src/main/java/com/github/cozyplugins/cozylibrary/placeholder&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/placeholder" />
@@ -109,6 +101,8 @@
       <workItem from="1690204937616" duration="23000" />
       <workItem from="1690475417734" duration="4360000" />
       <workItem from="1690483130427" duration="641000" />
+      <workItem from="1690483790901" duration="4867000" />
+      <workItem from="1690550546434" duration="7000" />
     </task>
     <servers />
   </component>
