@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/datatype/ratio/Ratio.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/indicator/ConfigurationConvertable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/indicator/ConfigurationConvertable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +107,11 @@
       <workItem from="1690553760661" duration="1399000" />
       <workItem from="1690649738757" duration="18000" />
       <workItem from="1690667555564" duration="33000" />
+      <workItem from="1690756014537" duration="609000" />
+      <workItem from="1690804183620" duration="22000" />
+      <workItem from="1690926552711" duration="224000" />
+      <workItem from="1690927649998" duration="2494000" />
+      <workItem from="1690972817458" duration="1339000" />
     </task>
     <servers />
   </component>

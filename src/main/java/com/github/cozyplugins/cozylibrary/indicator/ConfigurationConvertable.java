@@ -36,7 +36,7 @@ public interface ConfigurationConvertable<T> {
     @NotNull ConfigurationSection convert();
 
     /**
-     * Used to convert a configuration section int oa treasure
+     * Used to convert a configuration section into a treasure
      * and apply it to this treasure.
      * <li>
      * This is not a static method as other plugins can build on
@@ -44,6 +44,7 @@ public interface ConfigurationConvertable<T> {
      * </li>
      *
      * @param section The instance of the configuration section.
+     * @return This instance.
      */
-    T convert(ConfigurationSection section);
+    @NotNull T convert(ConfigurationSection section);
 }
