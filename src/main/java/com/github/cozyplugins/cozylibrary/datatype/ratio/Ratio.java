@@ -27,7 +27,7 @@ public class Ratio implements ConfigurationConvertable<Ratio>, Replicable<Ratio>
     /**
      * Used to create a new ratio.
      *
-     * @param left The left side of the ratio.
+     * @param left  The left side of the ratio.
      * @param right The right side of the ratio.
      */
     public Ratio(int left, int right) {
@@ -84,6 +84,33 @@ public class Ratio implements ConfigurationConvertable<Ratio>, Replicable<Ratio>
     public @NotNull Ratio setRight(int right) {
         this.right = right;
         return this;
+    }
+
+    /**
+     * Used to multiply the ratio by a constant.
+     *
+     * @param amount The amount to multiply.
+     * @return This instance.
+     */
+    public @NotNull Ratio multiply(int amount) {
+        this.left = this.left * amount;
+        this.right = this.right * amount;
+        return this;
+    }
+
+    /**
+     * Used to get the ratio when the right
+     * is scaled to a number.
+     * 1:2 scaled to 4 would be 2:4.
+     *
+     * @param amount The amount to scale the right to.
+     * @return The clone of this ratio scaled.
+     */
+    public Ratio getLeftScaled(int amount) {
+        Ratio clone = this.duplicate();
+        int multiple = amount / this.right;
+        clone.multiply(multiple);
+        return clone;
     }
 
     /**
