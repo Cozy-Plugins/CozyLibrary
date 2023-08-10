@@ -112,7 +112,7 @@ public class Ratio implements ConfigurationConvertable<Ratio>, Replicable<Ratio>
      * @return True if the left is smaller or equal
      */
     public boolean isLeftSmallerOrEqual() {
-        return this.left >= this.right;
+        return this.left <= this.right;
     }
 
     /**
