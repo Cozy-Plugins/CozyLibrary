@@ -47,6 +47,26 @@ public class Region3D implements Replicable<Region3D>, ConfigurationConvertable<
         this.position2 = position2;
     }
 
+    /**
+     * Used to get a region from a configuration section.
+     *
+     * @param section The instance of the configuration section.
+     * @throws IllegalArgumentException Throws error when the positions are in different worlds
+     *                                  or the worlds are null.
+     *                                  Positions must be in the same world.
+     */
+    public Region3D(@NotNull ConfigurationSection section) {
+        this.convert(section);
+
+        // Check if the positions are in the same world
+        // or if the worlds are null.
+        if (position1.getWorld() == null || position2.getWorld() == null
+                || !position1.getWorld().getName().equals(position2.getWorld().getName())) {
+
+            throw new IllegalArgumentException("Positions must be in the same world to create a region.");
+        }
+    }
+
     @Override
     public String toString() {
         assert this.position1.getWorld() != null;

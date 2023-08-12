@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CozyLibrary.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CozyLibrary.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlugin/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/resources/commands.yml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/resources/commands.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/resources/plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/adapter/BukkitCommandAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/adapter/BukkitCommandAdapter.java" afterDir="false" />
-    </list>
+    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -122,7 +113,7 @@
       <workItem from="1691691650697" duration="1428000" />
       <workItem from="1691768858299" duration="6000" />
       <workItem from="1691788885628" duration="606000" />
-      <workItem from="1691859776658" duration="1515000" />
+      <workItem from="1691859776658" duration="1757000" />
     </task>
     <servers />
   </component>
