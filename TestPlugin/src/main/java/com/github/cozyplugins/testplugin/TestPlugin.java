@@ -3,6 +3,9 @@ package com.github.cozyplugins.testplugin;
 import com.github.cozyplugins.cozylibrary.CozyLibrary;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.command.command.command.ProgrammableCommand;
+import com.github.cozyplugins.cozylibrary.command.command.commandtype.ProgrammableCommandType;
+import com.github.cozyplugins.cozylibrary.command.command.commandtype.programmable.ProgrammableTypeExecutor;
+import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandSuggestions;
 import com.github.cozyplugins.cozylibrary.inventory.inventory.ConfigurationDirectoryEditor;
@@ -12,6 +15,7 @@ import com.github.cozyplugins.testplugin.commands.HelloWorldCommand;
 import com.github.cozyplugins.testplugin.commands.TestCommandType;
 import com.github.cozyplugins.testplugin.inventorys.RewardInventory;
 import com.github.cozyplugins.testplugin.inventorys.TestInventory;
+import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -65,6 +69,22 @@ public final class TestPlugin extends CozyPlugin {
 
         // Setup command types.
         this.addCommandType(new TestCommandType());
+
+        this.addCommandType(new ProgrammableCommandType("sub")
+                .addSubCommandType(new ProgrammableCommandType("sub2")
+                        .addSubCommandType(new ProgrammableCommandType("sub3")
+                                .addSubCommandType(new ProgrammableCommandType("sub4")
+                                        .setPlayer(new ProgrammableTypeExecutor<>() {
+                                            @Override
+                                            public @Nullable CommandStatus onExecute(@NotNull PlayerUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments) {
+                                                user.sendMessage(arguments.getArguments().toString());
+                                                return new CommandStatus();
+                                            }
+                                        })
+                                )
+                        )
+                )
+        );
 
         // Add placeholder.
         this.addPlaceholder(new CozyPlaceholder() {

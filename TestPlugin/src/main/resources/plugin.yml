@@ -3,4 +3,3 @@ version: '${project.version}'
 main: com.github.cozyplugins.testplugin.TestPlugin
 api-version: 1.19
 authors: [ Smudge ]
-depend: [ Vault ]

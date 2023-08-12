@@ -8,3 +8,16 @@ test:
   '2':
     name: "2"
     message: "response: 2"
+
+sub:
+  type: "sub"
+  name: "sub"
+
+  sub2:
+    name: "sub2"
+
+    sub3:
+      name: "sub3"
+
+      sub4:
+        name: "sub4"

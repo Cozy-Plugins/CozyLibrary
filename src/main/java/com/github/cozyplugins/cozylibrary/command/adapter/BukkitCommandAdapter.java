@@ -15,6 +15,7 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -72,7 +73,11 @@ public class BukkitCommandAdapter extends Command {
             return true;
         }
 
-        new BukkitCommandAdapter(command).execute(commandSender, label, args);
+        // Remove first arg.
+        List<String> list = new ArrayList<>(Arrays.asList(args));
+        list.remove(0);
+        
+        new BukkitCommandAdapter(command).execute(commandSender, label, list.toArray(new String[]{}));
         return true;
     }
 
