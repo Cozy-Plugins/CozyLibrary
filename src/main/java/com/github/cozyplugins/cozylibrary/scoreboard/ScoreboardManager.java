@@ -60,7 +60,7 @@ public final class ScoreboardManager implements Listener {
 
                 // Apply update.
                 fastBoard.updateTitle(MessageManager.parse(scoreboard.getTitle()));
-                fastBoard.updateLines(MessageManager.parse(scoreboard.getLines()));
+                fastBoard.updateLines(MessageManager.parseList(scoreboard.getLines()));
             }
 
         }, 40, 40);
@@ -104,7 +104,7 @@ public final class ScoreboardManager implements Listener {
             // Create new scoreboard.
             FastBoard fastBoard = new FastBoard(user.getPlayer());
             fastBoard.updateTitle(MessageManager.parse(scoreboard.getTitle()));
-            fastBoard.updateLines(MessageManager.parse(scoreboard.getLines()));
+            fastBoard.updateLines(MessageManager.parseList(scoreboard.getLines()));
 
             ScoreboardManager.scoreboardMap.put(user.getUuid(), fastBoard);
             return;
@@ -113,7 +113,7 @@ public final class ScoreboardManager implements Listener {
         // Otherwise already has a scoreboard.
         FastBoard fastBoard = ScoreboardManager.scoreboardMap.get(user.getUuid());
         fastBoard.updateTitle(MessageManager.parse(scoreboard.getTitle()));
-        fastBoard.updateLines(MessageManager.parse(scoreboard.getLines()));
+        fastBoard.updateLines(MessageManager.parseList(scoreboard.getLines()));
     }
 
     /**
@@ -135,7 +135,7 @@ public final class ScoreboardManager implements Listener {
             // Create new scoreboard.
             FastBoard fastBoard = new FastBoard(user.getPlayer());
             fastBoard.updateTitle(MessageManager.parse(scoreboard.onUpdate().getTitle()));
-            fastBoard.updateLines(MessageManager.parse(scoreboard.onUpdate().getLines()));
+            fastBoard.updateLines(MessageManager.parseList(scoreboard.onUpdate().getLines()));
 
             ScoreboardManager.scoreboardMap.put(user.getUuid(), fastBoard);
             ScoreboardManager.animatedScoreboardMap.put(user.getUuid(), scoreboard);

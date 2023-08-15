@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,6 +56,22 @@ public class MessageManager {
             message.append(MessageManager.parse(item)).append("\n");
         }
         return message.substring(0, message.length() - 1);
+    }
+
+    /**
+     * Used to parse each string in a list.
+     *
+     * @param messageList The instance of the message list.
+     * @return The list to parse.
+     */
+    public static @NotNull List<String> parseList(@NotNull List<String> messageList) {
+        List<String> temp = new ArrayList<>();
+
+        for (String item : messageList) {
+            temp.add(MessageManager.parse(item));
+        }
+
+        return temp;
     }
 
     /**
