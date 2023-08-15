@@ -1,8 +1,11 @@
 package com.github.cozyplugins.cozylibrary.scoreboard;
 
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
+import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import fr.mrmicky.fastboard.FastBoard;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -43,14 +46,21 @@ public final class ScoreboardManager implements Listener {
 
                 // Get the fast board.
                 FastBoard fastBoard = ScoreboardManager.scoreboardMap.get(entry.getKey());
-                if (fastBoard == null) continue;
+
+                // Check if the fast board exists.
+                if (fastBoard == null) {
+                    Player player = Bukkit.getPlayer(entry.getKey());
+                    if (player == null) continue;
+
+                    fastBoard = new FastBoard(player);
+                }
 
                 // Get update.
                 Scoreboard scoreboard = entry.getValue().onUpdate();
 
                 // Apply update.
-                fastBoard.updateTitle(scoreboard.getTitle());
-                fastBoard.updateLines(scoreboard.getLines());
+                fastBoard.updateTitle(MessageManager.parse(scoreboard.getTitle()));
+                fastBoard.updateLines(MessageManager.parse(scoreboard.getLines()));
             }
 
         }, 40, 40);
@@ -93,8 +103,8 @@ public final class ScoreboardManager implements Listener {
 
             // Create new scoreboard.
             FastBoard fastBoard = new FastBoard(user.getPlayer());
-            fastBoard.updateTitle(scoreboard.getTitle());
-            fastBoard.updateLines(scoreboard.getLines());
+            fastBoard.updateTitle(MessageManager.parse(scoreboard.getTitle()));
+            fastBoard.updateLines(MessageManager.parse(scoreboard.getLines()));
 
             ScoreboardManager.scoreboardMap.put(user.getUuid(), fastBoard);
             return;
