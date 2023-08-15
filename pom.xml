@@ -140,12 +140,6 @@
                                     <resource>META-INF/services/java.sql.Driver</resource>
                                 </transformer>
                             </transformers>
-                            <relocations>
-                                <relocation>
-                                    <pattern>fr.mrmicky.fastboard</pattern>
-                                    <shadedPattern>com.github.cozyplugins.cozylibrary.fastboard</shadedPattern>
-                                </relocation>
-                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
