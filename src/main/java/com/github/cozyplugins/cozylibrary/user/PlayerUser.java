@@ -3,11 +3,15 @@ package com.github.cozyplugins.cozylibrary.user;
 import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.github.cozyplugins.cozylibrary.dependency.VaultAPIDependency;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
+import com.github.cozyplugins.cozylibrary.scoreboard.AnimatedScoreboard;
+import com.github.cozyplugins.cozylibrary.scoreboard.Scoreboard;
+import com.github.cozyplugins.cozylibrary.scoreboard.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -182,5 +186,37 @@ public class PlayerUser implements User {
         if (amount > 0) return this.giveMoney(amount);
         if (amount < 0) return this.removeMoney(Math.abs(amount));
         return false;
+    }
+
+    /**
+     * Used to set the user's scoreboard instance.
+     *
+     * @param scoreboard The instance of the score board to set.
+     * @return This instance.
+     */
+    public @NotNull PlayerUser setScoreboard(@Nullable Scoreboard scoreboard) {
+        ScoreboardManager.setScoreboard(this, scoreboard);
+        return this;
+    }
+
+    /**
+     * Used to set the user's scoreboard as an animated scoreboard.
+     *
+     * @param scoreboard The instance of the scoreboard.
+     * @return This instance.
+     */
+    public @NotNull PlayerUser setScoreboard(@Nullable AnimatedScoreboard scoreboard) {
+        ScoreboardManager.setScoreboard(this, scoreboard);
+        return this;
+    }
+
+    /**
+     * Used to remove the player's scoreboard.
+     *
+     * @return This instance.
+     */
+    public @NotNull PlayerUser removeScoreboard() {
+        ScoreboardManager.setScoreboard(this, (@Nullable Scoreboard) null);
+        return this;
     }
 }

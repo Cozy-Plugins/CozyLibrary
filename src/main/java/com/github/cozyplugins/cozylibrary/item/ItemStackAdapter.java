@@ -168,7 +168,7 @@ public class ItemStackAdapter<S extends ItemStackAdapter<S>> {
      * <h1>Used to get the level of an enchant on the item</h1>
      *
      * @param enchantment The enchantment to check.
-     * @return The level of the requested enchant.
+     * @return The level of the requested enchanting.
      */
     public int getEnchantmentLevel(@NotNull Enchantment enchantment) {
         return this.itemStack.getEnchantmentLevel(enchantment);

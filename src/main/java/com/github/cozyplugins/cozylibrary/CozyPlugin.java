@@ -13,6 +13,7 @@ import com.github.cozyplugins.cozylibrary.inventory.action.ActionManager;
 import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholder;
 import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholderExpansion;
 import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholderManager;
+import com.github.cozyplugins.cozylibrary.scoreboard.ScoreboardManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,6 +39,9 @@ public abstract class CozyPlugin extends JavaPlugin {
         VaultAPIDependency.setup();
         CozyPlaceholderManager.setup();
 
+        // Start scoreboards.
+        ScoreboardManager.setup();
+
         // Setup command directory.
         CozyLibrary.setCommandDirectory(new CommandDirectory("commands.yml", this.getClass()));
 
@@ -52,6 +56,7 @@ public abstract class CozyPlugin extends JavaPlugin {
 
         // Register listeners.
         this.getServer().getPluginManager().registerEvents(new InventoryManager(), this);
+        this.getServer().getPluginManager().registerEvents(new ScoreboardManager(), this);
 
         // Register inventory events.
         new ActionManager(this);
@@ -70,6 +75,9 @@ public abstract class CozyPlugin extends JavaPlugin {
 
         // Unregister listeners.
         InventoryManager.removeAll();
+
+        // Stop scoreboard tasks.
+        ScoreboardManager.stop();
     }
 
     /**
