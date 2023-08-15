@@ -96,6 +96,17 @@ public class Scoreboard {
     }
 
     /**
+     * Used to add multiple lines to the scoreboard.
+     *
+     * @param lines The instance of the lines.
+     * @return This instance.
+     */
+    public @NotNull Scoreboard addLines(@NotNull List<String> lines) {
+        this.lines.addAll(lines);
+        return this;
+    }
+
+    /**
      * Used to check if there are no lines.
      *
      * @return True if there are no lines.
