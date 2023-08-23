@@ -27,6 +27,9 @@ public abstract class UpdatingInventoryInterface extends InventoryInterface {
         super(size, title);
 
         this.delay = delay;
+
+        // Start update task.
+        this.startUpdateTask();
     }
 
     /**
@@ -46,9 +49,6 @@ public abstract class UpdatingInventoryInterface extends InventoryInterface {
 
         // Re-write the inventory.
         this.onInventoryReWrite(player);
-
-        // Start update task.
-        this.startUpdateTask();
     }
 
     /**
