@@ -86,7 +86,7 @@ public final class ScoreboardManager implements Listener {
      * Used to set a user's scoreboard.
      * SEt to null to remove.
      *
-     * @param user The instance of the user.
+     * @param user       The instance of the user.
      * @param scoreboard The instance of the scoreboard.
      *                   Or null to remove.
      */
@@ -119,7 +119,7 @@ public final class ScoreboardManager implements Listener {
     /**
      * Used to set an animated scoreboard.
      *
-     * @param user The instance of the user.
+     * @param user       The instance of the user.
      * @param scoreboard The instance of the animated scoreboard.
      */
     public static void setScoreboard(@NotNull PlayerUser user, @Nullable AnimatedScoreboard scoreboard) {

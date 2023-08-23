@@ -76,7 +76,7 @@ public class BukkitCommandAdapter extends Command {
         // Remove first arg.
         List<String> list = new ArrayList<>(Arrays.asList(args));
         list.remove(0);
-        
+
         new BukkitCommandAdapter(command).execute(commandSender, label, list.toArray(new String[]{}));
         return true;
     }
