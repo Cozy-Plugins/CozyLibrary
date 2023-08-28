@@ -260,6 +260,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         if (this.getItemMeta() instanceof LeatherArmorMeta && section.getKeys().contains("color")) {
             LeatherArmorMeta meta = (LeatherArmorMeta) this.getItemMeta();
             meta.setColor(Color.fromRGB(section.getInteger("color")));
+            this.setItemMeta(meta);
         }
 
         return (S) this;
