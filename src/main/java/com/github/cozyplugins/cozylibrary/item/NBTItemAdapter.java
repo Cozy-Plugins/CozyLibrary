@@ -244,7 +244,9 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
 
         if (section.getKeys().contains("item_flags"))
             this.addItemFlags(section.getListString("item_flags", new ArrayList<>()));
-        this.setUnbreakable(section.getBoolean("unbreakable", false));
+
+        if (section.getKeys().contains("unbreakable"))
+            this.setUnbreakable(section.getBoolean("unbreakable", false));
 
         return (S) this;
     }
