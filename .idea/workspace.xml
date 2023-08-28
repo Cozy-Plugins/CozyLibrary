@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/UpdatingInventoryInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/UpdatingInventoryInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +120,11 @@
       <workItem from="1691939483728" duration="822000" />
       <workItem from="1692110018963" duration="7584000" />
       <workItem from="1692803946065" duration="980000" />
-      <workItem from="1692821355085" duration="320000" />
+      <workItem from="1692821355085" duration="395000" />
+      <workItem from="1692821989703" duration="622000" />
+      <workItem from="1692989578339" duration="1000" />
+      <workItem from="1692989584855" duration="5495000" />
+      <workItem from="1693244067841" duration="13000" />
     </task>
     <servers />
   </component>

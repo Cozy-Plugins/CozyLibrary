@@ -21,6 +21,9 @@ package com.github.cozyplugins.cozylibrary.indicator;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * Indicates if a class can be converted into a {@link ConfigurationSection}.
  *
@@ -47,4 +50,15 @@ public interface ConfigurationConvertable<T> {
      * @return This instance.
      */
     @NotNull T convert(ConfigurationSection section);
+
+    /**
+     * Used to get this class as a map.
+     * Uses {@link ConfigurationConvertable#convert()} to convert into
+     * a configuration section.
+     *
+     * @return The map of this class.
+     */
+    default @NotNull Map<String, Object> asMap() {
+        return this.convert().getMap();
+    }
 }
