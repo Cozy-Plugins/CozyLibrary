@@ -7,8 +7,10 @@ import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -215,6 +217,12 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         // NBT item adapter.
         if (!this.getNBT().isEmpty()) section.set("nbt", this.getNBT());
 
+        // Leather armour.
+        if (this.getItemMeta() instanceof LeatherArmorMeta) {
+            LeatherArmorMeta meta = (LeatherArmorMeta) this.getItemMeta();
+            section.set("color", meta.getColor().asRGB());
+        }
+
         return section;
     }
 
@@ -247,6 +255,12 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
 
         if (section.getKeys().contains("unbreakable"))
             this.setUnbreakable(section.getBoolean("unbreakable", false));
+
+        // Leather armour.
+        if (this.getItemMeta() instanceof LeatherArmorMeta && section.getKeys().contains("color")) {
+            LeatherArmorMeta meta = (LeatherArmorMeta) this.getItemMeta();
+            meta.setColor(Color.fromRGB(section.getInteger("color")));
+        }
 
         return (S) this;
     }
