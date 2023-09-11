@@ -42,14 +42,18 @@ public abstract class CozyPlugin extends JavaPlugin {
         // Start scoreboards.
         ScoreboardManager.setup();
 
-        // Setup command directory.
-        CozyLibrary.setCommandDirectory(new CommandDirectory("commands.yml", this.getClass()));
+        if (this.enableCommandDirectory()) {
+            // Setup command directory.
+            CozyLibrary.setCommandDirectory(new CommandDirectory("commands.yml", this.getClass()));
+        }
 
         // Enable plugin.
         this.onCozyEnable();
 
-        // Reload command directory and add command types.
-        CozyLibrary.getCommandDirectory().reload();
+       if (this.enableCommandDirectory()) {
+           // Reload command directory and add command types.
+           CozyLibrary.getCommandDirectory().reload();
+       }
 
         // Register commands that have been added.
         this.registerCommands();
