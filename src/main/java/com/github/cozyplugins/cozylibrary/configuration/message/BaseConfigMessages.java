@@ -17,12 +17,12 @@ public class BaseConfigMessages {
     protected Configuration configuration;
 
     /**
-     * Used to initialise the messages configuration file.
+     * Used to initialize the message configuration file.
      */
     public BaseConfigMessages() {
         Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin(CozyLibrary.getPluginName());
         if (plugin == null) return;
-        this.configuration = ConfigurationFactory.YAML.create(plugin.getDataFolder(), "messages.yml");
+        this.configuration = ConfigurationFactory.YAML.create(plugin.getDataFolder(), "messages");
         this.configuration.load();
     }
 
