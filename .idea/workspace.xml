@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/action/PlaceActionWithResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/handler/PlaceActionWithResultHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -139,7 +137,18 @@
       <workItem from="1694722792252" duration="535000" />
       <workItem from="1694791842426" duration="120000" />
       <workItem from="1694864954662" duration="5000" />
-      <workItem from="1695124139123" duration="453000" />
+      <workItem from="1695124139123" duration="1207000" />
+      <workItem from="1695770428723" duration="189000" />
+      <workItem from="1698979345286" duration="161000" />
+      <workItem from="1699057154630" duration="609000" />
+      <workItem from="1699390588455" duration="605000" />
+      <workItem from="1699467737813" duration="599000" />
+      <workItem from="1700150903021" duration="1886000" />
+      <workItem from="1700171459768" duration="994000" />
+      <workItem from="1700172609567" duration="166000" />
+      <workItem from="1700173029177" duration="34000" />
+      <workItem from="1700230412691" duration="18000" />
+      <workItem from="1700339069442" duration="10000" />
     </task>
     <servers />
   </component>
