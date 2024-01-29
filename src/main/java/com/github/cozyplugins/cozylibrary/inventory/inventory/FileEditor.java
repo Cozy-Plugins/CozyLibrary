@@ -6,7 +6,7 @@ import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueActi
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.PlaceAction;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
-import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
+import com.github.smuddgge.squishyconfiguration.implementation.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;

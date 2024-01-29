@@ -10,7 +10,7 @@ import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickActionWithResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ConfirmAction;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
-import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
+import com.github.smuddgge.squishyconfiguration.implementation.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
