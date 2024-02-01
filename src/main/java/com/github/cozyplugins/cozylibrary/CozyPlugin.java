@@ -14,6 +14,7 @@ import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholder;
 import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholderExpansion;
 import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholderManager;
 import com.github.cozyplugins.cozylibrary.scoreboard.ScoreboardManager;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 

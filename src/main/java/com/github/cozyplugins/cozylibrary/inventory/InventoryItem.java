@@ -2,6 +2,7 @@ package com.github.cozyplugins.cozylibrary.inventory;
 
 import com.github.cozyplugins.cozylibrary.inventory.action.Action;
 import com.github.cozyplugins.cozylibrary.item.NBTItemAdapter;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
