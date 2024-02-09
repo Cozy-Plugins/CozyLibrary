@@ -9,6 +9,8 @@ import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jetbrains.annotations.NotNull;
@@ -261,6 +263,12 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
             LeatherArmorMeta meta = (LeatherArmorMeta) this.getItemMeta();
             meta.setColor(Color.fromRGB(section.getInteger("color")));
             this.setItemMeta(meta);
+        }
+
+        // Enchanted flag.
+        if (section.getBoolean("enchanted", false)) {
+            this.addEnchantment(Enchantment.MENDING, 1);
+            this.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
         return (S) this;
