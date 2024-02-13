@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -197,6 +198,93 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
             return nbtItem;
         });
         return (S) this;
+    }
+
+    /**
+     * Used to replace a string with a string within the
+     * item's name and lore.
+     *
+     * @param match The string to look for.
+     * @param content The string to replace it with.
+     * @return This instance.
+     */
+    public @NotNull S replaceNameAndLore(@NotNull String match, @NotNull String content) {
+
+        // Check in the name.
+        this.setName(this.getName().replace(match, content));
+
+        // Check in the lore.
+        this.setLore(this.getLore().stream()
+                .map(item -> item.replace(match, content))
+                .toList()
+        );
+
+        return (S) this;
+    }
+
+    /**
+     * Used to replace the name lore and nbt in the item.
+     *
+     * @param match The string to look for.
+     * @param content The content to replace it with.
+     * @return This instance.
+     */
+    @SuppressWarnings("unchecked")
+    public @NotNull S replaceNameLoreAndNBT(@NotNull String match, @NotNull String content) {
+
+        // Replace name and lore.
+        this.replaceNameAndLore(match, content);
+
+        // Replace in nbt.
+        for (Map.Entry<String, Object> entry : this.getNBT().entrySet()) {
+
+            // Check if the value is a map.
+            if (entry.getValue() instanceof Map<?,?>) {
+                this.setNBT(entry.getKey(), this.replaceNBT(
+                        (Map<String, Object>) entry.getValue(),
+                        match, content
+                ));
+            }
+
+            // Check if the value is a string.
+            if (entry.getValue() instanceof String value) {
+                this.setNBT(entry.getKey(), value.replace(match, content));
+            }
+
+            // Add it to the map.
+            this.setNBT(entry.getKey(), entry.getValue());
+        }
+
+        return (S) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    private @NotNull Map<String, Object> replaceNBT(@NotNull Map<String, Object> map,
+                                                    @NotNull String match,
+                                                    @NotNull String content) {
+
+        Map<String, Object> newMap = new HashMap<>();
+
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+
+            // Check if the value is another map.
+            if (entry.getValue() instanceof Map<?,?>) {
+                newMap.put(entry.getKey(), this.replaceNBT(
+                        (Map<String, Object>) entry.getValue(),
+                        match, content
+                ));
+            }
+
+            // Check if the value is a string.
+            if (entry.getValue() instanceof String value) {
+                newMap.put(entry.getKey(), value.replace(match, content));
+            }
+
+            // Add the value to the map.
+            newMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return newMap;
     }
 
     @Override
