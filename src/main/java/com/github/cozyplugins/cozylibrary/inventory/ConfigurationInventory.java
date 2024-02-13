@@ -61,7 +61,7 @@ public abstract class ConfigurationInventory extends CozyInventory {
             CozyItem item = new CozyItem(Material.BARRIER).convert(itemSection);
 
             // Create the inventory item.
-            InventoryItem inventoryItem = new InventoryItem().convert(itemSection);
+            InventoryItem inventoryItem = new InventoryItem(item.create()).convert(itemSection);
 
             // Check if there is an item function.
             if (itemSection.getKeys().contains("function")) {
