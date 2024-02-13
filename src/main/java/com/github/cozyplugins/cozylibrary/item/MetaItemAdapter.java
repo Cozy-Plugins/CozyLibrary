@@ -3,12 +3,15 @@ package com.github.cozyplugins.cozylibrary.item;
 import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.google.common.collect.Multimap;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.block.Skull;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -472,6 +475,36 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
     public @NotNull CustomItemTagContainer getCustomTagContainer() {
         if (this.getItemMeta() == null) this.createItemMeta();
         return this.getItemMeta().getCustomTagContainer();
+    }
+
+    /**
+     * Used to get the skull owner.
+     * It will check if the item is a player skull
+     * then return the owner.
+     *
+     * @return The player's uuid that owns the skull.
+     */
+    public @Nullable UUID getSkullOwner() {
+        if (!this.getMaterial().equals(Material.PLAYER_HEAD)) return null;
+        SkullMeta meta = ((SkullMeta) this.getItemMeta());
+        if (meta == null) return null;
+        if (meta.getOwningPlayer() == null) return null;
+        return meta.getOwningPlayer().getUniqueId();
+    }
+
+    /**
+     * Used to set the item as a player skull.
+     *
+     * @param playerUuid The player's uuid that will
+     *                   be used to get the skull.
+     * @return This instance.
+     */
+    public @NotNull S setSkull(@NotNull UUID playerUuid) {
+        this.setMaterial(Material.PLAYER_HEAD);
+        SkullMeta skullMeta = (SkullMeta) this.getItemMeta();
+        skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(playerUuid));
+        this.setItemMeta(skullMeta);
+        return (S) this;
     }
 
     /**

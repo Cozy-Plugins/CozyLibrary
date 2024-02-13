@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/ConfigurationInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/ConfigurationInventory.java" afterDir="false" />
-    </list>
+    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,6 +174,7 @@
       <workItem from="1707493291695" duration="10000" />
       <workItem from="1707787341925" duration="4250000" />
       <workItem from="1707837356447" duration="123000" />
+      <workItem from="1707839367915" duration="938000" />
     </task>
     <servers />
   </component>
