@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.reward;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
@@ -75,7 +75,7 @@ public enum RewardBundleEditorPage {
 
         @Override
         public void goBack(@NotNull RewardBundleEditorInventory inventory, @NotNull PlayerUser user) {
-            InventoryInterface backInventory = inventory.onBackButton(user);
+            CozyInventory backInventory = inventory.onBackButton(user);
             user.getPlayer().closeInventory();
 
             // Check if the inventory is null.

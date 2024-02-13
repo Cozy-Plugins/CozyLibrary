@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.inventory.action.handler;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionHandler;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
@@ -21,7 +21,7 @@ import java.util.List;
 public class AnvilValueActionHandler implements ActionHandler {
 
     @Override
-    public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event) {
+    public @NotNull ActionResult onInventoryClick(@NotNull CozyInventory inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event) {
         List<AnvilValueAction> actionList = inventoryInterface.getActionList(event.getSlot(), AnvilValueAction.class);
         if (actionList.isEmpty()) return new ActionResult();
 
@@ -31,12 +31,12 @@ public class AnvilValueActionHandler implements ActionHandler {
     }
 
     @Override
-    public boolean onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
+    public boolean onInventoryClose(@NotNull CozyInventory inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
         return false;
     }
 
     @Override
-    public void onAnvilText(@NotNull InventoryInterface inventoryInterface, @NotNull String text, @NotNull PlayerUser user) {
+    public void onAnvilText(@NotNull CozyInventory inventoryInterface, @NotNull String text, @NotNull PlayerUser user) {
         AnvilInputInventory anvilInputInventory = (AnvilInputInventory) inventoryInterface;
 
         // Set input value.

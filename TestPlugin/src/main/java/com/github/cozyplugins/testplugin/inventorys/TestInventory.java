@@ -1,6 +1,6 @@
 package com.github.cozyplugins.testplugin.inventorys;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.PlaceAction;
@@ -9,7 +9,7 @@ import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryType;
 
-public class TestInventory extends InventoryInterface {
+public class TestInventory extends CozyInventory {
 
     public TestInventory() {
         super(InventoryType.CHEST, "&8&lTest Inventory");

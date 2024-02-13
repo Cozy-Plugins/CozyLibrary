@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.inventory.inventory;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
@@ -18,7 +18,7 @@ import java.io.File;
  * Represents a file editor.
  * Usually editing files in a {@link ConfigurationDirectoryEditor}.
  */
-public class FileEditor extends InventoryInterface {
+public class FileEditor extends CozyInventory {
 
     private final @NotNull File file;
     private final @NotNull YamlConfiguration store;

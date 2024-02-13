@@ -1,6 +1,6 @@
 package com.github.cozyplugins.testplugin.inventorys;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.reward.RewardBundle;
 import com.github.cozyplugins.cozylibrary.reward.RewardBundleEditorInventory;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
@@ -22,7 +22,7 @@ public class RewardInventory extends RewardBundleEditorInventory {
     }
 
     @Override
-    protected @Nullable InventoryInterface onBackButton(@NotNull PlayerUser user) {
+    protected @Nullable CozyInventory onBackButton(@NotNull PlayerUser user) {
         this.getBundle().giveRewardBundle(user);
         return null;
     }

@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.reward;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickActionWithResult;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Represents a reward bundle editor inventory.
  */
-public abstract class RewardBundleEditorInventory extends InventoryInterface {
+public abstract class RewardBundleEditorInventory extends CozyInventory {
 
     private final @NotNull RewardBundle rewardBundle;
     private @NotNull RewardBundleEditorPage page;
@@ -42,7 +42,7 @@ public abstract class RewardBundleEditorInventory extends InventoryInterface {
      *
      * @return The inventory to go back to when the back button is pressed.
      */
-    protected abstract @Nullable InventoryInterface onBackButton(@NotNull PlayerUser user);
+    protected abstract @Nullable CozyInventory onBackButton(@NotNull PlayerUser user);
 
     @Override
     protected void onGenerate(PlayerUser player) {

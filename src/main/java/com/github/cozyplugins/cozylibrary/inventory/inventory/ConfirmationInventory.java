@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.inventory.inventory;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ConfirmAction;
@@ -15,7 +15,7 @@ import java.util.List;
  * Represents the confirmation inventory.
  * Plugins can use this interface to ask a player for confirmation.
  */
-public class ConfirmationInventory extends InventoryInterface {
+public class ConfirmationInventory extends CozyInventory {
 
     private final @NotNull List<ConfirmAction> actionList;
 

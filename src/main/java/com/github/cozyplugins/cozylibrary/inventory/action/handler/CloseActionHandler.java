@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.inventory.action.handler;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionHandler;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.CloseAction;
@@ -15,12 +15,12 @@ import org.jetbrains.annotations.NotNull;
 public class CloseActionHandler implements ActionHandler {
 
     @Override
-    public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event) {
+    public @NotNull ActionResult onInventoryClick(@NotNull CozyInventory inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event) {
         return new ActionResult();
     }
 
     @Override
-    public boolean onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
+    public boolean onInventoryClose(@NotNull CozyInventory inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
         boolean notUnregister = false;
 
         for (CloseAction closeAction : inventoryInterface.getCloseActionList()) {
@@ -31,7 +31,7 @@ public class CloseActionHandler implements ActionHandler {
     }
 
     @Override
-    public void onAnvilText(@NotNull InventoryInterface inventoryInterface, @NotNull String text, @NotNull PlayerUser user) {
+    public void onAnvilText(@NotNull CozyInventory inventoryInterface, @NotNull String text, @NotNull PlayerUser user) {
 
     }
 }

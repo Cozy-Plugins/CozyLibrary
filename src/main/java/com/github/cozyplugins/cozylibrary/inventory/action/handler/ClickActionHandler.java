@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.inventory.action.handler;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionHandler;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
@@ -17,7 +17,7 @@ import java.util.List;
 public class ClickActionHandler implements ActionHandler {
 
     @Override
-    public @NotNull ActionResult onInventoryClick(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event) {
+    public @NotNull ActionResult onInventoryClick(@NotNull CozyInventory inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event) {
         List<ClickAction> actionList = inventoryInterface.getActionList(event.getSlot(), ClickAction.class);
 
         for (ClickAction action : actionList) {
@@ -28,12 +28,12 @@ public class ClickActionHandler implements ActionHandler {
     }
 
     @Override
-    public boolean onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
+    public boolean onInventoryClose(@NotNull CozyInventory inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event) {
         return false;
     }
 
     @Override
-    public void onAnvilText(@NotNull InventoryInterface inventoryInterface, @NotNull String text, @NotNull PlayerUser user) {
+    public void onAnvilText(@NotNull CozyInventory inventoryInterface, @NotNull String text, @NotNull PlayerUser user) {
 
     }
 }

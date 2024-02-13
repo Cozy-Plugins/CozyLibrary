@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,7 +17,7 @@ import java.util.UUID;
  */
 public class InventoryManager implements Listener {
 
-    private static @NotNull List<InventoryInterface> inventoryInterfaceList = new ArrayList<>();
+    private static @NotNull List<CozyInventory> inventoryInterfaceList = new ArrayList<>();
 
     /**
      * <h1>Used to add a inventory to the handler</h1>
@@ -26,7 +25,7 @@ public class InventoryManager implements Listener {
      *
      * @param inventoryInterface The instance of an inventory.
      */
-    public static void add(@NotNull InventoryInterface inventoryInterface) {
+    public static void add(@NotNull CozyInventory inventoryInterface) {
         InventoryManager.inventoryInterfaceList.add(inventoryInterface);
     }
 
@@ -36,8 +35,8 @@ public class InventoryManager implements Listener {
      * @param uuid The uuid if the inventory.
      * @return The requested inventory instance.
      */
-    public static @Nullable InventoryInterface get(@NotNull UUID uuid) {
-        for (InventoryInterface inventoryInterface : InventoryManager.inventoryInterfaceList) {
+    public static @Nullable CozyInventory get(@NotNull UUID uuid) {
+        for (CozyInventory inventoryInterface : InventoryManager.inventoryInterfaceList) {
             if (inventoryInterface.getUuid() == uuid) return inventoryInterface;
         }
         return null;
@@ -49,8 +48,8 @@ public class InventoryManager implements Listener {
      * @param owner The owner.
      * @return The requested inventory instance.
      */
-    public static @Nullable InventoryInterface getFromOwner(@NotNull Player owner) {
-        for (InventoryInterface inventoryInterface : InventoryManager.inventoryInterfaceList) {
+    public static @Nullable CozyInventory getFromOwner(@NotNull Player owner) {
+        for (CozyInventory inventoryInterface : InventoryManager.inventoryInterfaceList) {
             if (inventoryInterface.getOwner() == null) continue;
             if (inventoryInterface.getOwner().getUniqueId() == owner.getUniqueId()) return inventoryInterface;
         }
@@ -63,8 +62,8 @@ public class InventoryManager implements Listener {
      * @param viewer The instance of the viewer.
      * @return The inventory.
      */
-    public static @Nullable InventoryInterface getFromViewer(@NotNull Player viewer) {
-        for (InventoryInterface inventoryInterface : InventoryManager.inventoryInterfaceList) {
+    public static @Nullable CozyInventory getFromViewer(@NotNull Player viewer) {
+        for (CozyInventory inventoryInterface : InventoryManager.inventoryInterfaceList) {
             if (inventoryInterface.getInventory().getViewers().contains(viewer)) return inventoryInterface;
         }
         return null;
@@ -76,10 +75,10 @@ public class InventoryManager implements Listener {
      * @param inventory The instance of the inventory.
      * @return The requested inventory interface instance.
      */
-    public static @Nullable InventoryInterface get(@Nullable Inventory inventory) {
+    public static @Nullable CozyInventory get(@Nullable org.bukkit.inventory.Inventory inventory) {
         if (inventory == null) return null;
-        for (InventoryInterface inventoryInterface : InventoryManager.inventoryInterfaceList) {
-            Inventory compare = inventoryInterface.getInventory();
+        for (CozyInventory inventoryInterface : InventoryManager.inventoryInterfaceList) {
+            org.bukkit.inventory.Inventory compare = inventoryInterface.getInventory();
 
             if (compare.getViewers() != inventory.getViewers()) continue;
             if (compare.getHolder() != inventory.getHolder()) continue;
@@ -95,7 +94,7 @@ public class InventoryManager implements Listener {
      *
      * @param inventoryInterface The instance of the inventory.
      */
-    public static void remove(@NotNull InventoryInterface inventoryInterface) {
+    public static void remove(@NotNull CozyInventory inventoryInterface) {
         InventoryManager.inventoryInterfaceList.remove(inventoryInterface);
     }
 
@@ -105,7 +104,7 @@ public class InventoryManager implements Listener {
      * @param uuid The uuid of the inventory.
      */
     public static void remove(@NotNull UUID uuid) {
-        InventoryInterface inventoryInterface = InventoryManager.get(uuid);
+        CozyInventory inventoryInterface = InventoryManager.get(uuid);
         if (inventoryInterface == null) return;
         InventoryManager.remove(inventoryInterface);
     }
@@ -130,7 +129,7 @@ public class InventoryManager implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
         // Attempt to get the inventory interface.
-        InventoryInterface inventoryInterface = InventoryManager.getFromOwner(player);
+        CozyInventory inventoryInterface = InventoryManager.getFromOwner(player);
         if (inventoryInterface == null) return;
 
         if (event.getRawSlot() > event.getInventory().getSize()) {

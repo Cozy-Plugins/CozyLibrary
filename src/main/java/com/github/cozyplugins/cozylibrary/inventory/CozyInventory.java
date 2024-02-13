@@ -1,6 +1,7 @@
 package com.github.cozyplugins.cozylibrary.inventory;
 
 import com.github.cozyplugins.cozylibrary.MessageManager;
+import com.github.cozyplugins.cozylibrary.task.TaskContainer;
 import com.github.cozyplugins.cozylibrary.inventory.action.Action;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.CloseAction;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
@@ -21,7 +22,9 @@ import java.util.stream.IntStream;
 /**
  * <h1>Represents an intractable inventory</h1>
  */
-public abstract class InventoryInterface {
+public abstract class CozyInventory extends TaskContainer {
+
+    private final static @NotNull String REGENERATE_TASK_IDENTIFIER = "regenerate_task_identifier";
 
     private final @NotNull UUID uuid;
     private @NotNull Inventory inventory;
@@ -43,7 +46,7 @@ public abstract class InventoryInterface {
      * @param size  The size of the inventory.
      * @param title The title of the inventory.
      */
-    public InventoryInterface(int size, @NotNull String title) {
+    public CozyInventory(int size, @NotNull String title) {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(null, size, MessageManager.parse(title));
         this.actionMap = new HashMap<>();
@@ -61,7 +64,7 @@ public abstract class InventoryInterface {
      * @param type  The type of the inventory.
      * @param title The title of the inventory.
      */
-    public InventoryInterface(@NotNull InventoryType type, @NotNull String title) {
+    public CozyInventory(@NotNull InventoryType type, @NotNull String title) {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(null, type, MessageManager.parse(title));
         this.actionMap = new HashMap<>();
@@ -80,7 +83,7 @@ public abstract class InventoryInterface {
      * @param size  The size of the inventory.
      * @param title The title of the inventory.
      */
-    public InventoryInterface(@NotNull Player owner, int size, @NotNull String title) {
+    public CozyInventory(@NotNull Player owner, int size, @NotNull String title) {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(owner, size, MessageManager.parse(title, owner));
         this.actionMap = new HashMap<>();
@@ -99,7 +102,7 @@ public abstract class InventoryInterface {
      * @param type  The type of inventory.
      * @param title The title of the inventory.
      */
-    public InventoryInterface(@NotNull Player owner, @NotNull InventoryType type, @NotNull String title) {
+    public CozyInventory(@NotNull Player owner, @NotNull InventoryType type, @NotNull String title) {
         this.uuid = UUID.randomUUID();
         this.inventory = Bukkit.createInventory(owner, type, MessageManager.parse(title, owner));
         this.actionMap = new HashMap<>();
@@ -126,7 +129,7 @@ public abstract class InventoryInterface {
      * @param isPlaceable True if the inventory should be placeable.
      * @return This instance.
      */
-    public @NotNull InventoryInterface setPlaceable(boolean isPlaceable) {
+    public @NotNull CozyInventory setPlaceable(boolean isPlaceable) {
         this.isPlaceable = isPlaceable;
         return this;
     }
@@ -147,7 +150,7 @@ public abstract class InventoryInterface {
      * @param item The instance of the item.
      * @return This instance.
      */
-    protected @NotNull InventoryInterface setItem(@NotNull CozyItem item) {
+    protected @NotNull CozyInventory setItem(@NotNull CozyItem item) {
         this.inventory.addItem(item.create());
         return this;
     }
@@ -159,7 +162,7 @@ public abstract class InventoryInterface {
      * @param slot The slot to place the item into.
      * @return This instance.
      */
-    protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, int slot) {
+    protected @NotNull CozyInventory setItem(@NotNull CozyItem item, int slot) {
         this.inventory.setItem(slot, item.create());
         return this;
     }
@@ -174,7 +177,7 @@ public abstract class InventoryInterface {
      * @param end   The last slot.
      * @return This instance.
      */
-    protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, int start, int end) {
+    protected @NotNull CozyInventory setItem(@NotNull CozyItem item, int start, int end) {
         IntStream.range(start, end + 1).forEachOrdered(slot -> this.setItem(item, slot));
         return this;
     }
@@ -186,7 +189,7 @@ public abstract class InventoryInterface {
      * @param slots The slots to place the item into
      * @return This instance.
      */
-    protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, int[] slots) {
+    protected @NotNull CozyInventory setItem(@NotNull CozyItem item, int[] slots) {
         for (int slot : slots) {
             this.setItem(item, slot);
         }
@@ -200,7 +203,7 @@ public abstract class InventoryInterface {
      * @param slotPool The instance of the slot pool.
      * @return This instance.
      */
-    protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, SlotPool slotPool) {
+    protected @NotNull CozyInventory setItem(@NotNull CozyItem item, SlotPool slotPool) {
         for (int slot : slotPool) {
             this.setItem(item, slot);
         }
@@ -216,7 +219,7 @@ public abstract class InventoryInterface {
      * @param slots The rest of the slots.
      * @return This instance.
      */
-    protected @NotNull InventoryInterface setItem(@NotNull CozyItem item, int slot1, int slot2, int... slots) {
+    protected @NotNull CozyInventory setItem(@NotNull CozyItem item, int slot1, int slot2, int... slots) {
         this.setItem(item, slot1);
         this.setItem(item, slot2);
 
@@ -232,7 +235,7 @@ public abstract class InventoryInterface {
      * @param item The instance of the inventory item.
      * @return This instance.
      */
-    protected @NotNull InventoryInterface setItem(@NotNull InventoryItem item) {
+    protected @NotNull CozyInventory setItem(@NotNull InventoryItem item) {
 
         // Check if there are no slots specified.
         if (item.getSlots().isEmpty()) {
@@ -259,7 +262,7 @@ public abstract class InventoryInterface {
      * @param slotList The list of slots.
      * @return This instance.
      */
-    protected @NotNull InventoryInterface setAction(@Nullable Action action, int... slotList) {
+    protected @NotNull CozyInventory setAction(@Nullable Action action, int... slotList) {
         List<Action> actionList = new ArrayList<>();
         actionList.add(action);
         for (int slot : slotList) {
@@ -274,7 +277,7 @@ public abstract class InventoryInterface {
      * @param slotList The list of slots.
      * @return This instance.
      */
-    protected @NotNull InventoryInterface removeAction(int... slotList) {
+    protected @NotNull CozyInventory removeAction(int... slotList) {
         this.setAction(null, slotList);
         return this;
     }
@@ -286,7 +289,7 @@ public abstract class InventoryInterface {
      * @param end   The last slot.
      * @return This instance.
      */
-    protected @NotNull InventoryInterface removeActionRange(int start, int end) {
+    protected @NotNull CozyInventory removeActionRange(int start, int end) {
         IntStream.range(start, end + 1).forEachOrdered(slot -> this.setAction(null, slot));
         return this;
     }
@@ -297,7 +300,7 @@ public abstract class InventoryInterface {
      * @param closeAction The instance of a close action.
      * @return This instance.
      */
-    public @NotNull InventoryInterface addCloseAction(@NotNull CloseAction closeAction) {
+    public @NotNull CozyInventory addCloseAction(@NotNull CloseAction closeAction) {
         this.closeActionList.add(closeAction);
         return this;
     }
@@ -308,7 +311,7 @@ public abstract class InventoryInterface {
      *
      * @return This instance.
      */
-    public @NotNull InventoryInterface setStayActive() {
+    public @NotNull CozyInventory setStayActive() {
         this.stayActive = true;
         return this;
     }
@@ -383,7 +386,7 @@ public abstract class InventoryInterface {
      *
      * @return The inventory.
      */
-    public @NotNull Inventory getInventory() {
+    public @NotNull org.bukkit.inventory.Inventory getInventory() {
         return this.inventory;
     }
 
@@ -403,7 +406,7 @@ public abstract class InventoryInterface {
      *
      * @return This instance.
      */
-    public @NotNull InventoryInterface open(Player player) {
+    public @NotNull CozyInventory open(Player player) {
 
         // Check if the inventory has an owner.
         if (this.owner == null) {
@@ -436,7 +439,7 @@ public abstract class InventoryInterface {
      *
      * @return This instance.
      */
-    public @NotNull InventoryInterface close() {
+    public @NotNull CozyInventory close() {
         for (HumanEntity player : this.inventory.getViewers()) {
             player.closeInventory();
         }
@@ -449,10 +452,52 @@ public abstract class InventoryInterface {
      *
      * @return This instance.
      */
-    public @NotNull InventoryInterface resetInventory() {
+    public @NotNull CozyInventory resetInventory() {
         this.actionMap = new HashMap<>();
         this.closeActionList = new ArrayList<>();
         this.inventory.setContents(new ItemStack[]{});
+        return this;
+    }
+
+    /**
+     * Used to start the regenerating inventory task.
+     * If this task is already running, it will do nothing.
+     *
+     * @param delayTicks Teh delay in ticks.
+     * @return This instance.
+     */
+    public @NotNull CozyInventory startRegeneratingInventory(long delayTicks) {
+
+        // Check if the task is already running.
+        if (this.containsTask(CozyInventory.REGENERATE_TASK_IDENTIFIER)) return this;
+
+        this.runTaskLoop(CozyInventory.REGENERATE_TASK_IDENTIFIER, () -> {
+
+            // Check if there are no viewers.
+            if (this.getInventory().getViewers().isEmpty()) return;
+
+            // Get the instance of the player.
+            HumanEntity humanEntity = this.getInventory().getViewers().get(0);
+            Player player = Bukkit.getPlayer(humanEntity.getUniqueId());
+
+            // Check if the player is null.
+            if (player == null) return;
+
+            // Regenerate the inventory.
+            this.onGenerate(new PlayerUser(player));
+
+        }, delayTicks);
+
+        return this;
+    }
+
+    /**
+     * Used to stop the regenerating inventory task.
+     *
+     * @return This instance.
+     */
+    public @NotNull CozyInventory stopRegeneratingInventory() {
+        this.stopTask(CozyInventory.REGENERATE_TASK_IDENTIFIER);
         return this;
     }
 }

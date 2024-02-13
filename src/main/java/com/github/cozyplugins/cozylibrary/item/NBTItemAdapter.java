@@ -1,8 +1,8 @@
 package com.github.cozyplugins.cozylibrary.item;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
-import com.github.cozyplugins.cozylibrary.indicator.ConfigurationConvertable;
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
+import com.github.smuddgge.squishyconfiguration.indicator.ConfigurationConvertable;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import de.tr7zw.changeme.nbtapi.NBTCompound;
@@ -229,7 +229,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
     }
 
     @Override
-    public S convert(ConfigurationSection section) {
+    public S convert(@NotNull ConfigurationSection section) {
         String materialName = section.getString("material", "AIR");
         if (materialName != null && Material.getMaterial(materialName.toUpperCase()) != null) {
             this.setMaterial(Material.getMaterial(materialName));

@@ -7,7 +7,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.dependency.ProtocolDependency;
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
 import com.github.cozyplugins.cozylibrary.inventory.action.handler.*;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
@@ -66,7 +66,7 @@ public final class ActionManager implements Listener {
                 PlayerUser user = new PlayerUser(event.getPlayer());
 
                 // Get inventory the player is viewing.
-                InventoryInterface inventoryInterface = InventoryManager.getFromViewer(user.getPlayer());
+                CozyInventory inventoryInterface = InventoryManager.getFromViewer(user.getPlayer());
                 if (inventoryInterface == null) return;
 
                 for (ActionHandler actionHandler : ActionManager.actionHandlerList) {
@@ -80,7 +80,7 @@ public final class ActionManager implements Listener {
     private void onInventoryClick(InventoryClickEvent event) {
 
         // Attempt to get the inventory as a registered inventory interface.
-        InventoryInterface inventory = InventoryManager.get(event.getInventory());
+        CozyInventory inventory = InventoryManager.get(event.getInventory());
         if (inventory == null) return;
 
         // Check if the slot is in the player's inventory.
@@ -108,7 +108,7 @@ public final class ActionManager implements Listener {
     @EventHandler
     private void onInventoryClose(InventoryCloseEvent event) {
         // Attempt to get the inventory as a registered inventory interface.
-        InventoryInterface inventory = InventoryManager.get(event.getInventory());
+        CozyInventory inventory = InventoryManager.get(event.getInventory());
         if (inventory == null) return;
 
         // Get the user.

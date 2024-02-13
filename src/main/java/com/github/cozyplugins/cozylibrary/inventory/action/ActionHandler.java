@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.inventory.action;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -22,7 +22,7 @@ public interface ActionHandler {
      * @return The Action result.
      */
     @NotNull
-    ActionResult onInventoryClick(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event);
+    ActionResult onInventoryClick(@NotNull CozyInventory inventoryInterface, @NotNull PlayerUser user, InventoryClickEvent event);
 
     /**
      * Called when an inventory is closed.
@@ -32,7 +32,7 @@ public interface ActionHandler {
      * @param event              The instance of the event.
      * @return True if the inventory should not be un-registered.
      */
-    boolean onInventoryClose(@NotNull InventoryInterface inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event);
+    boolean onInventoryClose(@NotNull CozyInventory inventoryInterface, @NotNull PlayerUser user, InventoryCloseEvent event);
 
     /**
      * Called everytime a player edits a character in an anvil.
@@ -41,5 +41,5 @@ public interface ActionHandler {
      * @param text               The text changed to.
      * @param user               The instance of the user.
      */
-    void onAnvilText(@NotNull InventoryInterface inventoryInterface, @NotNull String text, @NotNull PlayerUser user);
+    void onAnvilText(@NotNull CozyInventory inventoryInterface, @NotNull String text, @NotNull PlayerUser user);
 }

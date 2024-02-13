@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.inventory.inventory;
 
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
@@ -15,7 +15,7 @@ import java.util.List;
  * Represents an anvil input inventory.
  * Used to get input from the user.
  */
-public class AnvilInputInventory extends InventoryInterface {
+public class AnvilInputInventory extends CozyInventory {
 
     private final @NotNull List<AnvilValueAction> actionList;
     private String input;

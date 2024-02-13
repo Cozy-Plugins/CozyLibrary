@@ -3,7 +3,7 @@ package com.github.cozyplugins.cozylibrary.inventory.inventory;
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import com.github.cozyplugins.cozylibrary.configuration.ConfigurationDirectory;
 import com.github.cozyplugins.cozylibrary.configuration.Path;
-import com.github.cozyplugins.cozylibrary.inventory.InventoryInterface;
+import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.AnvilValueAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * Represents an inventory interface for a configuration directory.
  */
-public abstract class ConfigurationDirectoryEditor extends InventoryInterface {
+public abstract class ConfigurationDirectoryEditor extends CozyInventory {
 
     private final @NotNull ConfigurationDirectory directory;
     private final @NotNull YamlConfiguration store;
