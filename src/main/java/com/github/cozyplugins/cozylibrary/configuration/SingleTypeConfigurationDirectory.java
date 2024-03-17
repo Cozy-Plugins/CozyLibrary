@@ -119,19 +119,37 @@ public abstract class SingleTypeConfigurationDirectory<T extends ConfigurationCo
      */
     public @NotNull SingleTypeConfigurationDirectory<T> insertType(@NotNull String identifier, @NotNull T type) {
 
-        // Get the local configuration file.
-        Optional<Configuration> optionalConfiguration = this.getConfigurationThatContains(identifier);
-
-        // Check if the configuration exists.
-        if (optionalConfiguration.isEmpty()) return this;
-        Configuration configuration = optionalConfiguration.get();
-
+        // Get the instance of the configuration to use.
+        Configuration configuration = this.getConfiguration(identifier);
         configuration.set(identifier, type.convert().getMap());
         configuration.save();
 
         // Reload the directory.
         this.reload();
         return this;
+    }
+
+    /**
+     * Used to get the configuration instance to use it
+     * for a specific identifier.
+     *
+     * @param identifier The identifier of the object.
+     * @return The configuration instance.
+     */
+    public @NotNull Configuration getConfiguration(@NotNull String identifier) {
+
+        // Get the local configuration file.
+        Optional<Configuration> optionalConfiguration = this.getConfigurationThatContains(identifier);
+
+        if (optionalConfiguration.isPresent()) {
+            return optionalConfiguration.get();
+        }
+
+        if (this.getDefaultFileName() != null) {
+            return new YamlConfiguration(this.getDirectory(), getDefaultFileName());
+        }
+
+        return new YamlConfiguration(this.getDirectory(), "default.yml");
     }
 
     /**
