@@ -6,7 +6,10 @@ import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.scoreboard.AnimatedScoreboard;
 import com.github.cozyplugins.cozylibrary.scoreboard.Scoreboard;
 import com.github.cozyplugins.cozylibrary.scoreboard.ScoreboardManager;
+import com.github.cozyplugins.cozylibrary.task.TaskContainer;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
@@ -20,7 +23,10 @@ import java.util.UUID;
  * <h1>Represents a player</h1>
  * Uses methods defined in the user interface.
  */
-public class PlayerUser implements User {
+public class PlayerUser extends TaskContainer implements User {
+
+    public static final @NotNull String FORCE_TELEPORT_TASK_IDENTIFIER = "FORCE_TELEPORT_TASK_IDENTIFIER";
+    public static final @NotNull String FORCE_GAME_MODE_TASK_IDENTIFIER = "FORCE_GAME_MODE_TASK_IDENTIFIER";
 
     private final @NotNull Player player;
 
@@ -217,6 +223,70 @@ public class PlayerUser implements User {
      */
     public @NotNull PlayerUser removeScoreboard() {
         ScoreboardManager.setScoreboard(this, (@Nullable Scoreboard) null);
+        return this;
+    }
+
+    /**
+     * Used to force teleport a player.
+     * This will continue trying to teleport the player
+     * every 4 ticks until one of the following reasons:
+     * <li>The player was teleported successfully.</li>
+     * <li>The player left the server.</li>
+     *
+     * @param location The location to teleport the player to.
+     * @return This instance.
+     */
+    public @NotNull PlayerUser forceTeleport(@NotNull Location location) {
+        this.runTaskLoop(PlayerUser.FORCE_TELEPORT_TASK_IDENTIFIER, () -> {
+
+            // Check if the player is no longer on the server.
+            if (Bukkit.getPlayer(this.player.getUniqueId()) == null) {
+
+                // Stop the task if successful.
+                this.stopTask(PlayerUser.FORCE_TELEPORT_TASK_IDENTIFIER);
+            }
+
+            // Attempt to teleport the player.
+            if (this.getPlayer().teleport(location)) {
+
+                // Stop the task if successful.
+                this.stopTask(PlayerUser.FORCE_TELEPORT_TASK_IDENTIFIER);
+            }
+
+        }, 4);
+        return this;
+    }
+
+    /**
+     * Used to force set this player's game mode.
+     * This will continue trying to set the player's game mode
+     * every 4 ticks until one of the following reasons:
+     * <li>The player's game mode was set successfully.</li>
+     * <li>The player left the server.</li>
+     *
+     * @param mode The game mode to set.
+     * @return This instance.
+     */
+    public @NotNull PlayerUser forceGameMode(@NotNull GameMode mode) {
+        this.runTaskLoop(PlayerUser.FORCE_GAME_MODE_TASK_IDENTIFIER, () -> {
+
+            // Check if the player is no longer on the server.
+            if (Bukkit.getPlayer(this.player.getUniqueId()) == null) {
+
+                // Stop the task if successful.
+                this.stopTask(PlayerUser.FORCE_GAME_MODE_TASK_IDENTIFIER);
+            }
+
+            // Attempt to set the player's game mode.
+            this.getPlayer().setGameMode(mode);
+
+            if (this.getPlayer().getGameMode().equals(mode)) {
+
+                // Stop the task if successful.
+                this.stopTask(PlayerUser.FORCE_GAME_MODE_TASK_IDENTIFIER);
+            }
+
+        }, 4);
         return this;
     }
 }
