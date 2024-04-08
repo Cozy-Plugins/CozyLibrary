@@ -6,13 +6,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.block.Skull;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -504,6 +506,90 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
         SkullMeta skullMeta = (SkullMeta) this.getItemMeta();
         skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(playerUuid));
         this.setItemMeta(skullMeta);
+        return (S) this;
+    }
+
+    /**
+     * Used to get the instance of the items potion meta.
+     *
+     * @return The optional instance of the potion meta.
+     * If this item type isn't meant to have potion meta
+     * it will return null.
+     */
+    public @NotNull Optional<PotionMeta> getPotionMeta() {
+
+        // Check if the item has meta.
+        if (!this.hasItemMeta()) return Optional.empty();
+
+        // Check if the item has potion meta.
+        if (!(this.getItemMeta() instanceof PotionMeta potionMeta)) return Optional.empty();
+
+        // Otherwise, return the instance of the meta.
+        return Optional.of(potionMeta);
+    }
+
+    /**
+     * Used to check if the item has custom potion effects.
+     *
+     * @return True if the item has custom potion effects.
+     */
+    public boolean hasPotionEffects() {
+        final PotionMeta meta = this.getPotionMeta().orElse(null);
+        if (meta == null) return false;
+        return meta.hasCustomEffects();
+    }
+
+    /**
+     * Used to get the items potion effects.
+     *
+     * @return If the item is not a potion,
+     * it will return an empty list.
+     */
+    public @NotNull List<PotionEffect> getPotionEffects() {
+        final PotionMeta meta = this.getPotionMeta().orElse(null);
+        if (meta == null) return new ArrayList<>();
+        return meta.getCustomEffects();
+    }
+
+    /**
+     * Adds a custom potion effect to this potion.
+     * If the item is not a potion, it will do nothing.
+     *
+     * @param effect    The potion effect to add.
+     * @param overwrite True if any existing effect of the same type should be overwritten
+     * @return This instance.
+     */
+    public @NotNull S addPotionEffect(@NotNull PotionEffect effect, boolean overwrite) {
+        final PotionMeta meta = this.getPotionMeta().orElse(null);
+        if (meta == null) return (S) this;
+        meta.addCustomEffect(effect, overwrite);
+        return (S) this;
+    }
+
+    /**
+     * Used to remove a potion effect type from this item.
+     * This will do nothing if the item isn't a potion.
+     *
+     * @param type The type to remove.
+     * @return This instance.
+     */
+    public @NotNull S removePotionEffect(@NotNull PotionEffectType type) {
+        final PotionMeta meta = this.getPotionMeta().orElse(null);
+        if (meta == null) return (S) this;
+        meta.removeCustomEffect(type);
+        return (S) this;
+    }
+
+    /**
+     * Used to clear potion effects off of this item.
+     * This will do nothing if the item isn't a potion.
+     *
+     * @return This instance.
+     */
+    public @NotNull S clearPotionEffects() {
+        final PotionMeta meta = this.getPotionMeta().orElse(null);
+        if (meta == null) return (S) this;
+        meta.clearCustomEffects();
         return (S) this;
     }
 
