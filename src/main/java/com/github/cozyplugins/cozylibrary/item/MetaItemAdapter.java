@@ -564,6 +564,7 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
         final PotionMeta meta = this.getPotionMeta().orElse(null);
         if (meta == null) return (S) this;
         meta.addCustomEffect(effect, overwrite);
+        this.setItemMeta(meta);
         return (S) this;
     }
 
@@ -578,6 +579,7 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
         final PotionMeta meta = this.getPotionMeta().orElse(null);
         if (meta == null) return (S) this;
         meta.removeCustomEffect(type);
+        this.setItemMeta(meta);
         return (S) this;
     }
 
@@ -591,6 +593,7 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
         final PotionMeta meta = this.getPotionMeta().orElse(null);
         if (meta == null) return (S) this;
         meta.clearCustomEffects();
+        this.setItemMeta(meta);
         return (S) this;
     }
 
@@ -617,6 +620,7 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
         final PotionMeta meta = this.getPotionMeta().orElse(null);
         if (meta == null) return (S) this;
         meta.setColor(color);
+        this.setItemMeta(meta);
         return (S) this;
     }
 
