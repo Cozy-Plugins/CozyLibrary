@@ -3,6 +3,7 @@ package com.github.cozyplugins.cozylibrary.item;
 import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.google.common.collect.Multimap;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -590,6 +591,32 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
         final PotionMeta meta = this.getPotionMeta().orElse(null);
         if (meta == null) return (S) this;
         meta.clearCustomEffects();
+        return (S) this;
+    }
+
+    /**
+     * Used to get the potion's color if the item is
+     * a potion with color.
+     *
+     * @return The optional color.
+     */
+    public @NotNull Optional<Color> getPotionColor() {
+        final PotionMeta meta = this.getPotionMeta().orElse(null);
+        if (meta == null) return Optional.empty();
+        return Optional.ofNullable(meta.getColor());
+    }
+
+    /**
+     * Used to set the potion's color.
+     * This will do nothing if the item isn't a potion.
+     *
+     * @param color The color of the potion.
+     * @return This instance.
+     */
+    public @NotNull S setPotionColor(@NotNull Color color) {
+        final PotionMeta meta = this.getPotionMeta().orElse(null);
+        if (meta == null) return (S) this;
+        meta.setColor(color);
         return (S) this;
     }
 
