@@ -25,22 +25,26 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+
         <!-- PlaceholderAPI -->
         <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+
         <!-- Jitpack -->
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+
         <!-- CodeMC (NBT API) -->
         <repository>
             <id>codemc-repo</id>
             <url>https://repo.codemc.org/repository/maven-public/</url>
             <layout>default</layout>
         </repository>
+
         <!-- Protocol -->
         <repository>
             <id>dmulloy2-repo</id>
@@ -56,6 +60,7 @@
             <version>1.19.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Jet Brains Annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
@@ -63,6 +68,7 @@
             <version>24.0.1</version>
             <scope>compile</scope>
         </dependency>
+
         <!-- PlaceholderAPI -->
         <dependency>
             <groupId>me.clip</groupId>
@@ -70,6 +76,7 @@
             <version>2.10.10</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Jupiter -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -77,19 +84,22 @@
             <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
+
         <!-- Configuration API -->
         <dependency>
             <groupId>com.github.Smuddgge</groupId>
             <artifactId>SquishyYaml</artifactId>
-            <version>2.0.0</version>
+            <version>2.2.0</version>
             <scope>compile</scope>
         </dependency>
+
         <!-- NBT -->
         <dependency>
             <groupId>de.tr7zw</groupId>
             <artifactId>item-nbt-api</artifactId>
             <version>2.12.2</version>
         </dependency>
+
         <!-- Protocol -->
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
@@ -97,13 +107,15 @@
             <version>5.1.0</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Vault -->
         <dependency>
             <groupId>com.github.MilkBowl</groupId>
             <artifactId>VaultAPI</artifactId>
-            <version>1.7</version>
+            <version>1.7.1</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- Scoreboards -->
         <dependency>
             <groupId>fr.mrmicky</groupId>
