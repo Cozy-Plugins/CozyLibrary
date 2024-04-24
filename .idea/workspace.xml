@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/TestPlugin/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/resources/plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPlugin.java" afterDir="false" />
-    </list>
+    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -211,6 +207,7 @@
       <workItem from="1713915264235" duration="9000" />
       <workItem from="1713971380188" duration="7092000" />
       <workItem from="1713978490338" duration="1883000" />
+      <workItem from="1713980402026" duration="670000" />
     </task>
     <servers />
   </component>

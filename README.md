@@ -16,7 +16,7 @@ A library used to help create spigot plugins.
 ```xml
 <dependency>
     <groupId>com.github.Cozy-Plugins</groupId>
-    <artifactId>com.github.cozyplugins.cozylibrary.CozyLibrary</artifactId>
+    <artifactId>CozyLibrary</artifactId>
     <version>Tag</version>
 </dependency>
 ```
