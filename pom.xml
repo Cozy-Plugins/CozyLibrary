@@ -6,7 +6,6 @@
 
     <groupId>com.github.cozyplugins</groupId>
     <artifactId>CozyLibrary</artifactId>
-    <version>0.0.2</version>
     <name>CozyLibrary</name>
 
     <properties>
