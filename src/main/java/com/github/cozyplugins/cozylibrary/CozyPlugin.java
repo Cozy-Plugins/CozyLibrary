@@ -35,6 +35,9 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
     public CozyPlugin(@NotNull P plugin) {
         this.plugin = plugin;
         this.commandManager = new CommandManager(plugin.getName());
+
+        // Register this instance with the provider.
+        CozyPluginProvider.register(this);
     }
 
     /**
@@ -102,6 +105,7 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
         // for command types.
         if (this.isCommandTypesEnabled()) {
             this.commandDirectory = new CommandDirectory(this);
+            this.commandDirectory.addResourcePath("commands.yml");
             this.commandDirectory.reload();
         }
 

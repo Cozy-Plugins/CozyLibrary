@@ -88,8 +88,8 @@
         <!-- Configuration API -->
         <dependency>
             <groupId>com.github.Smuddgge</groupId>
-            <artifactId>SquishyYaml</artifactId>
-            <version>2.2.0</version>
+            <artifactId>SquishyConfiguration</artifactId>
+            <version>2.2.1</version>
             <scope>compile</scope>
         </dependency>
 
