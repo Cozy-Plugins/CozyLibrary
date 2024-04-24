@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/item/MetaItemAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/item/MetaItemAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CozyLibrary.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CozyLibrary.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +97,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-20.0.2-azul-20.0.2-f644763e9732-2383794a" />
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
       </set>
     </attachedChunks>
   </component>
@@ -195,6 +196,17 @@
       <workItem from="1712611532630" duration="1134000" />
       <workItem from="1712614047443" duration="285000" />
       <workItem from="1712614674406" duration="52000" />
+      <workItem from="1713050637815" duration="15000" />
+      <workItem from="1713052330091" duration="10000" />
+      <workItem from="1713053132491" duration="2000" />
+      <workItem from="1713053170983" duration="419000" />
+      <workItem from="1713053846028" duration="456000" />
+      <workItem from="1713054586559" duration="1000" />
+      <workItem from="1713570172313" duration="1309000" />
+      <workItem from="1713747958175" duration="88000" />
+      <workItem from="1713748111382" duration="2625000" />
+      <workItem from="1713830004997" duration="3875000" />
+      <workItem from="1713915264235" duration="9000" />
     </task>
     <servers />
   </component>
