@@ -128,6 +128,9 @@ public class InventoryManager implements Listener {
         // Check if it was a player who clicked.
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
+        // Check if the event has already been canceled.
+        if (event.isCancelled()) return;
+
         // Attempt to get the inventory interface.
         CozyInventory inventoryInterface = InventoryManager.getFromOwner(player);
         if (inventoryInterface == null) return;

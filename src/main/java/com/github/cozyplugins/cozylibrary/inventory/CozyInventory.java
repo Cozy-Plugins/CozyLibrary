@@ -434,6 +434,18 @@ public abstract class CozyInventory extends TaskContainer {
     }
 
     /**
+     * <h1>Used to open the inventory</h1>
+     * <li>If the owner hasn't been stated, this player will become the owner of the inventory</li>
+     * <li>If the inventory hasn't been generated it will also be generated with {@link #onGenerate}</li>
+     *
+     * @return This instance.
+     */
+    public @NotNull CozyInventory open(@NotNull PlayerUser user) {
+        this.open(user.getPlayer());
+        return this;
+    }
+
+    /**
      * <h1>Used to close the inventory</h1>
      * This will also remove the inventory from the handler.
      *

@@ -16,7 +16,7 @@ public class HelloWorldCommand implements CondensedUserCommand {
 
     @Override
     public @NotNull String getName() {
-        return "hello";
+        return "test_helloworld";
     }
 
     @Override

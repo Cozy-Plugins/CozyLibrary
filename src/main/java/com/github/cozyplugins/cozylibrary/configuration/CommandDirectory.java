@@ -1,43 +1,56 @@
 package com.github.cozyplugins.cozylibrary.configuration;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
-import com.github.cozyplugins.cozylibrary.CozyLibrary;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.command.CommandTypeManager;
 import com.github.cozyplugins.cozylibrary.command.adapter.CommandTypeAdapter;
 import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
+import com.github.smuddgge.squishyconfiguration.directory.ConfigurationDirectory;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import java.util.logging.Level;
+
+/**
+ * The command directory.
+ * <p>
+ * A directory that contains commands.
+ */
 public class CommandDirectory extends ConfigurationDirectory {
 
-    private final @NotNull String defaultFile;
+    private final @NotNull CozyPlugin<?> pointer;
 
     /**
-     * <h1>Used to create a commands configuration directory</h1>
+     * Used to create a command directory.
+     *
+     * @param plugin The instance of the plugin.
      */
-    public CommandDirectory(@NotNull String defaultFile, @NotNull Class<? extends CozyPlugin> clazz) {
-        super("commands", clazz);
+    public CommandDirectory(@NotNull CozyPlugin<?> plugin) {
+        super(plugin.getPlugin().getDataFolder().getAbsolutePath(),
+                "commands",
+                plugin.getPlugin().getClass()
+        );
 
-        this.defaultFile = defaultFile;
+        this.pointer = plugin;
     }
 
-    @Override
-    public @Nullable String getDefaultFileName() {
-        return this.defaultFile;
-    }
+    private void onReload() {
 
-    @Override
-    protected void onReload() {
         // Remove all current command types registered as commands.
-        CozyLibrary.getCommandHandler().removeCommandTypes();
+        this.pointer.getCommandManager().removeCommandTypes();
+
+        // Get the command type manager.
+        final CommandTypeManager typeManager = this.pointer.getCommandManager().getTypeManager();
 
         // Loop though commands.
         for (String key : this.getKeys()) {
 
             // Get command type.
-            CommandType commandType = CommandTypeManager.get(this.getSection(key).getString("type"));
+            CommandType commandType = typeManager.getCommandType(
+                    this.getSection(key).getString("type")
+            ).orElse(null);
+
+            // Check if the command type doesn't exist.
             if (commandType == null) continue;
 
             // Create new command.
@@ -48,8 +61,8 @@ public class CommandDirectory extends ConfigurationDirectory {
 
             ConsoleManager.log("[CommandDirectory] Added configuration command " + command.getName());
 
-            // Add command to handler.
-            CozyLibrary.getCommandHandler().add(command);
+            // Add command to the manager.
+            this.pointer.getCommandManager().addCommand(command);
         }
     }
 }

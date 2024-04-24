@@ -1,164 +1,166 @@
 package com.github.cozyplugins.cozylibrary;
 
-import com.github.cozyplugins.cozylibrary.command.CommandTypeManager;
-import com.github.cozyplugins.cozylibrary.command.CozyCommandHandler;
-import com.github.cozyplugins.cozylibrary.command.command.CommandType;
-import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
+import com.github.cozyplugins.cozylibrary.command.CommandManager;
 import com.github.cozyplugins.cozylibrary.configuration.CommandDirectory;
 import com.github.cozyplugins.cozylibrary.dependency.PlaceholderAPIDependency;
 import com.github.cozyplugins.cozylibrary.dependency.ProtocolDependency;
 import com.github.cozyplugins.cozylibrary.dependency.VaultAPIDependency;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionManager;
-import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholder;
-import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholderExpansion;
-import com.github.cozyplugins.cozylibrary.placeholder.CozyPlaceholderManager;
+import com.github.cozyplugins.cozylibrary.placeholder.PlaceholderManager;
 import com.github.cozyplugins.cozylibrary.scoreboard.ScoreboardManager;
-import me.clip.placeholderapi.PlaceholderAPI;
+import com.github.smuddgge.squishyconfiguration.directory.ConfigurationDirectory;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+
 /**
- * <h1>Represents a cozy plugin</h1>
- * Extends {@link JavaPlugin}.
+ * Represents the base library class.
+ * <p>
+ * The entry point for a cozy plugin.
  */
-public abstract class CozyPlugin extends JavaPlugin {
+public abstract class CozyPlugin<P extends JavaPlugin> {
 
-    private static CozyPlugin plugin;
+    private final P plugin;
+    private final @NotNull CommandManager commandManager;
+    private PlaceholderManager<P> placeholderManager;
+    private CommandDirectory commandDirectory;
 
-    @Override
-    public void onEnable() {
+    /**
+     * Used to create a new cozy plugin instance.
+     *
+     * @param plugin The instance of the plugin loader.
+     */
+    public CozyPlugin(@NotNull P plugin) {
+        this.plugin = plugin;
+        this.commandManager = new CommandManager(plugin.getName());
+    }
 
-        // Set plugin name.
-        CozyLibrary.setPluginName(this.getName());
+    /**
+     * Used to check if the command type configuration
+     * directory should be generated.
+     *
+     * @return True if the command types are enabled.
+     */
+    public abstract boolean isCommandTypesEnabled();
 
-        // Set up the plugin instance.
-        CozyPlugin.plugin = this;
+    /**
+     * Called after this plugin has been enabled.
+     */
+    public abstract void onEnable();
 
-        // Set up the dependency's.
+    /**
+     * Called after this plugin has been disabled.
+     */
+    public abstract void onDisable();
+
+    /**
+     * Called when the commands should be loaded
+     * into the manager.
+     *
+     * @param commandManager The instance of the command manager.
+     */
+    public abstract void onLoadCommands(@NotNull CommandManager commandManager);
+
+    /**
+     * Called when the placeholders should be loaded
+     * into the manager.
+     *
+     * @param placeholderManager The instance of the placeholder manager.
+     */
+    public abstract void onLoadPlaceholders(@NotNull PlaceholderManager<P> placeholderManager);
+
+    /**
+     * Used to enable this cozy plugin.
+     *
+     * @return This instance.
+     */
+    public @NotNull CozyPlugin<P> enable() {
+
+        // Load dependency's.
         ProtocolDependency.setup();
         VaultAPIDependency.setup();
-        CozyPlaceholderManager.setup();
 
-        // Start scoreboards.
-        ScoreboardManager.setup();
-
-        if (this.enableCommandDirectory()) {
-            // Setup command directory.
-            CozyLibrary.setCommandDirectory(new CommandDirectory("commands.yml", this.getClass()));
+        // Set up placeholders.
+        if (PlaceholderAPIDependency.isEnabled()) {
+            this.placeholderManager = new PlaceholderManager<>(plugin);
+            this.onLoadPlaceholders(this.placeholderManager);
+            this.placeholderManager.register();
         }
 
-        // Enable plugin.
-        this.onCozyEnable();
+        // Set up the scoreboard manager. This is static so
+        // other class can easily change a player's scoreboard.
+        // It does not depend on the plugin that changed the scoreboard.
+        ScoreboardManager.setup(this.plugin);
 
-       if (this.enableCommandDirectory()) {
-           // Reload command directory and add command types.
-           CozyLibrary.getCommandDirectory().reload();
-       }
 
-        // Register commands that have been added.
-        this.registerCommands();
+        // Load commands.
+        this.onLoadCommands(this.commandManager);
+
+        // Check if there should be a command directory
+        // for command types.
+        if (this.isCommandTypesEnabled()) {
+            this.commandDirectory = new CommandDirectory(this);
+            this.commandDirectory.reload();
+        }
+
+        // Register commands.
+        this.commandManager.registerCommands();
 
         // Register listeners.
-        this.getServer().getPluginManager().registerEvents(new InventoryManager(), this);
-        this.getServer().getPluginManager().registerEvents(new ScoreboardManager(), this);
+        this.plugin.getServer().getPluginManager().registerEvents(new InventoryManager(), this.plugin);
+        this.plugin.getServer().getPluginManager().registerEvents(new ScoreboardManager(), this.plugin);
 
-        // Register inventory events.
+        // Set up the action manager.
         new ActionManager(this);
 
-        // Check if the placeholder api is enabled.
-        if (PlaceholderAPIDependency.isEnabled()) {
-            // Register placeholder expansion.
-            new CozyPlaceholderExpansion().register();
-        }
+        // Call on enable.
+        this.onEnable();
+        return this;
     }
 
-    @Override
-    public void onDisable() {
-        // Unregister commands.
-        CozyLibrary.getCommandHandler().unregisterCommands();
+    /**
+     * Used to disable this cozy plugin.
+     *
+     * @return This instance.
+     */
+    public @NotNull CozyPlugin<P> disable() {
 
-        // Unregister listeners.
+        // Remove commands.
+        this.commandManager.unregisterCommands();
+        this.commandManager.removeAll();
+
+        // Remove placeholders.
+        if (this.placeholderManager != null) {
+            this.placeholderManager.unregister();
+            this.placeholderManager.removeAll();
+        }
+
+        // Remove inventories registered.
         InventoryManager.removeAll();
 
-        // Stop scoreboard tasks.
+        // Stop scoreboards.
         ScoreboardManager.stop();
-    }
 
-    /**
-     * <h1>Returns if there should be a command directory</h1>
-     *
-     * @return True if the commands directory should be enabled.
-     */
-    public abstract boolean enableCommandDirectory();
-
-    /**
-     * <h1>Called when the plugin is enabled</h1>
-     */
-    public abstract void onCozyEnable();
-
-    /**
-     * <h1>Used to get the command handler</h1>
-     * The command handler is used to register cozy
-     * commands.
-     * You can also get the command handler from
-     * the cozy library class.
-     *
-     * @return The command handler.
-     */
-    public @NotNull CozyCommandHandler getCommandHandler() {
-        return CozyLibrary.getCommandHandler();
-    }
-
-    /**
-     * <h1>Used to add a command to the command handler</h1>
-     *
-     * @param command The command to add.
-     * @return This instance.
-     */
-    public @NotNull CozyPlugin addCommand(CozyCommand command) {
-        this.getCommandHandler().add(command);
+        // Call on disable.
+        this.onDisable();
         return this;
     }
 
-    /**
-     * <h1>Used to register a command type</h1>
-     *
-     * @param commandType The command type to register.
-     * @return This instance.
-     */
-    public @NotNull CozyPlugin addCommandType(CommandType commandType) {
-        CommandTypeManager.register(commandType);
-        return this;
+    public @NotNull P getPlugin() {
+        return this.plugin;
     }
 
-    /**
-     * Used to add a cozy placeholder to the manager.
-     *
-     * @param placeholder The instance of the placeholder.
-     * @return This instance.
-     */
-    public @NotNull CozyPlugin addPlaceholder(@NotNull CozyPlaceholder placeholder) {
-        CozyPlaceholderManager.add(placeholder);
-        return this;
+    public @NotNull CommandManager getCommandManager() {
+        return this.commandManager;
     }
 
-    /**
-     * <h1>Used to register the commands.</h1>
-     *
-     * @return This instance.
-     */
-    public @NotNull CozyPlugin registerCommands() {
-        this.getCommandHandler().registerCommands();
-        return this;
+    public @NotNull Optional<PlaceholderManager<P>> getPlaceholderManager() {
+        return Optional.ofNullable(this.placeholderManager);
     }
 
-    /**
-     * Used to get the instance of the plugin.
-     *
-     * @return The instance of the plugin.
-     */
-    public static CozyPlugin getPlugin() {
-        return CozyPlugin.plugin;
+    public @NotNull ConfigurationDirectory getCommandDirectory() {
+        return this.commandDirectory;
     }
 }

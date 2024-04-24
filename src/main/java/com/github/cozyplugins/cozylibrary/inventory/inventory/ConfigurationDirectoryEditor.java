@@ -1,7 +1,6 @@
 package com.github.cozyplugins.cozylibrary.inventory.inventory;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
-import com.github.cozyplugins.cozylibrary.configuration.ConfigurationDirectory;
 import com.github.cozyplugins.cozylibrary.configuration.Path;
 import com.github.cozyplugins.cozylibrary.inventory.CozyInventory;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryItem;
@@ -10,7 +9,9 @@ import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickActionWithResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ConfirmAction;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
+import com.github.smuddgge.squishyconfiguration.directory.ConfigurationDirectory;
 import com.github.smuddgge.squishyconfiguration.implementation.YamlConfiguration;
+import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
@@ -28,7 +29,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public abstract class ConfigurationDirectoryEditor extends CozyInventory {
 
     private final @NotNull ConfigurationDirectory directory;
-    private final @NotNull YamlConfiguration store;
+    private final @NotNull Configuration store;
     private @NotNull Path path;
 
     /**
@@ -43,7 +44,7 @@ public abstract class ConfigurationDirectoryEditor extends CozyInventory {
 
         // Get or create if the store file doesn't exist.
         // This file represents the folder's settings.
-        this.store = directory.createStore();
+        this.store = directory.getDataStore();
 
         // Make sure the path is not null.
         this.path = new Path(this.directory.getDirectory());
@@ -75,7 +76,7 @@ public abstract class ConfigurationDirectoryEditor extends CozyInventory {
         this.setItem(new InventoryItem().setMaterial(Material.AIR).addSlotRange(0, 53));
 
         // Get the folder being edited.
-        File folder = this.directory.getDirectory(this.path.getDotPath());
+        File folder = this.directory.getDirectory(this.path.getDotPath()).orElse(null);
 
         // Check if the folder does not exist.
         if (folder == null) {

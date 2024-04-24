@@ -1,6 +1,6 @@
-test:
-  type: "test"
-  name: "test"
+test_command_type:
+  type: "test_command_type"
+  name: "test_command_type"
   message: "Testing, testing..."
   '1':
     name: "1"
@@ -8,16 +8,3 @@ test:
   '2':
     name: "2"
     message: "response: 2"
-
-sub:
-  type: "sub"
-  name: "sub"
-
-  sub2:
-    name: "sub2"
-
-    sub3:
-      name: "sub3"
-
-      sub4:
-        name: "sub4"

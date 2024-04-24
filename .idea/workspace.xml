@@ -5,8 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CozyLibrary.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CozyLibrary.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPluginProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/CommandManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/ConsoleManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyLibrary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/CozyPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/CommandTypeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/CommandTypeManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/CozyCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/adapter/BukkitCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command/adapter/BukkitCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/configuration/CommandDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/configuration/CommandDirectory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/configuration/ConfigurationDirectory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/configuration/SingleTypeConfigurationDirectory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/configuration/message/BaseConfigMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/configuration/message/BaseConfigMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/dependency/ProtocolDependency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/dependency/ProtocolDependency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/dependency/VaultAPIDependency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/dependency/VaultAPIDependency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/indicator/LocationConvertable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/indicator/LocationConvertable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/InventoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/InventoryManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/ActionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/action/ActionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/inventory/ConfigurationDirectoryEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/inventory/inventory/ConfigurationDirectoryEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/item/NBTItemAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/item/NBTItemAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/location/Region3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/location/Region.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/placeholder/CozyPlaceholder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/placeholder/Placeholder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/placeholder/CozyPlaceholderExpansion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/placeholder/CozyPlaceholderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/placeholder/PlaceholderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/scoreboard/ScoreboardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/scoreboard/ScoreboardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/task/TaskContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/task/TaskContainer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,26 +59,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.TestPlugin.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/joshuasmith/Dropbox/Responsorys/CozyPlugins/CozyLibrary/src/main/java/com/github/cozyplugins/cozylibrary/placeholder&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.TestPlugin.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/joshuasmith/Dropbox/Responsorys/CozyPlugins/CozyLibrary/src/main/java/com/github/cozyplugins/cozylibrary/command",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/command" />
       <recent name="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/placeholder" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -207,6 +233,7 @@
       <workItem from="1713748111382" duration="2625000" />
       <workItem from="1713830004997" duration="3875000" />
       <workItem from="1713915264235" duration="9000" />
+      <workItem from="1713971380188" duration="7092000" />
     </task>
     <servers />
   </component>

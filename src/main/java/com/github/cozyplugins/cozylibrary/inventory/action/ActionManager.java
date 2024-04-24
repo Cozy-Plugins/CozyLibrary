@@ -36,8 +36,8 @@ public final class ActionManager implements Listener {
      *
      * @param plugin The instance of the base plugin.
      */
-    public ActionManager(CozyPlugin plugin) {
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    public ActionManager(@NotNull CozyPlugin<?> plugin) {
+        plugin.getPlugin().getServer().getPluginManager().registerEvents(this, plugin.getPlugin());
 
         ActionManager.actionHandlerList = new ArrayList<>();
         ActionManager.addActionHandler(new ClickActionHandler());
@@ -51,7 +51,7 @@ public final class ActionManager implements Listener {
 
         // Setup packet listeners.
         ProtocolDependency.get().addPacketListener(new PacketAdapter(
-                CozyPlugin.getPlugin(),
+                plugin.getPlugin(),
                 ListenerPriority.NORMAL,
                 PacketType.Play.Client.ITEM_NAME
         ) {

@@ -3,12 +3,9 @@ package com.github.cozyplugins.cozylibrary;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * <h1>Represents the console manager</h1>
- */
 public class ConsoleManager {
 
-    private static @NotNull String prefix = "&7[CozyPlugin]";
+    private static final @NotNull String prefix = "&7[CozyPlugin]";
 
     /**
      * Used to get the console prefix.
@@ -18,15 +15,6 @@ public class ConsoleManager {
      */
     public static @NotNull String getPrefix() {
         return ConsoleManager.prefix;
-    }
-
-    /**
-     * Used to set the console prefix.
-     *
-     * @param prefix The prefix to set to.
-     */
-    public static void setPrefix(@NotNull String prefix) {
-        ConsoleManager.prefix = prefix;
     }
 
     /**

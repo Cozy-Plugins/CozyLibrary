@@ -22,7 +22,7 @@ public class TestCommandType implements CommandType {
 
     @Override
     public @NotNull String getIdentifier() {
-        return "test";
+        return "test_command_type";
     }
 
     @Override

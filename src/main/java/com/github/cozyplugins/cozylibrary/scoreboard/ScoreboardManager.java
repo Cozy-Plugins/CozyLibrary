@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
@@ -31,15 +32,15 @@ public final class ScoreboardManager implements Listener {
     /**
      * Used to set up the scoreboard manager.
      */
-    public static void setup() {
+    public static void setup(@NotNull JavaPlugin plugin) {
 
         // Set up the scoreboard maps.
         ScoreboardManager.scoreboardMap = new HashMap<>();
         ScoreboardManager.animatedScoreboardMap = new HashMap<>();
 
         // Start scheduler.
-        BukkitScheduler scheduler = CozyPlugin.getPlugin().getServer().getScheduler();
-        ScoreboardManager.task = scheduler.runTaskTimer(CozyPlugin.getPlugin(), () -> {
+        BukkitScheduler scheduler = plugin.getServer().getScheduler();
+        ScoreboardManager.task = scheduler.runTaskTimer(plugin, () -> {
 
             // Loop though animated scoreboards.
             for (Map.Entry<UUID, AnimatedScoreboard> entry : ScoreboardManager.animatedScoreboardMap.entrySet()) {

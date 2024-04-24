@@ -1,61 +1,70 @@
+/*
+ * CozyGamesAPI - The api used to interface with the cozy game system.
+ * Copyright (C) 2024 Smuddgge
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.github.cozyplugins.cozylibrary.command;
 
 import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * <h1>Represents the command type manager</h1>
- * Holds the possible command types that can be used.
+ * Represents a command type manager.
+ * <p>
+ * Used to store command types that are available.
  */
 public class CommandTypeManager {
 
-    private final static List<@NotNull CommandType> commandTypeList = new ArrayList<>();
+    private final @NotNull List<CommandType> commandTypeList;
 
     /**
-     * <h1>Used to register a command type</h1>
-     *
-     * @param commandType The command type to register.
+     * Used to create a new command
+     * type manager.
      */
-    public static void register(@NotNull CommandType commandType) {
-        CommandTypeManager.commandTypeList.add(commandType);
+    public CommandTypeManager() {
+        this.commandTypeList = new ArrayList<>();
     }
 
-    /**
-     * <h1>Used to unregister a command type</h1>
-     *
-     * @param commandType The command type to unregister.
-     */
-    public static void unregister(@NotNull CommandType commandType) {
-        CommandTypeManager.commandTypeList.remove(commandType);
+    public @NotNull List<CommandType> getCommandTypeList() {
+        return this.commandTypeList;
     }
 
-    /**
-     * <h1>Used to unregister a command type</h1>
-     *
-     * @param identifier The command types unique identifier.
-     */
-    public static void unregister(@NotNull String identifier) {
-        for (CommandType commandType : CommandTypeManager.commandTypeList) {
-            if (!commandType.getIdentifier().equals(identifier)) continue;
-            CommandTypeManager.unregister(commandType);
-            break;
+    public @NotNull Optional<CommandType> getCommandType(@NotNull String identifier) {
+        for (CommandType type : commandTypeList) {
+            if (type.getIdentifier().equalsIgnoreCase(identifier)) return Optional.of(type);
         }
+        return Optional.empty();
     }
 
-    /**
-     * <h1>Used to get a command type</h1>
-     *
-     * @param identifier The command types unique identifier.
-     * @return The requested command type.
-     */
-    public static @Nullable CommandType get(@NotNull String identifier) {
-        for (CommandType commandType : CommandTypeManager.commandTypeList) {
-            if (commandType.getIdentifier().equals(identifier)) return commandType;
-        }
-        return null;
+    public @NotNull CommandTypeManager registerCommandType(@NotNull CommandType type) {
+        this.commandTypeList.add(type);
+        return this;
+    }
+
+    public @NotNull CommandTypeManager unregisterCommandType(@NotNull String identifier) {
+        this.commandTypeList.removeIf(temp -> temp.getIdentifier().equalsIgnoreCase(identifier));
+        return this;
+    }
+
+    public @NotNull CommandTypeManager unregisterCommandType(@NotNull CommandType type) {
+        this.unregisterCommandType(type.getIdentifier());
+        return this;
     }
 }

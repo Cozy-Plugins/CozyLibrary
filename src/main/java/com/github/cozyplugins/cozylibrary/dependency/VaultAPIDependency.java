@@ -2,6 +2,7 @@ package com.github.cozyplugins.cozylibrary.dependency;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
+import com.github.cozyplugins.cozylibrary.CozyPluginProvider;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -26,8 +27,8 @@ public class VaultAPIDependency {
             return;
         }
 
-        RegisteredServiceProvider<Economy> economyProvider = CozyPlugin.getPlugin().getServer()
-                .getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServicesManager()
+                .getRegistration(net.milkbowl.vault.economy.Economy.class);
 
         // Check if the economy provider exists.
         if (economyProvider == null) {

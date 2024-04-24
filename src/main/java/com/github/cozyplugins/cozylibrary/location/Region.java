@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Represents a 3 dimensional region.
  */
-public class Region3D implements Replicable<Region3D>, ConfigurationConvertable<Region3D> {
+public class Region implements Replicable<Region>, ConfigurationConvertable<Region> {
 
     private @NotNull Location position1;
     private @NotNull Location position2;
@@ -34,7 +34,7 @@ public class Region3D implements Replicable<Region3D>, ConfigurationConvertable<
      *                                  or the worlds are null.
      *                                  Positions must be in the same world.
      */
-    public Region3D(@NotNull Location position1, @NotNull Location position2) {
+    public Region(@NotNull Location position1, @NotNull Location position2) {
         // Check if the positions are in the same world
         // or if the worlds are null.
         if (position1.getWorld() == null || position2.getWorld() == null
@@ -55,7 +55,7 @@ public class Region3D implements Replicable<Region3D>, ConfigurationConvertable<
      *                                  or the worlds are null.
      *                                  Positions must be in the same world.
      */
-    public Region3D(@NotNull ConfigurationSection section) {
+    public Region(@NotNull ConfigurationSection section) {
         this.convert(section);
 
         // Check if the positions are in the same world
@@ -77,8 +77,8 @@ public class Region3D implements Replicable<Region3D>, ConfigurationConvertable<
     }
 
     @Override
-    public Region3D duplicate() {
-        return new Region3D(this.position1.clone(), this.position2.clone());
+    public Region duplicate() {
+        return new Region(this.position1.clone(), this.position2.clone());
     }
 
     @Override
@@ -101,7 +101,7 @@ public class Region3D implements Replicable<Region3D>, ConfigurationConvertable<
     }
 
     @Override
-    public Region3D convert(ConfigurationSection section) {
+    public Region convert(ConfigurationSection section) {
         World world = Bukkit.getWorld(section.getString("world", null));
 
         // Check if the world is null.
@@ -197,7 +197,7 @@ public class Region3D implements Replicable<Region3D>, ConfigurationConvertable<
      * @return The distance between the center and given location.
      */
     public double getDistanceFromCenter(@NotNull Location location) {
-        return Region3D.getDistance(location, this.getCenter());
+        return Region.getDistance(location, this.getCenter());
     }
 
     /**
@@ -236,7 +236,7 @@ public class Region3D implements Replicable<Region3D>, ConfigurationConvertable<
      * @param z The amount to expand in the z direction.
      * @return This instance.
      */
-    public @NotNull Region3D expand(double x, double y, double z) {
+    public @NotNull Region expand(double x, double y, double z) {
         Location min = this.getMinPoint();
         Location max = this.getMaxPoint();
 
@@ -261,7 +261,7 @@ public class Region3D implements Replicable<Region3D>, ConfigurationConvertable<
      * @param amount The amount to expand the region by.
      * @return This instance.
      */
-    public @NotNull Region3D expand(double amount) {
+    public @NotNull Region expand(double amount) {
         this.expand(amount, amount, amount);
         return this;
     }

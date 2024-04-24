@@ -7,6 +7,7 @@ import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.PlaceAction;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.smuddgge.squishyconfiguration.implementation.YamlConfiguration;
+import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,7 @@ import java.io.File;
 public class FileEditor extends CozyInventory {
 
     private final @NotNull File file;
-    private final @NotNull YamlConfiguration store;
+    private final @NotNull Configuration store;
     private final @NotNull ConfigurationSection folder;
     private final @NotNull ConfigurationSection section;
     private final @NotNull ConfigurationDirectoryEditor editor;
@@ -36,7 +37,7 @@ public class FileEditor extends CozyInventory {
      */
     public FileEditor(
             @NotNull File file,
-            @NotNull YamlConfiguration store,
+            @NotNull Configuration store,
             @NotNull ConfigurationSection folder,
             @NotNull ConfigurationSection section,
             @NotNull ConfigurationDirectoryEditor editor) {

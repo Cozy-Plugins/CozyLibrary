@@ -1,6 +1,8 @@
 package com.github.cozyplugins.cozylibrary.task;
 
 import com.github.cozyplugins.cozylibrary.CozyPlugin;
+import com.github.cozyplugins.cozylibrary.CozyPluginProvider;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
@@ -14,12 +16,14 @@ import java.util.Map;
  */
 public class TaskContainer {
 
+    private final @NotNull JavaPlugin plugin;
     private @NotNull Map<String, BukkitTask> taskMap;
 
     /**
      * Used to create a task container.
      */
     public TaskContainer() {
+        this.plugin = CozyPluginProvider.getCozyPlugin().getPlugin();
         this.taskMap = new HashMap<>();
     }
 
@@ -33,8 +37,8 @@ public class TaskContainer {
      * @return This instance.
      */
     public @NotNull TaskContainer runTaskLater(@NotNull String identifier, @NotNull Runnable task, long delayTicks) {
-        BukkitScheduler scheduler = CozyPlugin.getPlugin().getServer().getScheduler();
-        BukkitTask bukkitTask = scheduler.runTaskLater(CozyPlugin.getPlugin(), () -> {
+        BukkitScheduler scheduler = this.plugin.getServer().getScheduler();
+        BukkitTask bukkitTask = scheduler.runTaskLater(this.plugin, () -> {
             this.stopTask(identifier);
             task.run();
         }, delayTicks);
@@ -51,8 +55,8 @@ public class TaskContainer {
      * @return This instance.
      */
     public @NotNull TaskContainer runTaskLoop(@NotNull String identifier, @NotNull Runnable task, long delayTicks) {
-        BukkitScheduler scheduler = CozyPlugin.getPlugin().getServer().getScheduler();
-        BukkitTask bukkitTask = scheduler.runTaskTimer(CozyPlugin.getPlugin(), task, delayTicks, delayTicks);
+        BukkitScheduler scheduler = this.plugin.getServer().getScheduler();
+        BukkitTask bukkitTask = scheduler.runTaskTimer(this.plugin, task, delayTicks, delayTicks);
         this.registerTask(identifier, bukkitTask);
         return this;
     }

@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Represents a placeholder in this plugin.
  */
-public interface CozyPlaceholder {
+public interface Placeholder {
 
     /**
      * Used to get the identifier of the placeholder.
