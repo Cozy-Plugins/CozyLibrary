@@ -9,14 +9,12 @@ import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import com.github.smuddgge.squishyconfiguration.directory.ConfigurationDirectory;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.logging.Level;
-
 /**
  * The command directory.
  * <p>
  * A directory that contains commands.
  */
-public class CommandDirectory extends ConfigurationDirectory {
+public class CommandDirectory extends ConfigurationDirectory implements ConfigurationDirectory.Listener {
 
     private final @NotNull CozyPlugin<?> pointer;
 
@@ -32,9 +30,12 @@ public class CommandDirectory extends ConfigurationDirectory {
         );
 
         this.pointer = plugin;
+
+        this.addListener(this);
     }
 
-    private void onReload() {
+    @Override
+    public void onReload(@NotNull ConfigurationDirectory configurationDirectory) {
 
         // Remove all current command types registered as commands.
         this.pointer.getCommandManager().removeCommandTypes();
