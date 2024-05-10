@@ -11,8 +11,8 @@ public interface PlaceActionWithResult extends Action {
     /**
      * Called when someone places an item in the slot.
      *
-     * @param user The instance of the user.
-     * @param item The instance of the item.
+     * @param user  The instance of the user.
+     * @param item  The instance of the item.
      * @param event The instance of the event.
      */
     void onPlace(@NotNull PlayerUser user, @NotNull CozyItem item, @NotNull InventoryClickEvent event);

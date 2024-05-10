@@ -21,7 +21,6 @@ package com.github.cozyplugins.cozylibrary.command;
 import com.github.cozyplugins.cozylibrary.command.adapter.BukkitCommandAdapter;
 import com.github.cozyplugins.cozylibrary.command.adapter.BukkitCommandHandler;
 import com.github.cozyplugins.cozylibrary.command.adapter.CommandTypeAdapter;
-import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
 import org.bukkit.command.Command;
 import org.jetbrains.annotations.NotNull;

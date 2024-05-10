@@ -37,7 +37,7 @@ public abstract class ConfigurationInventory extends CozyInventory {
     /**
      * Called when an item has a function.
      *
-     * @param item The instance of the item.
+     * @param item            The instance of the item.
      * @param functionSection The configuration section that
      *                        contains the item function.
      * @return The item to add to the inventory.

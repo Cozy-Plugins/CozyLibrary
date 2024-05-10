@@ -3,8 +3,6 @@ package com.github.cozyplugins.cozylibrary.configuration.message;
 import com.github.cozyplugins.cozylibrary.CozyPluginProvider;
 import com.github.smuddgge.squishyconfiguration.ConfigurationFactory;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 /**

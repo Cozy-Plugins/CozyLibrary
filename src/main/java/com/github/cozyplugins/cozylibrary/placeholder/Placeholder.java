@@ -14,7 +14,8 @@ public interface Placeholder {
      *
      * @return The placeholder identifier.
      */
-    @NotNull String getIdentifier();
+    @NotNull
+    String getIdentifier();
 
     /**
      * Used to get the value of the placeholder.
@@ -23,5 +24,6 @@ public interface Placeholder {
      * @param params The full placeholder parameters.
      * @return The value to replace with.
      */
-    @NotNull String getValue(@Nullable Player player, @NotNull String params);
+    @NotNull
+    String getValue(@Nullable Player player, @NotNull String params);
 }

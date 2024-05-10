@@ -1,6 +1,5 @@
 package com.github.cozyplugins.cozylibrary.scoreboard;
 
-import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import fr.mrmicky.fastboard.FastBoard;

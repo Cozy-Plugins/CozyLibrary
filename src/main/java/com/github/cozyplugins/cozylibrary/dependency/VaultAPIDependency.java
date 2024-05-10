@@ -1,8 +1,6 @@
 package com.github.cozyplugins.cozylibrary.dependency;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
-import com.github.cozyplugins.cozylibrary.CozyPlugin;
-import com.github.cozyplugins.cozylibrary.CozyPluginProvider;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;

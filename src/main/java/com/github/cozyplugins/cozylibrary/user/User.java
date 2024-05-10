@@ -24,7 +24,8 @@ public interface User {
      *
      * @return The users uuid.
      */
-    @NotNull UUID getUuid();
+    @NotNull
+    UUID getUuid();
 
     /**
      * <h1>Used to get the users name</h1>
@@ -33,7 +34,8 @@ public interface User {
      *
      * @return The users name.
      */
-    @NotNull String getName();
+    @NotNull
+    String getName();
 
     /**
      * <h1>Used to send a message to the user</h1>

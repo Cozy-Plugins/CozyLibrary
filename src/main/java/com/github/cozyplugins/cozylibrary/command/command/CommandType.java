@@ -34,7 +34,8 @@ public interface CommandType {
      *
      * @return The command name.
      */
-    @NotNull String getIdentifier();
+    @NotNull
+    String getIdentifier();
 
     /**
      * <h1>Used to get the commands syntax</h1>
@@ -46,7 +47,8 @@ public interface CommandType {
      *
      * @return The command syntax.
      */
-    @Nullable String getSyntax();
+    @Nullable
+    String getSyntax();
 
 
     /**
@@ -54,14 +56,16 @@ public interface CommandType {
      *
      * @return The description.
      */
-    @Nullable String getDescription();
+    @Nullable
+    String getDescription();
 
     /**
      * <h1>Used to get the sub command types</h1>
      *
      * @return The sub command types.
      */
-    @Nullable CommandTypePool getSubCommandTypes();
+    @Nullable
+    CommandTypePool getSubCommandTypes();
 
     /**
      * <h1>Used to get the command's suggestions</h1>
@@ -72,7 +76,8 @@ public interface CommandType {
      * @param arguments The current command arguments.
      * @return The requested command suggestions.
      */
-    @Nullable CommandSuggestions getSuggestions(@NotNull User user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
+    @Nullable
+    CommandSuggestions getSuggestions(@NotNull User user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 
     /**
      * <h1>Ran when any user executes this command</h1>
@@ -82,7 +87,8 @@ public interface CommandType {
      * @param arguments The commands arguments.
      * @return The command status.
      */
-    @Nullable CommandStatus onUser(@NotNull User user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
+    @Nullable
+    CommandStatus onUser(@NotNull User user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 
     /**
      * <h1>Ran when the console executes this command</h1>
@@ -93,7 +99,8 @@ public interface CommandType {
      * @param arguments The commands arguments.
      * @return The command status.
      */
-    @Nullable CommandStatus onPlayer(@NotNull PlayerUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
+    @Nullable
+    CommandStatus onPlayer(@NotNull PlayerUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 
     /**
      * <h1>Ran when a fake user executes this command</h1>
@@ -105,7 +112,8 @@ public interface CommandType {
      * @param arguments The commands arguments.
      * @return The command status.
      */
-    @Nullable CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
+    @Nullable
+    CommandStatus onFakeUser(@NotNull FakeUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 
     /**
      * <h1>Ran when the console executes this command</h1>
@@ -116,5 +124,6 @@ public interface CommandType {
      * @param arguments The commands arguments.
      * @return The command status.
      */
-    @Nullable CommandStatus onConsole(@NotNull ConsoleUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
+    @Nullable
+    CommandStatus onConsole(@NotNull ConsoleUser user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 }

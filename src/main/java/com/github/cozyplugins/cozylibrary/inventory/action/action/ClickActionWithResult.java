@@ -23,7 +23,8 @@ public interface ClickActionWithResult extends Action {
      * @param slot          The slot clicked.
      * @param event         The instance of the event.
      */
-    @NotNull ActionResult onClick(
+    @NotNull
+    ActionResult onClick(
             @NotNull PlayerUser user,
             ClickType type,
             @NotNull Inventory inventory,

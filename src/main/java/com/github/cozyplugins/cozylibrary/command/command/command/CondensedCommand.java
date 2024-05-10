@@ -18,7 +18,8 @@ public interface CondensedCommand extends CozyCommand {
      *
      * @return The command credentials.
      */
-    @Nullable CommandCredentials getCredentials();
+    @Nullable
+    CommandCredentials getCredentials();
 
     @Override
     default @Nullable CommandAliases getAliases() {

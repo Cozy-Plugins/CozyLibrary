@@ -21,5 +21,6 @@ public interface ProgrammableExecutor<T extends User> {
      * @param arguments The command's arguments.
      * @return The command status.
      */
-    @Nullable CommandStatus onUser(@NotNull T user, @NotNull CommandArguments arguments);
+    @Nullable
+    CommandStatus onUser(@NotNull T user, @NotNull CommandArguments arguments);
 }

@@ -16,7 +16,9 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <h1>Represents an nbt item adapter</h1>
@@ -46,7 +48,8 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
      * <h1>Represents a nbt update</h1>
      */
     private interface NBTUpdate {
-        @NotNull NBTItem apply(@NotNull NBTItem nbtItem);
+        @NotNull
+        NBTItem apply(@NotNull NBTItem nbtItem);
     }
 
     /**
@@ -201,7 +204,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
      * Used to replace a string with a string within the
      * item's name and lore.
      *
-     * @param match The string to look for.
+     * @param match   The string to look for.
      * @param content The string to replace it with.
      * @return This instance.
      */
@@ -222,7 +225,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
     /**
      * Used to replace the name lore and nbt in the item.
      *
-     * @param match The string to look for.
+     * @param match   The string to look for.
      * @param content The content to replace it with.
      * @return This instance.
      */
@@ -236,7 +239,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         for (Map.Entry<String, Object> entry : this.getNBT().entrySet()) {
 
             // Check if the value is a map.
-            if (entry.getValue() instanceof Map<?,?>) {
+            if (entry.getValue() instanceof Map<?, ?>) {
                 this.setNBT(entry.getKey(), this.replaceNBT(
                         (Map<String, Object>) entry.getValue(),
                         match, content
@@ -265,7 +268,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         for (Map.Entry<String, Object> entry : map.entrySet()) {
 
             // Check if the value is another map.
-            if (entry.getValue() instanceof Map<?,?>) {
+            if (entry.getValue() instanceof Map<?, ?>) {
                 newMap.put(entry.getKey(), this.replaceNBT(
                         (Map<String, Object>) entry.getValue(),
                         match, content
@@ -305,8 +308,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         if (!this.getNBT().isEmpty()) section.set("nbt", this.getNBT());
 
         // Leather armour.
-        if (this.getItemMeta() instanceof LeatherArmorMeta) {
-            LeatherArmorMeta meta = (LeatherArmorMeta) this.getItemMeta();
+        if (this.getItemMeta() instanceof LeatherArmorMeta meta) {
             section.set("color", meta.getColor().asRGB());
         }
 
@@ -344,8 +346,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
             this.setUnbreakable(section.getBoolean("unbreakable", false));
 
         // Leather armour.
-        if (this.getItemMeta() instanceof LeatherArmorMeta && section.getKeys().contains("color")) {
-            LeatherArmorMeta meta = (LeatherArmorMeta) this.getItemMeta();
+        if (this.getItemMeta() instanceof LeatherArmorMeta meta && section.getKeys().contains("color")) {
             meta.setColor(Color.fromRGB(section.getInteger("color")));
             this.setItemMeta(meta);
         }

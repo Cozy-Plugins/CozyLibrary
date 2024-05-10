@@ -1,6 +1,5 @@
 package com.github.cozyplugins.cozylibrary.task;
 
-import com.github.cozyplugins.cozylibrary.CozyPlugin;
 import com.github.cozyplugins.cozylibrary.CozyPluginProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;

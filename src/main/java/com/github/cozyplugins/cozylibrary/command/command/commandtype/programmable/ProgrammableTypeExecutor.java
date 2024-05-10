@@ -24,5 +24,6 @@ public interface ProgrammableTypeExecutor<T extends User> {
      * @param arguments The command arguments.
      * @return The command status.
      */
-    @Nullable CommandStatus onExecute(@NotNull T user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
+    @Nullable
+    CommandStatus onExecute(@NotNull T user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 }

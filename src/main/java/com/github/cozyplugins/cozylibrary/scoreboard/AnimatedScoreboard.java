@@ -12,5 +12,6 @@ public interface AnimatedScoreboard {
      *
      * @return The instance of the scoreboard to set.
      */
-    @NotNull Scoreboard onUpdate();
+    @NotNull
+    Scoreboard onUpdate();
 }

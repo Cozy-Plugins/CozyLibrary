@@ -22,5 +22,6 @@ public interface ProgrammableTypeSuggestions {
      * @param arguments The command arguments.
      * @return The command suggestions.
      */
-    @Nullable CommandSuggestions getSuggestions(@NotNull User user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
+    @Nullable
+    CommandSuggestions getSuggestions(@NotNull User user, @NotNull ConfigurationSection section, @NotNull CommandArguments arguments);
 }
