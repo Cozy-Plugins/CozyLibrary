@@ -1,8 +1,8 @@
 package com.github.cozyplugins.cozylibrary.inventory;
 
 import com.github.cozyplugins.cozylibrary.inventory.action.Action;
+import com.github.cozyplugins.cozylibrary.inventory.slot.SlotPool;
 import com.github.cozyplugins.cozylibrary.item.NBTItemAdapter;
-import com.github.smuddgge.squishyconfiguration.indicator.ConfigurationConvertable;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -132,19 +132,5 @@ public class InventoryItem extends NBTItemAdapter<InventoryItem> {
      */
     public List<Action> getActionList() {
         return this.actionList;
-    }
-
-    @Override
-    public InventoryItem convert(ConfigurationSection section) {
-
-        // Create the item.
-        super.convert(section);
-
-        // Check for slots.
-        if (section.getKeys().contains("slots")) {
-            this.addSlotList(section.getListInteger("slots", new ArrayList<>()));
-        }
-
-        return this;
     }
 }

@@ -1,4 +1,4 @@
-package com.github.cozyplugins.cozylibrary.inventory;
+package com.github.cozyplugins.cozylibrary.inventory.slot;
 
 import com.github.cozyplugins.cozylibrary.pool.Pool;
 

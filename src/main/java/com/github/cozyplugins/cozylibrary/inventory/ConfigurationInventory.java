@@ -1,11 +1,14 @@
 package com.github.cozyplugins.cozylibrary.inventory;
 
+import com.github.cozyplugins.cozylibrary.inventory.slot.SlotParser;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * Represents a configuration inventory.
@@ -54,6 +57,8 @@ public abstract class ConfigurationInventory extends CozyInventory {
         // Loop though all the items.
         for (String itemKey : this.section.getSection("items").getKeys()) {
 
+            final List<Integer> slots = SlotParser.parse(itemKey, this.getInventory().getType());
+
             // Get the configuration section.
             ConfigurationSection itemSection = this.section.getSection("items." + itemKey);
 
@@ -61,7 +66,8 @@ public abstract class ConfigurationInventory extends CozyInventory {
             CozyItem item = new CozyItem(Material.BARRIER).convert(itemSection);
 
             // Create the inventory item.
-            InventoryItem inventoryItem = new InventoryItem(item.create()).convert(itemSection);
+            InventoryItem inventoryItem = new InventoryItem(item.create());
+            inventoryItem.addSlotList(slots);
 
             // Check if there is an item function.
             if (itemSection.getKeys().contains("function")) {
