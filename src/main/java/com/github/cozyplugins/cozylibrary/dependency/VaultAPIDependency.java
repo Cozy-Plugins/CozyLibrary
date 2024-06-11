@@ -30,7 +30,8 @@ public class VaultAPIDependency {
 
         // Check if the economy provider exists.
         if (economyProvider == null) {
-            ConsoleManager.warn("Unable to get the economy provider from the plugin vault. Some features may be disabled as a result.");
+            ConsoleManager.warn("Unable to get a economy provider. Some features may be disabled as a result.");
+            ConsoleManager.warn("To add economy support you will need a plugin like &fEssentials &eto provide a economy implementation.");
             return;
         }
 
