@@ -11,6 +11,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
@@ -529,6 +530,12 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
         return Optional.of(potionMeta);
     }
 
+    public @NotNull Optional<LeatherArmorMeta> getLeatherArmorMeta() {
+        if (!this.hasItemMeta()) return Optional.empty();
+        if (!(this.getItemMeta() instanceof LeatherArmorMeta leatherArmorMeta)) return Optional.empty();
+        return Optional.of(leatherArmorMeta);
+    }
+
     /**
      * Used to check if the item has custom potion effects.
      *
@@ -618,6 +625,14 @@ public class MetaItemAdapter<S extends MetaItemAdapter<S>> extends ItemStackAdap
      */
     public @NotNull S setPotionColor(@NotNull Color color) {
         final PotionMeta meta = this.getPotionMeta().orElse(null);
+        if (meta == null) return (S) this;
+        meta.setColor(color);
+        this.setItemMeta(meta);
+        return (S) this;
+    }
+
+    public @NotNull S setLeatherArmourColor(@NotNull Color color) {
+        final LeatherArmorMeta meta = this.getLeatherArmorMeta().orElse(null);
         if (meta == null) return (S) this;
         meta.setColor(color);
         this.setItemMeta(meta);
