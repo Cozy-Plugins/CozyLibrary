@@ -2,14 +2,17 @@ package com.github.cozyplugins.cozylibrary.inventory;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -42,13 +45,20 @@ public class InventoryManager implements Listener {
         return null;
     }
 
+    public static @NotNull Optional<CozyInventory> get(@NotNull Inventory inventory) {
+        for (CozyInventory cozyInventory : InventoryManager.inventoryInterfaceList) {
+            if (cozyInventory.getInventory().equals(inventory)) return Optional.of(cozyInventory);
+        }
+        return Optional.empty();
+    }
+
     /**
      * <h1>Used to get a registered inventory</h1>
      *
      * @param owner The owner.
      * @return The requested inventory instance.
      */
-    public static @Nullable CozyInventory getFromOwner(@NotNull Player owner) {
+    public static @Nullable @Deprecated CozyInventory getFromOwner(@NotNull Player owner) {
         for (CozyInventory inventoryInterface : InventoryManager.inventoryInterfaceList) {
             if (inventoryInterface.getOwner() == null) continue;
             if (inventoryInterface.getOwner().getUniqueId() == owner.getUniqueId()) return inventoryInterface;
@@ -65,26 +75,6 @@ public class InventoryManager implements Listener {
     public static @Nullable CozyInventory getFromViewer(@NotNull Player viewer) {
         for (CozyInventory inventoryInterface : InventoryManager.inventoryInterfaceList) {
             if (inventoryInterface.getInventory().getViewers().contains(viewer)) return inventoryInterface;
-        }
-        return null;
-    }
-
-    /**
-     * <h1>Used to get a registered inventory</h1>
-     *
-     * @param inventory The instance of the inventory.
-     * @return The requested inventory interface instance.
-     */
-    public static @Nullable CozyInventory get(@Nullable org.bukkit.inventory.Inventory inventory) {
-        if (inventory == null) return null;
-        for (CozyInventory inventoryInterface : InventoryManager.inventoryInterfaceList) {
-            org.bukkit.inventory.Inventory compare = inventoryInterface.getInventory();
-
-            if (compare.getViewers() != inventory.getViewers()) continue;
-            if (compare.getHolder() != inventory.getHolder()) continue;
-            if (compare.getType() != inventory.getType()) continue;
-
-            return inventoryInterface;
         }
         return null;
     }
@@ -114,32 +104,5 @@ public class InventoryManager implements Listener {
      */
     public static void removeAll() {
         InventoryManager.inventoryInterfaceList = new ArrayList<>();
-    }
-
-    /**
-     * <h1>When an inventory is clicked</h1>
-     * This will handle the custom inventory's stored
-     * in this class.
-     *
-     * @param event The instance of the event.
-     */
-    @EventHandler
-    private void inventoryClickEvent(InventoryClickEvent event) {
-        // Check if it was a player who clicked.
-        if (!(event.getWhoClicked() instanceof Player player)) return;
-
-        // Check if the event has already been canceled.
-        if (event.isCancelled()) return;
-
-        // Attempt to get the inventory interface.
-        CozyInventory inventoryInterface = InventoryManager.getFromOwner(player);
-        if (inventoryInterface == null) return;
-
-        if (event.getRawSlot() > event.getInventory().getSize()) {
-
-            if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-                event.setCancelled(true);
-            }
-        }
     }
 }
