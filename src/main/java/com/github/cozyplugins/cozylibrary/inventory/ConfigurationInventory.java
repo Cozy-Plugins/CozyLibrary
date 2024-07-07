@@ -84,4 +84,8 @@ public abstract class ConfigurationInventory extends CozyInventory {
             this.setItem(inventoryItem);
         }
     }
+
+    public @NotNull ConfigurationSection getSection() {
+        return this.section;
+    }
 }
