@@ -40,10 +40,22 @@ public class SlotParser {
             SlotParser.instance = new SlotParser();
         }
 
+        List<Integer> list = new ArrayList<>();
+
+        for (String slotIdentifier : slot.split(",")) {
+            list.addAll(parse(slotIdentifier, inventoryType));
+        }
+
+        return list;
+    }
+
+    private static @NotNull List<Integer> parse0(String slot, InventoryType inventoryType) {
         for (SlotType slotType : SlotParser.instance.slotTypeList) {
             if (!slotType.match(slot)) continue;
 
-            return Arrays.stream(slotType.parse(slot, inventoryType)).boxed().collect(Collectors.toList());
+            return Arrays.stream(slotType.parse(slot, inventoryType))
+                    .boxed()
+                    .collect(Collectors.toList());
         }
         return new ArrayList<>();
     }
