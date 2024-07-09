@@ -43,7 +43,7 @@ public class SlotParser {
         List<Integer> list = new ArrayList<>();
 
         for (String slotIdentifier : slot.split(",")) {
-            list.addAll(parse(slotIdentifier, inventoryType));
+            list.addAll(parse0(slotIdentifier, inventoryType));
         }
 
         return list;
