@@ -1,5 +1,9 @@
 package com.github.cozyplugins.cozylibrary.inventory;
 
+import com.github.cozyplugins.cozylibrary.ConsoleManager;
+import com.github.cozyplugins.cozylibrary.CozyPlugin;
+import com.github.cozyplugins.cozylibrary.CozyPluginProvider;
+import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.github.cozyplugins.cozylibrary.inventory.slot.SlotParser;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
@@ -50,38 +54,51 @@ public abstract class ConfigurationInventory extends CozyInventory {
 
     @Override
     protected void onGenerate(PlayerUser player) {
+        try {
 
-        // Reset the inventory.
-        this.resetInventory();
+            // Reset the inventory.
+            this.resetInventory();
 
-        // Loop though all the items.
-        for (String itemKey : this.section.getSection("items").getKeys()) {
+            // Loop though all the items.
+            for (String itemKey : this.section.getSection("items").getKeys()) {
+                try {
 
-            final List<Integer> slots = SlotParser.parse(itemKey, this.getInventory().getType());
+                    final List<Integer> slots = SlotParser.parse(itemKey, this.getInventory().getType());
 
-            // Get the configuration section.
-            ConfigurationSection itemSection = this.section.getSection("items." + itemKey);
+                    // Get the configuration section.
+                    ConfigurationSection itemSection = this.section.getSection("items." + itemKey);
 
-            // Convert it into a cozy item.
-            CozyItem item = new CozyItem(Material.BARRIER).convert(itemSection);
+                    // Convert it into a cozy item.
+                    CozyItem item = new CozyItem(Material.BARRIER).convert(itemSection);
 
-            // Create the inventory item.
-            InventoryItem inventoryItem = new InventoryItem(item.create());
-            inventoryItem.addSlotList(slots);
+                    // Create the inventory item.
+                    InventoryItem inventoryItem = new InventoryItem(item.create());
+                    inventoryItem.addSlotList(slots);
 
-            // Check if there is an item function.
-            if (itemSection.getKeys().contains("function")) {
-                InventoryItem result = this.onFunction(
-                        inventoryItem,
-                        itemSection.getSection("function")
-                );
+                    // Check if there is an item function.
+                    if (itemSection.getKeys().contains("function")) {
+                        InventoryItem result = this.onFunction(
+                                inventoryItem,
+                                itemSection.getSection("function")
+                        );
 
-                if (result == null) continue;
-                inventoryItem = result;
+                        if (result == null) continue;
+                        inventoryItem = result;
+                    }
+
+                    // Add the item to the inventory.
+                    this.setItem(inventoryItem);
+
+                } catch (Exception exception) {
+                    ConsoleManager.error("Unable to generate item in configuration inventory. "
+                            + itemKey + "=" + this.section.getSection("items." + itemKey).getMap()
+                    );
+                    throw new RuntimeException(exception);
+                }
             }
-
-            // Add the item to the inventory.
-            this.setItem(inventoryItem);
+        } catch (Exception exception) {
+            ConsoleManager.error("Unable to generate configuration inventory.");
+            throw new RuntimeException(exception);
         }
     }
 
