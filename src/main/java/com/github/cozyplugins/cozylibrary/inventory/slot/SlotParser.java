@@ -46,6 +46,8 @@ public class SlotParser {
             list.addAll(parse0(slotIdentifier, inventoryType));
         }
 
+        // Validation checks.
+        list.removeIf(number -> number > 53);
         return list;
     }
 
@@ -57,6 +59,11 @@ public class SlotParser {
                     .boxed()
                     .collect(Collectors.toList());
         }
+
+        if (slot.matches("[0-9]*")) {
+            return List.of(Integer.parseInt(slot));
+        }
+
         return new ArrayList<>();
     }
 }
