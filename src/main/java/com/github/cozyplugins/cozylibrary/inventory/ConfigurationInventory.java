@@ -1,13 +1,10 @@
 package com.github.cozyplugins.cozylibrary.inventory;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
-import com.github.cozyplugins.cozylibrary.CozyPlugin;
-import com.github.cozyplugins.cozylibrary.CozyPluginProvider;
-import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.github.cozyplugins.cozylibrary.inventory.slot.SlotParser;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
-import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
+import com.github.squishylib.configuration.ConfigurationSection;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

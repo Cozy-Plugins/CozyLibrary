@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.configuration;
 
-import com.github.smuddgge.squishyconfiguration.implementation.YamlConfiguration;
+import com.github.squishylib.configuration.implementation.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

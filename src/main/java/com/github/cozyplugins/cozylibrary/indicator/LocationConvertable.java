@@ -1,7 +1,7 @@
 package com.github.cozyplugins.cozylibrary.indicator;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
-import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
+import com.github.squishylib.configuration.ConfigurationSection;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

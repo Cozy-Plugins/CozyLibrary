@@ -6,15 +6,17 @@ import com.github.cozyplugins.cozylibrary.command.CommandTypeManager;
 import com.github.cozyplugins.cozylibrary.command.adapter.CommandTypeAdapter;
 import com.github.cozyplugins.cozylibrary.command.command.CommandType;
 import com.github.cozyplugins.cozylibrary.command.command.CozyCommand;
-import com.github.smuddgge.squishyconfiguration.directory.ConfigurationDirectory;
+import com.github.squishylib.configuration.directory.ConfigurationDirectory;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 /**
  * The command directory.
  * <p>
  * A directory that contains commands.
  */
-public class CommandDirectory extends ConfigurationDirectory implements ConfigurationDirectory.Listener {
+public class CommandDirectory extends ConfigurationDirectory {
 
     private final @NotNull CozyPlugin<?> pointer;
 
@@ -24,18 +26,14 @@ public class CommandDirectory extends ConfigurationDirectory implements Configur
      * @param plugin The instance of the plugin.
      */
     public CommandDirectory(@NotNull CozyPlugin<?> plugin) {
-        super(plugin.getPlugin().getDataFolder().getAbsolutePath(),
-                "commands",
-                plugin.getPlugin().getClass()
-        );
+        super(new File(plugin.getPlugin().getDataFolder().getAbsolutePath() + File.separator + "commands"));
 
         this.pointer = plugin;
-
-        this.addListener(this);
     }
 
     @Override
-    public void onReload(@NotNull ConfigurationDirectory configurationDirectory) {
+    public @NotNull ConfigurationDirectory load(boolean onlyThisDirectory) {
+        super.load(onlyThisDirectory);
 
         // Remove all current command types registered as commands.
         this.pointer.getCommandManager().removeCommandTypes();
@@ -48,7 +46,7 @@ public class CommandDirectory extends ConfigurationDirectory implements Configur
 
             // Get command type.
             CommandType commandType = typeManager.getCommandType(
-                    this.getSection(key).getString("type")
+                    this.getSection(key).getString("type", "null")
             ).orElse(null);
 
             // Check if the command type doesn't exist.
@@ -65,5 +63,7 @@ public class CommandDirectory extends ConfigurationDirectory implements Configur
             // Add command to the manager.
             this.pointer.getCommandManager().addCommand(command);
         }
+
+        return this;
     }
 }

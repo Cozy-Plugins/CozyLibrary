@@ -9,9 +9,9 @@ import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickAction;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ClickActionWithResult;
 import com.github.cozyplugins.cozylibrary.inventory.action.action.ConfirmAction;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
-import com.github.smuddgge.squishyconfiguration.directory.ConfigurationDirectory;
-import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
-import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
+import com.github.squishylib.configuration.Configuration;
+import com.github.squishylib.configuration.ConfigurationSection;
+import com.github.squishylib.configuration.directory.ConfigurationDirectory;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;
@@ -75,10 +75,10 @@ public abstract class ConfigurationDirectoryEditor extends CozyInventory {
         this.setItem(new InventoryItem().setMaterial(Material.AIR).addSlotRange(0, 53));
 
         // Get the folder being edited.
-        File folder = this.directory.getDirectory(this.path.getDotPath()).orElse(null);
+        ConfigurationDirectory folder = this.directory.getDirectory(this.path.getSlashPath());
 
         // Check if the folder does not exist.
-        if (folder == null) {
+        if (!folder.getDirectory().isDirectory()) {
             ConsoleManager.error("Unable to get directory &f" + this.path.getSlashPath() + " &cfrom &f" + this.directory.getDirectoryName());
             player.sendMessage("&7Returning to the main editor page.");
             this.reset(player);
@@ -86,15 +86,7 @@ public abstract class ConfigurationDirectoryEditor extends CozyInventory {
         }
 
         // Get the files and folders, in this folder.
-        File[] fileList = folder.listFiles();
-
-        // Check if this is not a folder.
-        if (fileList == null) {
-            player.sendMessage("&7This location is not a folder or configuration file.");
-            player.sendMessage("&7Returning to the main editor page.");
-            this.reset(player);
-            return;
-        }
+        List<File> fileList = folder.getFiles(true, true);
 
         // Set background.
         this.setItem(new InventoryItem().setMaterial(Material.GRAY_STAINED_GLASS_PANE)
@@ -207,7 +199,7 @@ public abstract class ConfigurationDirectoryEditor extends CozyInventory {
      *
      * @param fileList The list of files.
      */
-    public void generateFiles(File[] fileList) {
+    public void generateFiles(List<File> fileList) {
         // This will hold the current item being moved in the inventory.
         AtomicReference<String> nameClicked = new AtomicReference<>(null);
         AtomicReference<Integer> slotClicked = new AtomicReference<>(-1);

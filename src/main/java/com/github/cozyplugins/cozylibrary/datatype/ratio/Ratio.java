@@ -1,17 +1,15 @@
 package com.github.cozyplugins.cozylibrary.datatype.ratio;
 
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
-import com.github.smuddgge.squishyconfiguration.indicator.ConfigurationConvertable;
-import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
-import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
+import com.github.squishylib.configuration.ConfigurationSection;
+import com.github.squishylib.configuration.implementation.MemoryConfigurationSection;
+import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
 
 /**
  * Represents a ratio.
  */
-public class Ratio implements ConfigurationConvertable<Ratio>, Replicable<Ratio> {
+public class Ratio implements ConfigurationConvertible<Ratio>, Replicable<Ratio> {
 
     private int left;
     private int right;
@@ -164,7 +162,7 @@ public class Ratio implements ConfigurationConvertable<Ratio>, Replicable<Ratio>
 
     @Override
     public @NotNull ConfigurationSection convert() {
-        ConfigurationSection section = new MemoryConfigurationSection(new HashMap<>());
+        ConfigurationSection section = new MemoryConfigurationSection();
         section.set("ratio", this.toString());
         return section;
     }

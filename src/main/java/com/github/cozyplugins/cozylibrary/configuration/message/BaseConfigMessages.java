@@ -1,8 +1,8 @@
 package com.github.cozyplugins.cozylibrary.configuration.message;
 
 import com.github.cozyplugins.cozylibrary.CozyPluginProvider;
-import com.github.smuddgge.squishyconfiguration.ConfigurationFactory;
-import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
+import com.github.squishylib.configuration.Configuration;
+import com.github.squishylib.configuration.implementation.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,9 +18,9 @@ public class BaseConfigMessages {
      * Used to initialize the message configuration file.
      */
     public BaseConfigMessages() {
-        this.configuration = ConfigurationFactory.YAML.create(
+        this.configuration = new YamlConfiguration(
                 CozyPluginProvider.getCozyPlugin().getPlugin().getDataFolder(),
-                "messages"
+                "messages.yml"
         );
         this.configuration.load();
     }

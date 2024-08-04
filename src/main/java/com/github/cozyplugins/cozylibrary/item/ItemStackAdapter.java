@@ -1,7 +1,7 @@
 package com.github.cozyplugins.cozylibrary.item;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
-import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
+import com.github.squishylib.configuration.ConfigurationSection;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Utility;

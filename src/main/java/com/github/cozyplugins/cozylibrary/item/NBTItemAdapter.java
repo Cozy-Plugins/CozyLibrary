@@ -2,9 +2,9 @@ package com.github.cozyplugins.cozylibrary.item;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
-import com.github.smuddgge.squishyconfiguration.indicator.ConfigurationConvertable;
-import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
-import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
+import com.github.squishylib.configuration.ConfigurationSection;
+import com.github.squishylib.configuration.implementation.MemoryConfigurationSection;
+import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
 import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Color;
@@ -26,7 +26,7 @@ import java.util.Map;
  *
  * @param <S> The return type.
  */
-public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter<S> implements ConfigurationConvertable<S>, Replicable<ItemStack> {
+public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter<S> implements ConfigurationConvertible<S>, Replicable<ItemStack> {
 
     /**
      * <h1>Used to create an empty item</h1>
@@ -289,7 +289,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
 
     @Override
     public @NotNull ConfigurationSection convert() {
-        ConfigurationSection section = new MemoryConfigurationSection(new HashMap<>());
+        ConfigurationSection section = new MemoryConfigurationSection();
 
         // Item stack adapter.
         section.set("material", this.getMaterial().toString());

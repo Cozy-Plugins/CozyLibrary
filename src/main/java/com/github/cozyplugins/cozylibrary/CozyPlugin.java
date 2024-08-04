@@ -9,7 +9,7 @@ import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionManager;
 import com.github.cozyplugins.cozylibrary.placeholder.PlaceholderManager;
 import com.github.cozyplugins.cozylibrary.scoreboard.ScoreboardManager;
-import com.github.smuddgge.squishyconfiguration.directory.ConfigurationDirectory;
+import com.github.squishylib.configuration.directory.ConfigurationDirectory;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -106,7 +106,7 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
         if (this.isCommandTypesEnabled()) {
             this.commandDirectory = new CommandDirectory(this);
             this.commandDirectory.addResourcePath("commands.yml");
-            this.commandDirectory.reload();
+            this.commandDirectory.load(false);
         }
 
         // Register commands.

@@ -1,9 +1,9 @@
 package com.github.cozyplugins.cozylibrary.location;
 
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
-import com.github.smuddgge.squishyconfiguration.indicator.ConfigurationConvertable;
-import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
-import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
+import com.github.squishylib.configuration.ConfigurationSection;
+import com.github.squishylib.configuration.implementation.MemoryConfigurationSection;
+import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,13 +13,12 @@ import org.jetbrains.annotations.NotNull;
 import org.yaml.snakeyaml.error.YAMLException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Represents a 3 dimensional region.
  */
-public class Region implements Replicable<Region>, ConfigurationConvertable<Region> {
+public class Region implements Replicable<Region>, ConfigurationConvertible<Region> {
 
     private @NotNull Location position1;
     private @NotNull Location position2;
@@ -83,7 +82,7 @@ public class Region implements Replicable<Region>, ConfigurationConvertable<Regi
 
     @Override
     public @NotNull ConfigurationSection convert() {
-        ConfigurationSection section = new MemoryConfigurationSection(new HashMap<>());
+        ConfigurationSection section = new MemoryConfigurationSection();
 
         assert this.position1.getWorld() != null;
 
