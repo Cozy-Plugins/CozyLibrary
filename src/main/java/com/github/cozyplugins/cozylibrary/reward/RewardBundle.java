@@ -3,20 +3,19 @@ package com.github.cozyplugins.cozylibrary.reward;
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
 import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
-import com.github.smuddgge.squishyconfiguration.indicator.ConfigurationConvertable;
-import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
-import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
+import com.github.squishylib.configuration.ConfigurationSection;
+import com.github.squishylib.configuration.implementation.MemoryConfigurationSection;
+import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 /**
  * Represents a bundle of rewards that can be given to players.
  */
-public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConvertable<RewardBundle> {
+public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConvertible<RewardBundle> {
 
     private @NotNull List<CozyItem> itemList;
     private @NotNull List<String> commandList;
@@ -111,9 +110,9 @@ public class RewardBundle implements Replicable<RewardBundle>, ConfigurationConv
 
     @Override
     public @NotNull ConfigurationSection convert() {
-        ConfigurationSection section = new MemoryConfigurationSection(new HashMap<>());
+        ConfigurationSection section = new MemoryConfigurationSection();
 
-        ConfigurationSection itemSection = new MemoryConfigurationSection(new HashMap<>());
+        ConfigurationSection itemSection = new MemoryConfigurationSection();
         for (CozyItem item : this.itemList) {
             itemSection.set(UUID.randomUUID().toString(), item.convert().getMap());
         }
