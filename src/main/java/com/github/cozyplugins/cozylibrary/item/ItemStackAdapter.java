@@ -74,6 +74,14 @@ public class ItemStackAdapter<S extends ItemStackAdapter<S>> {
         return (S) this;
     }
 
+    public @NotNull S setMaterial(@NotNull String materialName) {
+        final Material material = Material.getMaterial(materialName);
+        if (material == null) {
+            throw new IllegalArgumentException("Material '" + materialName + "' is not a valid material");
+        }
+        return this.setMaterial(material);
+    }
+
     /**
      * <h1>Gets the amount of items in the stack</h1>
      *

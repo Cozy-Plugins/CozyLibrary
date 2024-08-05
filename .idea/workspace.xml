@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="" />
+    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlugin/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlugin/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlugin/src/main/java/com/github/cozyplugins/testplugin/TestPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/item/NBTItemAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cozyplugins/cozylibrary/item/NBTItemAdapter.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -234,6 +240,8 @@
       <workItem from="1722788437012" duration="1029000" />
       <workItem from="1722789573328" duration="251000" />
       <workItem from="1722805861169" duration="187000" />
+      <workItem from="1722874736826" duration="755000" />
+      <workItem from="1722875589404" duration="1688000" />
     </task>
     <servers />
   </component>

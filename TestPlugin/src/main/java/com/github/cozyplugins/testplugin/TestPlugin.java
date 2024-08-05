@@ -8,6 +8,7 @@ import com.github.cozyplugins.cozylibrary.command.datatype.CommandArguments;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandStatus;
 import com.github.cozyplugins.cozylibrary.command.datatype.CommandSuggestions;
 import com.github.cozyplugins.cozylibrary.inventory.inventory.ConfigurationDirectoryEditor;
+import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.placeholder.Placeholder;
 import com.github.cozyplugins.cozylibrary.placeholder.PlaceholderManager;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
@@ -16,11 +17,14 @@ import com.github.cozyplugins.testplugin.commands.HelloWorldCommand;
 import com.github.cozyplugins.testplugin.commands.TestCommandType;
 import com.github.cozyplugins.testplugin.inventorys.RewardInventory;
 import com.github.cozyplugins.testplugin.inventorys.TestInventory;
+import com.github.squishylib.configuration.ConfigurationSection;
+import com.github.squishylib.configuration.implementation.MemoryConfigurationSection;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.util.List;
 
 public class TestPlugin extends CozyPlugin<TestLoader> {
 
@@ -70,6 +74,42 @@ public class TestPlugin extends CozyPlugin<TestLoader> {
                             }
                         })
                 )
+        );
+
+        commandManager.addCommand(new ProgrammableCommand("test_item_give2")
+                .setPlayer((user, arguments) -> {
+                    Player player = user.getPlayer();
+
+                    ConfigurationSection section = new MemoryConfigurationSection();
+                    /*
+                    material: PAPER
+                    custom_model_data: 3002
+                    name: "&6&lSkin Removing Token"
+                    lore:
+                      - "&bUse this token in the /tokencompressor"
+                      - "&bto reset an item back to its vanilla model"
+                      - "&7"
+                      - "&7Applies to &fAll Tools"
+                    enchanted: true
+                     */
+                    section.set("material", "PAPER");
+                    section.set("custom_model_data", 3002);
+                    section.set("name", "&6Test");
+                    section.set("lore", List.of(
+                    "&bUse this token in the /tokencompressor",
+                            "&bto reset an item back to its vanilla model",
+                            "&7",
+                            "&7Applies to &fAll Tools"
+                    ));
+                    section.set("enchanted", true);
+
+                    player.getInventory().addItem(new CozyItem()
+                            .convert(section)
+                            .create()
+                    );
+
+                    return new CommandStatus();
+                })
         );
 
         // Reward bundle.

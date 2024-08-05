@@ -5,8 +5,14 @@ import com.github.cozyplugins.cozylibrary.indicator.Replicable;
 import com.github.squishylib.configuration.ConfigurationSection;
 import com.github.squishylib.configuration.implementation.MemoryConfigurationSection;
 import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
+import de.tr7zw.nbtapi.NBT;
 import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.nbtapi.NBTType;
+import de.tr7zw.nbtapi.handler.NBTHandlers;
+import de.tr7zw.nbtapi.iface.NBTHandler;
+import de.tr7zw.nbtapi.iface.ReadWriteNBT;
+import de.tr7zw.nbtapi.iface.ReadableItemNBT;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -28,176 +34,84 @@ import java.util.Map;
  */
 public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter<S> implements ConfigurationConvertible<S>, Replicable<ItemStack> {
 
-    /**
-     * <h1>Used to create an empty item</h1>
-     */
     public NBTItemAdapter() {
         super();
     }
 
-    /**
-     * <h1>Used to create a nbt from a item stack</h1>
-     *
-     * @param itemStack The instance of an item stack.
-     */
     public NBTItemAdapter(@NotNull ItemStack itemStack) {
         super(itemStack);
     }
 
-    /**
-     * <h1>Represents a nbt update</h1>
-     */
-    private interface NBTUpdate {
-        @NotNull
-        NBTItem apply(@NotNull NBTItem nbtItem);
+    public interface NBTUpdate {
+        void modify(@NotNull ReadWriteNBT nbt);
     }
 
     /**
-     * <h1>Used to update the nbt values</h1>
+     * Used to update some nbt values attached to this item.
      *
-     * @param nbtUpdate The instance of a nbt update.
+     * @param update The instance of a nbt update.
      * @return This instance.
      */
-    private @NotNull S update(NBTUpdate nbtUpdate) {
-        NBTItem nbtItem = new NBTItem(this.itemStack);
-        nbtUpdate.apply(nbtItem).applyNBT(this.itemStack);
+    public @NotNull S updateNBT(@NotNull NBTUpdate update) {
+        NBT.modify(this.itemStack, update::modify);
         return (S) this;
     }
 
-    /**
-     * <h1>Used to create a new nbt item</h1>
-     * This method will clone the item stack.
-     *
-     * @return The nbt item.
-     */
-    public @NotNull NBTItem createNBTItem() {
-        return new NBTItem(this.itemStack);
+    public @NotNull S updateNBT(@NotNull Map<String, Object> map) {
+        this.updateNBT(nbt -> {
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (entry.getValue() instanceof String) {
+                    nbt.setString(entry.getKey(), (String) entry.getValue());
+                } else if (entry.getValue() instanceof Integer) {
+                    nbt.setInteger(entry.getKey(), (Integer) entry.getValue());
+                }
+            }
+        });
+        return (S) this;
     }
 
-    /**
-     * <h1>Used to create a nbt map of the item</h1>
-     * This method will clone the item stack.
-     *
-     * @return The nbt compound.
-     */
-    public @NotNull NBTCompound createNBTMap() {
-        return (NBTCompound) new NBTItem(this.itemStack).getCompound();
+    public @NotNull ReadableItemNBT getReadableNBT() {
+        return NBT.get(this.itemStack, nbt -> nbt);
     }
 
-    /**
-     * <h1>Used to check if the item has any custom nbt values</h1>
-     *
-     * @return True if the item has any custom nbt tags.
-     */
-    public boolean hasCustomNBT() {
-        return this.createNBTItem().hasCustomNbtData();
-    }
+    public @NotNull Map<String, Object> getNBTAsHalfMap() {
+        Map<String, Object> map = new HashMap<>();
+        ReadableItemNBT nbt = this.getReadableNBT();
 
-    /**
-     * <h1>Used to check if the item has nbt values</h1>
-     * This can return true when there are no nbt tags.
-     * For more info see {@link NBTItem#hasNBTData()}.
-     *
-     * @return True if the item has any nbt tags.
-     */
-    public boolean hasNBT() {
-        return this.createNBTItem().hasNBTData();
-    }
+        for (String key : nbt.getKeys()) {
 
-    /**
-     * <h1>Used to check if a nbt tag exists</h1>
-     *
-     * @param key The name of the nbt tag.
-     * @return True if the nbt tag exists.
-     */
-    public boolean hasNBT(@NotNull String key) {
-        return this.createNBTItem().hasKey(key);
-    }
+            if (nbt.getType(key).equals(NBTType.NBTTagString)) {
+                map.put(key, nbt.getString(key));
+            }
 
-    /**
-     * Used to get the nbt as a map.
-     *
-     * @return The nbt as a map.
-     */
-    public @NotNull Map<String, Object> getNBT() {
-        Map<String, Object> nbtMap = new HashMap<>();
-        NBTItem item = this.createNBTItem();
-
-        for (String key : item.getKeys()) {
-            nbtMap.put(key, item.getObject(key, Object.class));
+            if (nbt.getType(key).equals(NBTType.NBTTagInt)) {
+                map.put(key, nbt.getInteger(key));
+            }
         }
 
-        return nbtMap;
+        return map;
     }
 
-    /**
-     * <h1>Used to get a nbt value</h1>
-     *
-     * @param key  The name of the key.
-     * @param type The class type to return.
-     * @param <T>  The return type.
-     * @return The requested nbt value.
-     */
-    public @Nullable <T> T getNBT(@NotNull String key, @NotNull Class<T> type) {
-        return this.createNBTItem().getObject(key, type);
+    public boolean hasNBT() {
+        return NBT.get(this.itemStack, ReadableItemNBT::hasNBTData);
     }
 
-    /**
-     * <h1>Used to get a string nbt value</h1>
-     *
-     * @param key The name of the key.
-     * @return The requested nbt value.
-     */
-    public @Nullable String getNBTString(@NotNull String key) {
-        return this.createNBTItem().getString(key);
+    public boolean hasNBTTag(@NotNull String tag) {
+        return NBT.get(this.itemStack, nbt -> {
+            return nbt.hasTag(tag);
+        });
     }
 
-    /**
-     * <h1>Used to get a string nbt value</h1>
-     *
-     * @param key The name of the key.
-     * @return The requested nbt value.
-     */
-    public @Nullable Integer getNBTInteger(@NotNull String key) {
-        return this.createNBTItem().getInteger(key);
+    public String getNBTString(@NotNull String key) {
+        return this.getReadableNBT().getString(key);
     }
 
-    /**
-     * <h1>Used to get a boolean nbt value</h1>
-     *
-     * @param key The name of the key.
-     * @return The requested nbt value.
-     */
+    public int getNBTInteger(@NotNull String key) {
+        return this.getReadableNBT().getInteger(key);
+    }
+
     public @Nullable Boolean getNBTBoolean(@NotNull String key) {
-        return this.createNBTItem().getBoolean(key);
-    }
-
-    /**
-     * <h1>Used to set a nbt value</h1>
-     *
-     * @param key   The key of the nbt.
-     * @param value The value to set.
-     * @return This instance.
-     */
-    public @NotNull S setNBT(@NotNull String key, @Nullable Object value) {
-        this.update(nbtItem -> {
-            nbtItem.setObject(key, value);
-            return nbtItem;
-        });
-        return (S) this;
-    }
-
-    /**
-     * <h1>Clears the items nbt tags</h1>
-     *
-     * @return This instance.
-     */
-    public @NotNull S clearNBT() {
-        this.update(nbtItem -> {
-            nbtItem.clearCustomNBT();
-            return nbtItem;
-        });
-        return (S) this;
+        return this.getReadableNBT().getBoolean(key);
     }
 
     /**
@@ -231,60 +145,21 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
      */
     @SuppressWarnings("unchecked")
     public @NotNull S replaceNameLoreAndNBT(@NotNull String match, @NotNull String content) {
-
-        // Replace name and lore.
         this.replaceNameAndLore(match, content);
-
-        // Replace in nbt.
-        for (Map.Entry<String, Object> entry : this.getNBT().entrySet()) {
-
-            // Check if the value is a map.
-            if (entry.getValue() instanceof Map<?, ?>) {
-                this.setNBT(entry.getKey(), this.replaceNBT(
-                        (Map<String, Object>) entry.getValue(),
-                        match, content
-                ));
-            }
-
-            // Check if the value is a string.
-            if (entry.getValue() instanceof String value) {
-                this.setNBT(entry.getKey(), value.replace(match, content));
-            }
-
-            // Add it to the map.
-            this.setNBT(entry.getKey(), entry.getValue());
-        }
-
+        this.replaceNBT(match, content);
         return (S) this;
     }
 
     @SuppressWarnings("unchecked")
-    private @NotNull Map<String, Object> replaceNBT(@NotNull Map<String, Object> map,
-                                                    @NotNull String match,
-                                                    @NotNull String content) {
-
-        Map<String, Object> newMap = new HashMap<>();
-
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-
-            // Check if the value is another map.
-            if (entry.getValue() instanceof Map<?, ?>) {
-                newMap.put(entry.getKey(), this.replaceNBT(
-                        (Map<String, Object>) entry.getValue(),
-                        match, content
-                ));
+    private @NotNull S replaceNBT(@NotNull String match, @NotNull String content) {
+        this.updateNBT(nbt -> {
+            for (String key : nbt.getKeys()) {
+                if (nbt.getType(key).equals(NBTType.NBTTagString)) {
+                    nbt.setString(key, nbt.getString(key).replace(match, content));
+                }
             }
-
-            // Check if the value is a string.
-            if (entry.getValue() instanceof String value) {
-                newMap.put(entry.getKey(), value.replace(match, content));
-            }
-
-            // Add the value to the map.
-            newMap.put(entry.getKey(), entry.getValue());
-        }
-
-        return newMap;
+        });
+        return (S) this;
     }
 
     @Override
@@ -305,7 +180,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         section.set("unbreakable", this.isUnbreakable());
 
         // NBT item adapter.
-        if (!this.getNBT().isEmpty()) section.set("nbt", this.getNBT());
+        if (this.hasNBT()) section.set("nbt", this.getNBTAsHalfMap());
 
         // Leather armour.
         if (this.getItemMeta() instanceof LeatherArmorMeta meta) {
@@ -317,46 +192,50 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
 
     @Override
     public S convert(@NotNull ConfigurationSection section) {
-        String materialName = section.getString("material", "AIR");
-        if (materialName != null && Material.getMaterial(materialName.toUpperCase()) != null) {
-            this.setMaterial(Material.getMaterial(materialName));
-        } else {
-            ConsoleManager.warn("Could not find material : " + section.getString("material") + " for item with map " + section.getMap());
-            this.setMaterial(Material.AIR);
-        }
 
+        // Convert material.
+        this.setMaterial(section.getString("material", "AIR"));
+
+        // Convert amount.
         this.setAmount(section.getInteger("amount", 1));
 
-        if (section.getInteger("durability", -1) != -1) {
-            this.setDurability(section.getInteger("durability"));
-        }
+        // Convert durability.
+        final int durability = section.getInteger("durability", -1);
+        if (durability != -1) this.setDurability(durability);
 
+        // Convert enchants.
         if (section.getKeys().contains("enchantments")) this.addEnchantments(section.getSection("enchantments"));
-        if (section.getKeys().contains("name")) this.setName(section.getString("name"));
+
+        // Convert name.
+        if (section.getKeys().contains("name")) this.setName(section.getString("name", "null"));
+
+        // Convert lore.
         if (section.getKeys().contains("lore")) this.setLore(section.getListString("lore", new ArrayList<>()));
 
-        if (section.getInteger("custom_model_data", -1) != -1) {
-            this.setCustomModelData(section.getInteger("custom_model_data"));
-        }
+        // Convert custom model data.
+        final int customModelData = section.getInteger("custom_model_data", -1);
+        if (customModelData != -1) this.setCustomModelData(customModelData);
 
-        if (section.getKeys().contains("item_flags"))
-            this.addItemFlags(section.getListString("item_flags", new ArrayList<>()));
+        // Convert item flags.
+        this.addItemFlags(section.getListString("item_flags", new ArrayList<>()));
 
-        if (section.getKeys().contains("unbreakable"))
-            this.setUnbreakable(section.getBoolean("unbreakable", false));
+        // Convert unbreakable.
+        this.setUnbreakable(section.getBoolean("unbreakable", false));
 
-        // Leather armour.
+        // Convert leather armour color.
         if (this.getItemMeta() instanceof LeatherArmorMeta meta && section.getKeys().contains("color")) {
             meta.setColor(Color.fromRGB(section.getInteger("color")));
             this.setItemMeta(meta);
         }
 
-        // Enchanted flag.
+        // Convert enchanted flag.
         if (section.getBoolean("enchanted", false)) {
             this.addEnchantment(Enchantment.MENDING, 1);
             this.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
+        // Convert nbt.
+        this.updateNBT(section.getMap("nbt", new HashMap<>()));
         return (S) this;
     }
 
