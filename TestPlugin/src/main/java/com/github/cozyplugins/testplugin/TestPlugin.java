@@ -76,7 +76,7 @@ public class TestPlugin extends CozyPlugin<TestLoader> {
                 )
         );
 
-        commandManager.addCommand(new ProgrammableCommand("test_item_give2")
+        commandManager.addCommand(new ProgrammableCommand("test_item_give5")
                 .setPlayer((user, arguments) -> {
                     Player player = user.getPlayer();
 
@@ -102,9 +102,13 @@ public class TestPlugin extends CozyPlugin<TestLoader> {
                             "&7Applies to &fAll Tools"
                     ));
                     section.set("enchanted", true);
+                    section.set("nbt.test", "test1441512");
 
                     player.getInventory().addItem(new CozyItem()
                             .convert(section)
+                                    .updateNBT(nbt -> {
+                                        nbt.setString("test", "test231");
+                                    })
                             .create()
                     );
 
