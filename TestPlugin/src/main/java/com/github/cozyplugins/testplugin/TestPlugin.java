@@ -96,7 +96,7 @@ public class TestPlugin extends CozyPlugin<TestLoader> {
                     section.set("custom_model_data", 3002);
                     section.set("name", "&6Test");
                     section.set("lore", List.of(
-                    "&bUse this token in the /tokencompressor",
+                            "&bUse this token in the /tokencompressor",
                             "&bto reset an item back to its vanilla model",
                             "&7",
                             "&7Applies to &fAll Tools"
@@ -106,9 +106,9 @@ public class TestPlugin extends CozyPlugin<TestLoader> {
 
                     player.getInventory().addItem(new CozyItem()
                             .convert(section)
-                                    .updateNBT(nbt -> {
-                                        nbt.setString("test", "test231");
-                                    })
+                            .updateNBT(nbt -> {
+                                nbt.setString("test", "test231");
+                            })
                             .create()
                     );
 

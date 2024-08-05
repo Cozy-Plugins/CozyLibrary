@@ -1,20 +1,15 @@
 package com.github.cozyplugins.cozylibrary.item;
 
-import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
 import com.github.squishylib.configuration.ConfigurationSection;
 import com.github.squishylib.configuration.implementation.MemoryConfigurationSection;
 import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
 import de.tr7zw.nbtapi.NBT;
-import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTItem;
 import de.tr7zw.nbtapi.NBTType;
-import de.tr7zw.nbtapi.handler.NBTHandlers;
-import de.tr7zw.nbtapi.iface.NBTHandler;
 import de.tr7zw.nbtapi.iface.ReadWriteNBT;
 import de.tr7zw.nbtapi.iface.ReadableItemNBT;
 import org.bukkit.Color;
-import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
