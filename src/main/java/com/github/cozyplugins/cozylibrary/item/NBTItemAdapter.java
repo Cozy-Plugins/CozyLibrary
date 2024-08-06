@@ -237,7 +237,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         }
 
         // Convert nbt.
-        this.setNBTMap(section.getMap("nbt", new HashMap<>()));
+        this.setNBTMapHalfMap(section.getMap("nbt", new HashMap<>()));
         return (S) this;
     }
 
