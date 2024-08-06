@@ -1,5 +1,7 @@
 package com.github.cozyplugins.cozylibrary.item;
 
+import com.github.cozyplugins.cozylibrary.ConsoleManager;
+import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
 import com.github.squishylib.configuration.ConfigurationSection;
 import com.github.squishylib.configuration.implementation.MemoryConfigurationSection;
@@ -7,7 +9,6 @@ import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
 import de.tr7zw.nbtapi.NBT;
 import de.tr7zw.nbtapi.NBTItem;
 import de.tr7zw.nbtapi.NBTType;
-import de.tr7zw.nbtapi.iface.ReadWriteNBT;
 import de.tr7zw.nbtapi.iface.ReadableItemNBT;
 import org.bukkit.Color;
 import org.bukkit.enchantments.Enchantment;
@@ -15,11 +16,13 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * <h1>Represents an nbt item adapter</h1>
@@ -37,76 +40,80 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         super(itemStack);
     }
 
-    public interface NBTUpdate {
-        void modify(@NotNull ReadWriteNBT nbt);
-    }
-
-    /**
-     * Used to update some nbt values attached to this item.
-     *
-     * @param update The instance of a nbt update.
-     * @return This instance.
-     */
-    public @NotNull S updateNBT(@NotNull NBTUpdate update) {
-        NBT.modify(this.itemStack, update::modify);
-        return (S) this;
-    }
-
-    public @NotNull S updateNBT(@NotNull Map<String, Object> map) {
-        this.updateNBT(nbt -> {
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                if (entry.getValue() instanceof String) {
-                    nbt.setString(entry.getKey(), (String) entry.getValue());
-                } else if (entry.getValue() instanceof Integer) {
-                    nbt.setInteger(entry.getKey(), (Integer) entry.getValue());
-                }
-            }
-        });
-        return (S) this;
-    }
-
-    public @NotNull ReadableItemNBT getReadableNBT() {
-        return NBT.get(this.itemStack, nbt -> nbt);
-    }
-
-    public @NotNull Map<String, Object> getNBTAsHalfMap() {
-        Map<String, Object> map = new HashMap<>();
-        ReadableItemNBT nbt = this.getReadableNBT();
-
-        for (String key : nbt.getKeys()) {
-
-            if (nbt.getType(key).equals(NBTType.NBTTagString)) {
-                map.put(key, nbt.getString(key));
-            }
-
-            if (nbt.getType(key).equals(NBTType.NBTTagInt)) {
-                map.put(key, nbt.getInteger(key));
-            }
-        }
-
-        return map;
-    }
-
     public boolean hasNBT() {
         return NBT.get(this.itemStack, ReadableItemNBT::hasNBTData);
     }
 
-    public boolean hasNBTTag(@NotNull String tag) {
+    public String getNBTString(@NotNull String key) {
         return NBT.get(this.itemStack, nbt -> {
-            return nbt.hasTag(tag);
+            return nbt.getString(key);
         });
     }
 
-    public String getNBTString(@NotNull String key) {
-        return this.getReadableNBT().getString(key);
+    public Integer getNBTInteger(@NotNull String key) {
+        return NBT.get(this.itemStack, nbt -> {
+            return nbt.getInteger(key);
+        });
     }
 
-    public int getNBTInteger(@NotNull String key) {
-        return this.getReadableNBT().getInteger(key);
+    public @NotNull S setNBTString(@NotNull String key, String value) {
+        NBT.modify(this.itemStack, nbt -> {
+            nbt.setString(key, value);
+        });
+        return (S) this;
     }
 
-    public @Nullable Boolean getNBTBoolean(@NotNull String key) {
-        return this.getReadableNBT().getBoolean(key);
+    public @NotNull S setNBTInteger(@NotNull String key, int value) {
+        NBT.modify(this.itemStack, nbt -> {
+            nbt.setInteger(key, value);
+        });
+        return (S) this;
+    }
+
+    /**
+     * Only converts strings and integers.
+     *
+     * @return The half map.
+     */
+    public @NotNull Map<String, Object> getNBTAsHalfMap() {
+        return NBT.get(this.itemStack, nbt -> {
+           Map<String, Object> map = new HashMap<>();
+
+           for (String key : nbt.getKeys()) {
+
+               if (nbt.getType(key).equals(NBTType.NBTTagString)) {
+                   map.put(key, nbt.getString(key));
+               }
+
+               if (nbt.getType(key).equals(NBTType.NBTTagInt)) {
+                   map.put(key, nbt.getInteger(key));
+               }
+           }
+
+           return map;
+        });
+    }
+
+    /**
+     * Only converts strings and integers.
+     *
+     * @return This instance.
+     */
+    public @NotNull S setNBTMapHalfMap(@NotNull Map<String, Object> map) {
+        NBT.modify(this.itemStack, nbt -> {
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (entry.getValue() instanceof String) {
+                    nbt.setString(entry.getKey(), (String) entry.getValue());
+                    continue;
+                }
+                if (entry.getValue() instanceof Integer) {
+                    nbt.setInteger(entry.getKey(), (Integer) entry.getValue());
+                    continue;
+                }
+                ConsoleManager.warn("Unsupported item nbt type in configuration : " + entry.getValue().getClass());
+            }
+        });
+        return (S) this;
     }
 
     /**
@@ -147,7 +154,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
 
     @SuppressWarnings("unchecked")
     private @NotNull S replaceNBT(@NotNull String match, @NotNull String content) {
-        this.updateNBT(nbt -> {
+        NBT.modify(this.itemStack, nbt -> {
             for (String key : nbt.getKeys()) {
                 if (nbt.getType(key).equals(NBTType.NBTTagString)) {
                     nbt.setString(key, nbt.getString(key).replace(match, content));
@@ -230,7 +237,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         }
 
         // Convert nbt.
-        this.updateNBT(section.getMap("nbt", new HashMap<>()));
+        this.setNBTMap(section.getMap("nbt", new HashMap<>()));
         return (S) this;
     }
 
