@@ -80,6 +80,7 @@ public class InventoryManager implements Listener {
         for (CozyInventory inventoryInterface : InventoryManager.inventoryInterfaceList) {
             org.bukkit.inventory.Inventory compare = inventoryInterface.getInventory();
 
+            if (!inventory.equals(compare)) continue;
             if (compare.getViewers() != inventory.getViewers()) continue;
             if (compare.getHolder() != inventory.getHolder()) continue;
             if (compare.getType() != inventory.getType()) continue;
@@ -126,10 +127,10 @@ public class InventoryManager implements Listener {
     @EventHandler
     private void inventoryClickEvent(InventoryClickEvent event) {
         // Check if it was a player who clicked.
-        if (!(event.getWhoClicked() instanceof Player player)) return;
+        if (!(event.getWhoClicked() instanceof Player)) return;
 
         // Attempt to get the inventory interface.
-        CozyInventory inventoryInterface = InventoryManager.getFromOwner(player);
+        CozyInventory inventoryInterface = InventoryManager.get(event.getInventory());
         if (inventoryInterface == null) return;
 
         if (event.getRawSlot() > event.getInventory().getSize()) {
