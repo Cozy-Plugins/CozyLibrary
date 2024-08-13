@@ -62,6 +62,18 @@ public class TestPlugin extends CozyPlugin<TestPluginLoader> {
             return new CommandStatus();
         }));
 
+        commandManager.addCommand(new ProgrammableCommand("example")
+                .setSyntax("/example <online_players>")
+                .setDescription("This is a command.")
+                .setSuggestions((user, arguments) -> {
+                    return new CommandSuggestions().appendOnlinePlayers();
+                })
+                .setPlayer((user, arguments) -> {
+                    user.sendMessage("Hi!");
+                    return new CommandStatus();
+                })
+        );
+
         // Sub commands.
         commandManager.addCommand(new ProgrammableCommand("test_subcommands")
                 .addSubCommand(new ProgrammableCommand("test2")
