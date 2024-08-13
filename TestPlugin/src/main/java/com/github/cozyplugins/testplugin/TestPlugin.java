@@ -26,14 +26,14 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.util.List;
 
-public class TestPlugin extends CozyPlugin<TestLoader> {
+public class TestPlugin extends CozyPlugin<TestPluginLoader> {
 
     /**
      * Used to create a new cozy plugin instance.
      *
      * @param plugin The instance of the plugin loader.
      */
-    public TestPlugin(@NotNull TestLoader plugin) {
+    public TestPlugin(@NotNull TestPluginLoader plugin) {
         super(plugin);
     }
 
@@ -106,9 +106,7 @@ public class TestPlugin extends CozyPlugin<TestLoader> {
 
                     player.getInventory().addItem(new CozyItem()
                             .convert(section)
-                            .updateNBT(nbt -> {
-                                nbt.setString("test", "test231");
-                            })
+                            .setNBTString("test", "test321")
                             .create()
                     );
 
@@ -139,7 +137,7 @@ public class TestPlugin extends CozyPlugin<TestLoader> {
     }
 
     @Override
-    public void onLoadPlaceholders(@NotNull PlaceholderManager<TestLoader> placeholderManager) {
+    public void onLoadPlaceholders(@NotNull PlaceholderManager<TestPluginLoader> placeholderManager) {
         placeholderManager.addPlaceholder(new Placeholder() {
             @Override
             public @NotNull String getIdentifier() {

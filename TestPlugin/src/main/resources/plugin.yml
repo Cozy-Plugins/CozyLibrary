@@ -1,5 +1,5 @@
 name: TestPlugin
 version: '${project.version}'
-main: com.github.cozyplugins.testplugin.TestLoader
+main: com.github.cozyplugins.testplugin.TestPluginLoader
 api-version: 1.19
 authors: [ Smudge ]

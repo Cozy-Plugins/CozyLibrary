@@ -1,5 +1,7 @@
 package com.github.cozyplugins.cozylibrary.command.datatype;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -39,6 +41,17 @@ public class CommandSuggestions {
      */
     public CommandSuggestions append(String[] suggestions) {
         this.suggestions.add(new ArrayList<>(Arrays.stream(suggestions).toList()));
+        return this;
+    }
+
+    /**
+     * Adds all the player names that are online
+     * on this server.
+     *
+     * @return This instance.
+     */
+    public CommandSuggestions appendOnlinePlayers() {
+        this.suggestions.add(Bukkit.getOnlinePlayers().stream().map(Player::getName).toList());
         return this;
     }
 

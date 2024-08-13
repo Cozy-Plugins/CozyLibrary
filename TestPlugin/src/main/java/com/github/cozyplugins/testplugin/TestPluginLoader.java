@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * <h1>Represents a test plugin</h1>
  */
-public final class TestLoader extends JavaPlugin {
+public final class TestPluginLoader extends JavaPlugin {
 
     private TestPlugin plugin;
 
