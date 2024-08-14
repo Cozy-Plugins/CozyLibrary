@@ -6,9 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="CozyLibrary" />
-        <module name="TestPlugin" />
+        <module name="bukkit-example" />
+        <module name="library" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="TestPlugin" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

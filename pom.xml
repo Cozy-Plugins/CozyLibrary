@@ -4,10 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.cozyplugins</groupId>
+    <groupId>com.github.cozyplugins.cozylibrary</groupId>
     <artifactId>CozyLibrary</artifactId>
-    <version>CURRENT</version>
+    <version>HIDDEN</version>
+    <packaging>pom</packaging>
+
     <name>CozyLibrary</name>
+
+    <modules>
+        <module>library</module>
+        <module>bukkit-example</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -32,20 +39,20 @@
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
 
-        <!-- Jitpack -->
+        <!-- Github Projects -->
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
 
-        <!-- CodeMC (NBT API) -->
+        <!-- NBT API -->
         <repository>
             <id>codemc-repo</id>
             <url>https://repo.codemc.org/repository/maven-public/</url>
             <layout>default</layout>
         </repository>
 
-        <!-- Protocol -->
+        <!-- Protocols and Packets -->
         <repository>
             <id>dmulloy2-repo</id>
             <url>https://repo.dmulloy2.net/repository/public/</url>
@@ -69,7 +76,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Jupiter -->
+        <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -92,14 +99,14 @@
             <version>0.0.1</version>
         </dependency>
 
-        <!-- NBT -->
+        <!-- NBT API -->
         <dependency>
             <groupId>de.tr7zw</groupId>
             <artifactId>item-nbt-api-plugin</artifactId>
             <version>2.13.1</version>
         </dependency>
 
-        <!-- Protocol -->
+        <!-- Protocols and Packets -->
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
@@ -107,7 +114,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Vault -->
+        <!-- Economy -->
         <dependency>
             <groupId>com.github.MilkBowl</groupId>
             <artifactId>VaultAPI</artifactId>
@@ -122,40 +129,4 @@
             <version>2.1.0</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <!-- Compile -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
-                <configuration> <!-- Compile java 17 compatible bytecode -->
-                    <source>17</source>
-                    <target>17</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                                    <resource>META-INF/services/java.sql.Driver</resource>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

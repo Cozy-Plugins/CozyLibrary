@@ -29,3 +29,6 @@ target/*
 .vscode/*
 .VSCodeCounter/*
 .DS_Store
+/bukkit-example.iml
+/CozyLibrary.iml
+/library.iml

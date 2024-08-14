@@ -1,0 +1,20 @@
+#    ___             _ _ _
+#   / __|___ ____  _| (_) |__ _ _ __ _ _ _ _  _
+#  | (__/ _ \_ / || | | | '_ \ '_/ _` | '_| || |
+#   \___\___/__|\_, |_|_|_.__/_| \__,_|_|  \_, |
+#               |__/                       |__/
+#
+# Name: Cozy Library
+# Author: Smudge
+# Description: A helpful minecraft library.
+# File: Contains default messages used in the library.
+
+message: "&a"
+error: "&7"
+
+error_not_player_command: "{error} This command cannot be run by a player."
+error_not_console_command: "{error} This command cannot be run by the console."
+error_not_fake_player_command: "{error} This command cannot be run by a fake player."
+
+error_no_permission: "{error} You lack permissions to execute this command."
+error_incorrect_arguments: "{error} This command requires more arguments. {syntax}"

@@ -13,6 +13,11 @@
         <option value="$PROJECT_DIR$/TestPlugin/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/TestPlugin/pom.xml" />
+      </set>
+    </option>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="openjdk-20" project-jdk-type="JavaSDK" />
 </project>

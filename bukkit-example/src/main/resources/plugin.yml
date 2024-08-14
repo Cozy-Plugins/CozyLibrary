@@ -1,0 +1,5 @@
+name: ExamplePlugin
+version: '${project.version}'
+main: com.github.cozyplugins.cozylibrary.ExamplePlugin
+api-version: '1.20'
+softdepend: [ Vault, PlaceholderAPI ]
