@@ -107,6 +107,7 @@ public final class ActionManager implements Listener {
 
     @EventHandler
     private void onInventoryClose(InventoryCloseEvent event) {
+        
         // Attempt to get the inventory as a registered inventory interface.
         CozyInventory inventory = InventoryManager.get(event.getInventory()).orElse(null);
         if (inventory == null) return;
