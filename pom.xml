@@ -102,7 +102,7 @@
         <!-- NBT API -->
         <dependency>
             <groupId>de.tr7zw</groupId>
-            <artifactId>item-nbt-api-plugin</artifactId>
+            <artifactId>item-nbt-api</artifactId>
             <version>2.13.2</version>
         </dependency>
 

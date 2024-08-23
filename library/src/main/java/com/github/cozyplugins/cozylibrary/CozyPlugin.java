@@ -11,7 +11,7 @@ import com.github.cozyplugins.cozylibrary.inventory.action.ActionManager;
 import com.github.cozyplugins.cozylibrary.placeholder.PlaceholderManager;
 import com.github.cozyplugins.cozylibrary.scoreboard.ScoreboardManager;
 import com.github.squishylib.configuration.directory.ConfigurationDirectory;
-import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 

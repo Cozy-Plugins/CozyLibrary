@@ -1,15 +1,13 @@
 package com.github.cozyplugins.cozylibrary.item;
 
 import com.github.cozyplugins.cozylibrary.ConsoleManager;
-import com.github.cozyplugins.cozylibrary.MessageManager;
 import com.github.cozyplugins.cozylibrary.indicator.Replicable;
 import com.github.squishylib.configuration.ConfigurationSection;
 import com.github.squishylib.configuration.implementation.MemoryConfigurationSection;
 import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
-import de.tr7zw.nbtapi.NBT;
-import de.tr7zw.nbtapi.NBTItem;
-import de.tr7zw.nbtapi.NBTType;
-import de.tr7zw.nbtapi.iface.ReadableItemNBT;
+import de.tr7zw.changeme.nbtapi.NBT;
+import de.tr7zw.changeme.nbtapi.NBTType;
+import de.tr7zw.changeme.nbtapi.iface.ReadableItemNBT;
 import org.bukkit.Color;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -17,16 +15,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * <h1>Represents an nbt item adapter</h1>
- * Adapts methods from {@link NBTItem}
+ * Adapts methods from {@link de.tr7zw.changeme.nbtapi.NBTItem}
  *
  * @param <S> The return type.
  */
