@@ -9,6 +9,7 @@ import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NBTType;
 import de.tr7zw.changeme.nbtapi.iface.ReadableItemNBT;
 import org.bukkit.Color;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -193,6 +194,9 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         // Convert material.
         this.setMaterial(section.getString("material", "AIR"));
 
+        // Check if the material is air.
+        if (this.getMaterial().equals(Material.AIR)) return (S) this;
+
         // Convert amount.
         this.setAmount(section.getInteger("amount", 1));
 
@@ -214,10 +218,10 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         if (customModelData != -1) this.setCustomModelData(customModelData);
 
         // Convert item flags.
-        this.addItemFlags(section.getListString("item_flags", new ArrayList<>()));
+        if (section.getKeys().contains("item_flags")) this.addItemFlags(section.getListString("item_flags", new ArrayList<>()));
 
         // Convert unbreakable.
-        this.setUnbreakable(section.getBoolean("unbreakable", false));
+        if (section.getKeys().contains("unbreakable")) this.setUnbreakable(section.getBoolean("unbreakable", false));
 
         // Convert leather armour color.
         if (this.getItemMeta() instanceof LeatherArmorMeta meta && section.getKeys().contains("color")) {
@@ -232,7 +236,7 @@ public class NBTItemAdapter<S extends NBTItemAdapter<S>> extends MetaItemAdapter
         }
 
         // Convert nbt.
-        this.setNBTMapHalfMap(section.getMap("nbt", new HashMap<>()));
+        if (section.getKeys().contains("nbt")) this.setNBTMapHalfMap(section.getMap("nbt", new HashMap<>()));
         return (S) this;
     }
 
