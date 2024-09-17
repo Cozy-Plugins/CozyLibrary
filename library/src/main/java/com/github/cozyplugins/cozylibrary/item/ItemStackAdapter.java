@@ -45,6 +45,15 @@ public class ItemStackAdapter<S extends ItemStackAdapter<S>> {
         this.itemStack = itemStack;
     }
 
+    public @NotNull ItemStack get() {
+        return this.itemStack;
+    }
+
+    public @NotNull S set(@NotNull ItemStack itemStack) {
+        this.itemStack = itemStack;
+        return (S) this;
+    }
+
     /**
      * <h1>Used to create a clone of the core item stack</h1>
      *
