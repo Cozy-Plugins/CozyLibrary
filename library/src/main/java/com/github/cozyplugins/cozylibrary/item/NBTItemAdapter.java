@@ -5,9 +5,9 @@ import com.github.cozyplugins.cozylibrary.indicator.Replicable;
 import com.github.squishylib.configuration.ConfigurationSection;
 import com.github.squishylib.configuration.implementation.MemoryConfigurationSection;
 import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
-import de.tr7zw.changeme.nbtapi.NBT;
-import de.tr7zw.changeme.nbtapi.NBTType;
-import de.tr7zw.changeme.nbtapi.iface.ReadableItemNBT;
+import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.nbtapi.NBTType;
+import de.tr7zw.nbtapi.iface.ReadableItemNBT;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * <h1>Represents an nbt item adapter</h1>
- * Adapts methods from {@link de.tr7zw.changeme.nbtapi.NBTItem}
+ * Adapts methods from {@link de.tr7zw.nbtapi.NBTItem}
  *
  * @param <S> The return type.
  */
