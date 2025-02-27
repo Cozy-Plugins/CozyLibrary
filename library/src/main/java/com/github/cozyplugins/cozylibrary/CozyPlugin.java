@@ -26,6 +26,7 @@ import java.util.Optional;
 public abstract class CozyPlugin<P extends JavaPlugin> {
 
     private final @NotNull P plugin;
+    private final boolean isCommandTypesEnabled;
     private final @NotNull CommandManager commandManager;
     private PlaceholderManager<P> placeholderManager;
     private CommandDirectory commandDirectory;
@@ -36,8 +37,10 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
      *
      * @param plugin The instance of the plugin loader.
      */
-    public CozyPlugin(final @NotNull P plugin) {
+    public CozyPlugin(final @NotNull P plugin, final boolean isCommandTypesEnabled) {
         this.plugin = plugin;
+        this.isCommandTypesEnabled = isCommandTypesEnabled;
+
         this.commandManager = new CommandManager(plugin.getName());
 
         // Register this instance with the provider.
@@ -50,17 +53,21 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
      *
      * @return True if the command types are enabled.
      */
-    public abstract boolean isCommandTypesEnabled();
+    public boolean isCommandTypesEnabled() {
+        return this.isCommandTypesEnabled;
+    }
 
-    /**
-     * Called after this plugin has been enabled.
-     */
-    protected abstract void onEnable();
+    protected void onBeforeEnable() {
+    }
 
-    /**
-     * Called after this plugin has been disabled.
-     */
-    protected abstract void onDisable();
+    protected void onEnable() {
+    }
+
+    protected void onBeforeDisable() {
+    }
+
+    protected void onDisable() {
+    }
 
     /**
      * Called when the commands should be loaded
@@ -68,7 +75,8 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
      *
      * @param commandManager The instance of the command manager.
      */
-    protected abstract void onLoadCommands(@NotNull CommandManager commandManager);
+    protected void onLoadCommands(@NotNull CommandManager commandManager) {
+    }
 
     /**
      * Called when the placeholders should be loaded
@@ -76,7 +84,8 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
      *
      * @param placeholderManager The instance of the placeholder manager.
      */
-    protected abstract void onLoadPlaceholders(@NotNull PlaceholderManager<P> placeholderManager);
+    protected void onLoadPlaceholders(@NotNull PlaceholderManager<P> placeholderManager){
+    }
 
     /**
      * Used to enable this cozy plugin.
@@ -84,6 +93,9 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
      * @return This instance.
      */
     public @NotNull CozyPlugin<P> enable() {
+
+        // Before enabling cozy plugin.
+        this.onBeforeEnable();
 
         // Pre-load nbt api.
         if (!NBT.preloadApi()) {
@@ -145,6 +157,9 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
      * @return This instance.
      */
     public @NotNull CozyPlugin<P> disable() {
+
+        // Before disabling cozy plugin.
+        this.onBeforeDisable();
 
         // Remove commands.
         this.commandManager.unregisterCommands();
