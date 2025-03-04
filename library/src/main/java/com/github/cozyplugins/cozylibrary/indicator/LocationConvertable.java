@@ -34,6 +34,8 @@ public interface LocationConvertable {
         map.put("x", location.getX());
         map.put("y", location.getY());
         map.put("z", location.getZ());
+        map.put("yaw", location.getYaw());
+        map.put("pitch", location.getPitch());
 
         return map;
     }
@@ -55,10 +57,12 @@ public interface LocationConvertable {
 
         // Return the location.
         return new Location(
-                world,
-                Double.parseDouble(String.valueOf(section.get("x"))),
-                Double.parseDouble(String.valueOf(section.get("y"))),
-                Double.parseDouble(String.valueOf(section.get("z")))
+            world,
+            Double.parseDouble(String.valueOf(section.get("x"))),
+            Double.parseDouble(String.valueOf(section.get("y"))),
+            Double.parseDouble(String.valueOf(section.get("z"))),
+            Float.parseFloat(String.valueOf(section.get("yaw"))),
+            Float.parseFloat(String.valueOf(section.get("pitch")))
         );
     }
 }
