@@ -26,9 +26,13 @@ public class CommandDirectory extends ConfigurationDirectory {
      * @param plugin The instance of the plugin.
      */
     public CommandDirectory(@NotNull CozyPlugin<?> plugin) {
-        super(new File(plugin.getPlugin().getDataFolder().getAbsolutePath() + File.separator + "commands"));
+        super(new File(plugin.getPlugin().getDataFolder().getAbsolutePath() + File.separator + "commands"), plugin.getClass());
 
         this.pointer = plugin;
+    }
+
+    public @NotNull CozyPlugin<?> getPointer() {
+        return this.pointer;
     }
 
     @Override

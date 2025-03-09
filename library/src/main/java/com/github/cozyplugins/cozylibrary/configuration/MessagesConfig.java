@@ -29,11 +29,11 @@ public class MessagesConfig extends YamlConfiguration {
     }
 
     public MessagesConfig(@NotNull File file) {
-        super(file);
+        super(file, MessagesConfig.class);
     }
 
     public MessagesConfig(@NotNull File file, @NotNull String path) {
-        super(file, path);
+        super(file, path, MessagesConfig.class);
     }
 
     /**

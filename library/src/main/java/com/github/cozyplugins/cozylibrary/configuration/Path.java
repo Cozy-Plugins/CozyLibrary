@@ -186,9 +186,10 @@ public class Path {
      * @param name The name of the file without extensions.
      * @return This instance.
      */
-    public @NotNull Path createYamlConfigurationFile(@NotNull String name) {
+    public @NotNull Path createYamlConfigurationFile(@NotNull String name, @NotNull Class<?> clazz) {
         YamlConfiguration configuration = new YamlConfiguration(
-                new File(this.base.getAbsoluteFile() + "/" + this.getSlashPath() + "/" + name + ".yml")
+            new File(this.base.getAbsoluteFile() + "/" + this.getSlashPath() + "/" + name + ".yml"),
+            clazz
         );
         configuration.load();
         return this;

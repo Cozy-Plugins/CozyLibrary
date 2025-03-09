@@ -144,7 +144,7 @@ public abstract class ConfigurationDirectoryEditor extends CozyInventory {
                                 open(user.getPlayer());
                                 return;
                             }
-                            this.path.createYamlConfigurationFile(value);
+                            this.path.createYamlConfigurationFile(value, ConfigurationDirectoryEditor.this.directory.getProjectClass());
                             open(user.getPlayer());
                         })
                 )

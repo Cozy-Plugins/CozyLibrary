@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/CommandDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/CommandDirectory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/MessagesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/MessagesConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/Path.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/Path.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory/inventory/ConfigurationDirectoryEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory/inventory/ConfigurationDirectoryEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -305,6 +310,11 @@
       <workItem from="1740700043845" duration="584000" />
       <workItem from="1740836034594" duration="15000" />
       <workItem from="1741114263672" duration="34000" />
+      <workItem from="1741130086802" duration="817000" />
+      <workItem from="1741310616128" duration="28000" />
+      <workItem from="1741311171455" duration="12000" />
+      <workItem from="1741540653302" duration="9000" />
+      <workItem from="1741550255868" duration="937000" />
     </task>
     <servers />
   </component>
