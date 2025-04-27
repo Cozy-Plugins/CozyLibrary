@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Cuboid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/CommandDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/CommandDirectory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/MessagesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/MessagesConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/Path.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/configuration/Path.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory/inventory/ConfigurationDirectoryEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory/inventory/ConfigurationDirectoryEditor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Region.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Region.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +79,9 @@
       <recent name="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary" />
       <recent name="$PROJECT_DIR$/library/src/main/java" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.github.cozyplugins.cozylibrary.location" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.github.cozyplugins.cozylibrary.inventory.slot" />
       <recent name="com.github.cozyplugins.cozylibrary.configuration" />
@@ -124,8 +124,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
       </set>
     </attachedChunks>
   </component>
@@ -315,6 +315,10 @@
       <workItem from="1741311171455" duration="12000" />
       <workItem from="1741540653302" duration="9000" />
       <workItem from="1741550255868" duration="937000" />
+      <workItem from="1741891252031" duration="8000" />
+      <workItem from="1741966652461" duration="1000" />
+      <workItem from="1744564891914" duration="2723000" />
+      <workItem from="1744579191308" duration="1548000" />
     </task>
     <servers />
   </component>
