@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Cuboid.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Face.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/NoOverlaps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Cuboid.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Cuboid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Region.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Region.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -319,6 +322,10 @@
       <workItem from="1741966652461" duration="1000" />
       <workItem from="1744564891914" duration="2723000" />
       <workItem from="1744579191308" duration="1548000" />
+      <workItem from="1745767328033" duration="813000" />
+      <workItem from="1745770205473" duration="3977000" />
+      <workItem from="1745779081178" duration="3113000" />
+      <workItem from="1745785429223" duration="1917000" />
     </task>
     <servers />
   </component>

@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.error.YAMLException;
@@ -223,6 +224,44 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
         return null;
     }
 
+    public double getDistanceX() {
+        return this.getMaxPoint().getX() - this.getMinPoint().getX();
+    }
+
+    public double getDistanceY() {
+        return this.getMaxPoint().getY() - this.getMinPoint().getY();
+    }
+
+    public double getDistanceZ() {
+        return this.getMaxPoint().getZ() - this.getMinPoint().getZ();
+    }
+
+    public double getArea3D() {
+        return this.getDistanceX() * this.getDistanceY() * this.getDistanceZ();
+    }
+
+    /**
+     * Imagine putting arrows pointing away from the surface.
+     * That's the face direction.
+     */
+    public double getArea2D(@NotNull Face face) {
+        if (face.equals(Face.DOWN) || face.equals(Face.UP)) return this.getDistanceX() * this.getDistanceZ();
+        if (face.equals(Face.NORTH) || face.equals(Face.SOUTH)) return this.getDistanceY() * this.getDistanceX();
+        if (face.equals(Face.EAST) || face.equals(Face.WEST)) return this.getDistanceY() * this.getDistanceZ();
+        throw new RuntimeException("Unknown face: " + face);
+    }
+
+    public double getPerimeter3D() {
+        return (this.getDistanceX() * 4) + (this.getDistanceZ() * 4) + (this.getDistanceY() * 4);
+    }
+
+    public double getPerimeter2D(@NotNull Face face) {
+        if (face.equals(Face.DOWN) || face.equals(Face.UP)) return (this.getDistanceX() * 2) + (this.getDistanceZ() * 2);
+        if (face.equals(Face.NORTH) || face.equals(Face.SOUTH)) return (this.getDistanceY() * 2) + (this.getDistanceX() * 2);
+        if (face.equals(Face.EAST) || face.equals(Face.WEST)) return (this.getDistanceY() * 2) + (this.getDistanceZ() * 2);
+        throw new RuntimeException("Unknown face: " + face);
+    }
+
     /**
      * Used to expand the cuboid in all directions.
      * <li>
@@ -307,6 +346,32 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
         return !(disjointX || disjointY || disjointZ);
     }
 
+    public @Nullable Cuboid intersect(@NotNull Cuboid other) {
+        if (!this.overlaps(other)) return null;
+
+        Location min1 = this.getMinPoint();
+        Location max1 = this.getMaxPoint();
+        Location min2 = other.getMinPoint();
+        Location max2 = other.getMaxPoint();
+
+        Location newMin = new Location(
+            min1.getWorld(),
+            Math.max(min1.getX(), min2.getX()),
+            Math.max(min1.getY(), min2.getY()),
+            Math.max(min1.getZ(), min2.getZ())
+        );
+
+        Location newMax = new Location(
+            min1.getWorld(),
+            Math.min(max1.getX(), max2.getX()),
+            Math.min(max1.getY(), max2.getY()),
+            Math.min(max1.getZ(), max2.getZ())
+        );
+
+        return new Cuboid(newMin, newMax);
+    }
+
+
     /**
      * Used to check if the cuboid contains a material.
      * <li>
@@ -361,6 +426,59 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
      */
     public boolean isAir() {
         return this.isSameMaterial(Material.AIR);
+    }
+
+    public List<Cuboid> split(@NotNull Cuboid other) {
+        final List<Cuboid> result = new ArrayList<>();
+        final Cuboid intersection = this.intersect(other);
+
+        if (intersection == null) {
+            result.add(this);
+            return result;
+        }
+
+        final Location min = this.getMinPoint();
+        final Location max = this.getMaxPoint();
+        final Location intersectionMin = intersection.getMinPoint();
+        final Location intersectionMax = intersection.getMaxPoint();
+        final World world = min.getWorld();
+
+        // We work on 3 axes: x (0), y (1), z (2)
+        double[] minCoords = { min.getX(), min.getY(), min.getZ() };
+        double[] maxCoords = { max.getX(), max.getY(), max.getZ() };
+        double[] intersectionMinCoords = { intersectionMin.getX(), intersectionMin.getY(), intersectionMin.getZ() };
+        double[] intersectionMaxCoords = { intersectionMax.getX(), intersectionMax.getY(), intersectionMax.getZ() };
+
+        for (int axis = 0; axis < 3; axis++) {
+            // Slice before intersection.
+            if (minCoords[axis] < intersectionMinCoords[axis]) {
+                result.add(this.makeCuboid(
+                    world, minCoords, maxCoords, axis,
+                    minCoords[axis], intersectionMinCoords[axis]
+                ));
+            }
+            // Slice after intersection.
+            if (maxCoords[axis] > intersectionMaxCoords[axis]) {
+                result.add(this.makeCuboid(
+                    world, minCoords, maxCoords, axis,
+                    intersectionMaxCoords[axis], maxCoords[axis]
+                ));
+            }
+        }
+
+        return result;
+    }
+
+    private @NotNull Cuboid makeCuboid(World world, double[] minCoords, double[] maxCoords, int axis, double start, double end) {
+        double[] newMin = minCoords.clone();
+        double[] newMax = maxCoords.clone();
+        newMin[axis] = start;
+        newMax[axis] = end;
+
+        return new Cuboid(
+            new Location(world, newMin[0], newMin[1], newMin[2]),
+            new Location(world, newMax[0], newMax[1], newMax[2])
+        );
     }
 
     /**

@@ -10,11 +10,23 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * The region will change the cuboids you append.
+ * This is so there are no overlaps.
+ * <p>
+ * When you append a cuboid it will be cut into multiple to
+ * ensure there are no overlaps between the cuboids.
+ * <p>
+ * This is because, if there were overlaps and there are 20 cuboids
+ * that is already 2^20 combinations the code will have to check for
+ * to calculate the area. That's 1,048,576 combinations to check!
+ * <p>
+ * Its allot better to just ensure no overlaps.
+ */
 public class Region implements Replicable<Region>, ConfigurationConvertible<Region> {
 
-    private final @NotNull List<Cuboid> cuboids;
+    private final @NotNull @NoOverlaps List<Cuboid> cuboids;
 
     public Region() {
         this.cuboids = new ArrayList<>();
@@ -26,7 +38,12 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         this.cuboids.add(cuboid);
     }
 
-    public Region(@NotNull List<Cuboid> cuboids) {
+    /**
+     * Please ensure that no overlap.
+     * This is really meant for duplicating a region.
+     * Since regions ensure no overlaps.
+     */
+    public Region(@NoOverlaps @NotNull List<Cuboid> cuboids) {
         this.cuboids = cuboids;
     }
 
@@ -34,10 +51,47 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         return this.cuboids;
     }
 
+    public double getArea3D() {
+        double area = 0;
+        for (Cuboid cuboid : this.cuboids) {
+            area += cuboid.getArea3D();
+        }
+        return area;
+    }
+
+    public double getArea2D(@NotNull Face face) {
+        double area = 0;
+        for (Cuboid cuboid : this.cuboids) {
+            area += cuboid.getArea2D(face);
+        }
+        return area;
+    }
+
+    /**
+     * This will recalculate the cuboids so there are no overlaps.
+     */
     public @NotNull Region append(@NotNull Cuboid cuboid) {
-        this.cuboids.add(cuboid);
+        List<Cuboid> newCuboids = new ArrayList<>();
+
+        // Loop though each existing non-overlapping cuboid.
+        for (Cuboid existingCuboid : this.cuboids) {
+
+            // Does the existing cuboid overlap the new one?
+            // If so split into new cuboids.
+            if (!existingCuboid.overlaps(cuboid)) {
+                newCuboids.addAll(existingCuboid.split(cuboid));
+                continue;
+            }
+
+            newCuboids.add(existingCuboid);
+        }
+
+        // Update the region with the new cuboids.
+        this.cuboids.clear();
+        this.cuboids.addAll(newCuboids);
         return this;
     }
+
 
     public boolean contains(@NotNull Location location) {
         for (Cuboid cuboid : this.cuboids) {
