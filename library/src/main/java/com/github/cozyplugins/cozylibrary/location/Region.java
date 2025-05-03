@@ -7,6 +7,7 @@ import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,11 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         this.cuboids.add(cuboid);
     }
 
+    public Region(@NotNull Cuboid cuboid) {
+        this.cuboids = new ArrayList<>();
+        this.cuboids.add(cuboid);
+    }
+
     /**
      * Please ensure that no overlap.
      * This is really meant for duplicating a region.
@@ -51,6 +57,63 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         return this.cuboids;
     }
 
+    public boolean isEmpty() {
+        return this.cuboids.isEmpty();
+    }
+
+    public double getMinPoint() {
+        if (this.cuboids.isEmpty()) throw new RuntimeException("Region.getMinPoint() called on a empty region.");
+        final Location firstMin = this.cuboids.get(0).getMinPoint();
+
+        double minX = firstMin.getX();
+        double minY = firstMin.getY();
+        double minZ = firstMin.getZ();
+
+        for (Cuboid cuboid : this.cuboids) {
+            final Location location = cuboid.getMinPoint();
+            if (location.getX() < minX) minX = location.getX();
+            if (location.getY() < minY) minY = location.getY();
+            if (location.getZ() < minZ) minZ = location.getZ();
+        }
+
+        return minX;
+    }
+
+    public double getMaxPoint() {
+        if (this.cuboids.isEmpty()) throw new RuntimeException("Region.getMaxPoint() called on a empty region.");
+        final Location firstMax = this.cuboids.get(0).getMaxPoint();
+
+        double maxX = firstMax.getX();
+        double maxY = firstMax.getX();
+        double maxZ = firstMax.getX();
+
+        for (Cuboid cuboid : this.cuboids) {
+            final Location location = cuboid.getMaxPoint();
+            if (location.getX() > maxX) maxX = location.getX();
+            if (location.getY() > maxY) maxY = location.getY();
+            if (location.getZ() > maxZ) maxZ = location.getZ();
+        }
+
+        return maxX;
+    }
+
+    /**
+     * Used to check if there is a cuboid in this region
+     * in the direction from a specific location.
+     */
+    public @Nullable Cuboid getCuboid(@NotNull Location from, @NotNull Direction direction) {
+        return null;
+    }
+
+    public boolean hasCuboid(@NotNull Location from, @NotNull Direction direction) {
+        return this.getCuboid(from, direction) != null;
+    }
+
+    /**
+     * The area of the region.
+     * <p>
+     * Adds all the cuboid areas together.
+     */
     public double getArea3D() {
         double area = 0;
         for (Cuboid cuboid : this.cuboids) {
@@ -59,9 +122,14 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         return area;
     }
 
-    public double getArea2D(@NotNull Face face) {
+    /**
+     * Imagine casting a shadow in the face direction.
+     * It will be the area of the shadow.
+     */
+    public double getArea2D(@NotNull Direction face) {
         double area = 0;
         for (Cuboid cuboid : this.cuboids) {
+
             area += cuboid.getArea2D(face);
         }
         return area;
@@ -77,13 +145,32 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         for (Cuboid existingCuboid : this.cuboids) {
 
             // Does the existing cuboid overlap the new one?
-            // If so split into new cuboids.
+            // If so split the existing one into new cuboids.
             if (!existingCuboid.overlaps(cuboid)) {
-                newCuboids.addAll(existingCuboid.split(cuboid));
-                continue;
+                newCuboids.addAll(existingCuboid.splitAround(cuboid));
             }
 
-            newCuboids.add(existingCuboid);
+            // Add the new cuboid.
+            newCuboids.add(cuboid);
+        }
+
+        // Update the region with the new cuboids.
+        this.cuboids.clear();
+        this.cuboids.addAll(newCuboids);
+        return this;
+    }
+
+    public @NotNull Region remove(@NotNull Cuboid cuboid) {
+        List<Cuboid> newCuboids = new ArrayList<>();
+
+        // Loop though each existing non-overlapping cuboid.
+        for (Cuboid existingCuboid : this.cuboids) {
+
+            // Does the existing cuboid overlap the new one?
+            // If so split the existing one into new cuboids.
+            if (!existingCuboid.overlaps(cuboid)) {
+                newCuboids.addAll(existingCuboid.splitAround(cuboid));
+            }
         }
 
         // Update the region with the new cuboids.

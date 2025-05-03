@@ -9,7 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.error.YAMLException;
@@ -244,10 +243,10 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
      * Imagine putting arrows pointing away from the surface.
      * That's the face direction.
      */
-    public double getArea2D(@NotNull Face face) {
-        if (face.equals(Face.DOWN) || face.equals(Face.UP)) return this.getDistanceX() * this.getDistanceZ();
-        if (face.equals(Face.NORTH) || face.equals(Face.SOUTH)) return this.getDistanceY() * this.getDistanceX();
-        if (face.equals(Face.EAST) || face.equals(Face.WEST)) return this.getDistanceY() * this.getDistanceZ();
+    public double getArea2D(@NotNull Direction face) {
+        if (face.equals(Direction.DOWN) || face.equals(Direction.UP)) return this.getDistanceX() * this.getDistanceZ();
+        if (face.equals(Direction.NORTH) || face.equals(Direction.SOUTH)) return this.getDistanceY() * this.getDistanceX();
+        if (face.equals(Direction.EAST) || face.equals(Direction.WEST)) return this.getDistanceY() * this.getDistanceZ();
         throw new RuntimeException("Unknown face: " + face);
     }
 
@@ -255,10 +254,10 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
         return (this.getDistanceX() * 4) + (this.getDistanceZ() * 4) + (this.getDistanceY() * 4);
     }
 
-    public double getPerimeter2D(@NotNull Face face) {
-        if (face.equals(Face.DOWN) || face.equals(Face.UP)) return (this.getDistanceX() * 2) + (this.getDistanceZ() * 2);
-        if (face.equals(Face.NORTH) || face.equals(Face.SOUTH)) return (this.getDistanceY() * 2) + (this.getDistanceX() * 2);
-        if (face.equals(Face.EAST) || face.equals(Face.WEST)) return (this.getDistanceY() * 2) + (this.getDistanceZ() * 2);
+    public double getPerimeter2D(@NotNull Direction face) {
+        if (face.equals(Direction.DOWN) || face.equals(Direction.UP)) return (this.getDistanceX() * 2) + (this.getDistanceZ() * 2);
+        if (face.equals(Direction.NORTH) || face.equals(Direction.SOUTH)) return (this.getDistanceY() * 2) + (this.getDistanceX() * 2);
+        if (face.equals(Direction.EAST) || face.equals(Direction.WEST)) return (this.getDistanceY() * 2) + (this.getDistanceZ() * 2);
         throw new RuntimeException("Unknown face: " + face);
     }
 
@@ -428,7 +427,11 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
         return this.isSameMaterial(Material.AIR);
     }
 
-    public List<Cuboid> split(@NotNull Cuboid other) {
+    /**
+     * Split this cube into more cubes so that the other cuboid
+     * doesn't overlap this cuboid.
+     */
+    public List<Cuboid> splitAround(@NotNull Cuboid other) {
         final List<Cuboid> result = new ArrayList<>();
         final Cuboid intersection = this.intersect(other);
 
@@ -495,5 +498,98 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
                 Math.pow((position1.getY() - position2.getY()), 2) +
                 Math.pow((position1.getZ() - position2.getZ()), 2)
         ));
+    }
+
+    public static List<Block> getLineBlocks(Location start, Location end) {
+        List<Block> blocks = new ArrayList<>();
+
+        if (start.getWorld() == null) throw new RuntimeException("start.getWorld() == null");
+        if (end.getWorld() == null) throw new RuntimeException("end.getWorld() == null");
+
+        // Ensure both locations are in the same world
+        if (!Objects.equals(start.getWorld().getName(), end.getWorld().getName())) {
+            throw new IllegalArgumentException("Locations must be in the same world");
+        }
+
+        int x1 = start.getBlockX();
+        int y1 = start.getBlockY();
+        int z1 = start.getBlockZ();
+        int x2 = end.getBlockX();
+        int y2 = end.getBlockY();
+        int z2 = end.getBlockZ();
+
+        int dx = Math.abs(x2 - x1);
+        int dy = Math.abs(y2 - y1);
+        int dz = Math.abs(z2 - z1);
+
+        int xs = Integer.compare(x2, x1);
+        int ys = Integer.compare(y2, y1);
+        int zs = Integer.compare(z2, z1);
+
+        int dx2 = dx * 2;
+        int dy2 = dy * 2;
+        int dz2 = dz * 2;
+
+        int x = x1;
+        int y = y1;
+        int z = z1;
+
+        if (dx >= dy && dx >= dz) {
+            int yd = dy2 - dx;
+            int zd = dz2 - dx;
+
+            for (int i = 0; i <= dx; i++) {
+                blocks.add(start.getWorld().getBlockAt(x, y, z));
+                if (yd >= 0) {
+                    y += ys;
+                    yd -= dx2;
+                }
+                if (zd >= 0) {
+                    z += zs;
+                    zd -= dx2;
+                }
+                yd += dy2;
+                zd += dz2;
+                x += xs;
+            }
+        } else if (dy >= dx && dy >= dz) {
+            int xd = dx2 - dy;
+            int zd = dz2 - dy;
+
+            for (int i = 0; i <= dy; i++) {
+                blocks.add(start.getWorld().getBlockAt(x, y, z));
+                if (xd >= 0) {
+                    x += xs;
+                    xd -= dy2;
+                }
+                if (zd >= 0) {
+                    z += zs;
+                    zd -= dy2;
+                }
+                xd += dx2;
+                zd += dz2;
+                y += ys;
+            }
+        } else {
+            int xd = dx2 - dz;
+            int yd = dy2 - dz;
+
+            for (int i = 0; i <= dz; i++) {
+                blocks.add(start.getWorld().getBlockAt(x, y, z));
+                if (xd >= 0) {
+                    x += xs;
+                    xd -= dz2;
+                }
+                if (yd >= 0) {
+                    y += ys;
+                    yd -= dz2;
+                }
+                xd += dx2;
+                yd += dy2;
+                z += zs;
+            }
+        }
+
+        return blocks;
     }
 }

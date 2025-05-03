@@ -1,6 +1,6 @@
 package com.github.cozyplugins.cozylibrary.location;
 
-public enum Face {
+public enum Direction {
     UP,
     DOWN,
     NORTH,
