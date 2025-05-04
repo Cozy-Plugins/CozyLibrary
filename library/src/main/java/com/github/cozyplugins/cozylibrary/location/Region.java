@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The region will change the cuboids you append.
@@ -282,10 +283,8 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
     public @NotNull ConfigurationSection convert() {
         final ConfigurationSection section = new MemoryConfigurationSection();
 
-        int i = 0;
         for (Cuboid cuboid : this.cuboids) {
-            section.set(String.valueOf(i), cuboid.convertToMap());
-            i++;
+            section.set("string-" + UUID.randomUUID().toString(), cuboid.convertToMap());
         }
 
         return section;
