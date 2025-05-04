@@ -57,11 +57,25 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         return this.cuboids;
     }
 
+    public @Nullable Cuboid getCuboidThatContains(@NotNull Location location) {
+        for (Cuboid cuboid : this.cuboids) {
+            if (cuboid.contains(location)) return cuboid;
+        }
+        return null;
+    }
+
+    public @Nullable Cuboid getCuboidThatOverlaps(@NotNull Cuboid cuboid) {
+        for (Cuboid temp : this.cuboids) {
+            if (temp.overlaps(cuboid)) return cuboid;
+        }
+        return null;
+    }
+
     public boolean isEmpty() {
         return this.cuboids.isEmpty();
     }
 
-    public double getMinPoint() {
+    public  @NotNull Location getMinPoint() {
         if (this.cuboids.isEmpty()) throw new RuntimeException("Region.getMinPoint() called on a empty region.");
         final Location firstMin = this.cuboids.get(0).getMinPoint();
 
@@ -76,10 +90,10 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
             if (location.getZ() < minZ) minZ = location.getZ();
         }
 
-        return minX;
+        return new Location(firstMin.getWorld(), minX, minY, minZ);
     }
 
-    public double getMaxPoint() {
+    public  @NotNull Location getMaxPoint() {
         if (this.cuboids.isEmpty()) throw new RuntimeException("Region.getMaxPoint() called on a empty region.");
         final Location firstMax = this.cuboids.get(0).getMaxPoint();
 
@@ -94,7 +108,7 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
             if (location.getZ() > maxZ) maxZ = location.getZ();
         }
 
-        return maxX;
+        return new Location(firstMax.getWorld(), maxX, maxY, maxZ);
     }
 
     /**
@@ -102,7 +116,10 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
      * in the direction from a specific location.
      */
     public @Nullable Cuboid getCuboid(@NotNull Location from, @NotNull Direction direction) {
-        return null;
+        if (!this.containsWithinMinMax(from)) return null;
+        final Cuboid find = this.getCuboidThatOverlaps(new Cuboid(from, from.clone().add(direction.getVector().multiply(5))));
+        if (find == null) return this.getCuboid(from.clone().add(direction.getVector().multiply(5)), direction);
+        return find;
     }
 
     public boolean hasCuboid(@NotNull Location from, @NotNull Direction direction) {
@@ -180,18 +197,29 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
     }
 
 
-    public boolean contains(@NotNull Location location) {
+    public boolean containsWithinCuboids(@NotNull Location location) {
         for (Cuboid cuboid : this.cuboids) {
             if (cuboid.contains(location)) return true;
         }
         return false;
     }
 
-    public boolean contains(@NotNull Material material) {
+    public boolean containsWithinCuboids(@NotNull Material material) {
         for (Cuboid cuboid : this.cuboids) {
             if (cuboid.contains(material)) return true;
         }
         return false;
+    }
+
+    /**
+     * Draws a cuboid around the entire region.
+     * It then checks if the location is within it.
+     *
+     * @param location The location to check.
+     * @return True if it's within the min max of the region.
+     */
+    public boolean containsWithinMinMax(@NotNull Location location) {
+        return new Cuboid(this.getMinPoint(), this.getMaxPoint()).contains(location);
     }
 
     public boolean overlaps(@NotNull Cuboid cuboid) {

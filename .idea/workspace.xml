@@ -7,7 +7,7 @@
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Cuboid.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Cuboid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Face.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Direction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Region.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Region.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -327,6 +327,8 @@
       <workItem from="1745785429223" duration="1917000" />
       <workItem from="1745883751099" duration="300000" />
       <workItem from="1746297613124" duration="366000" />
+      <workItem from="1746302482707" duration="8000" />
+      <workItem from="1746354972233" duration="1184000" />
     </task>
     <servers />
   </component>

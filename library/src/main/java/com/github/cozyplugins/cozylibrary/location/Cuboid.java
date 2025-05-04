@@ -22,6 +22,19 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
     private @NotNull Location pos1;
     private @NotNull Location pos2;
 
+    public Cuboid() {}
+
+    public Cuboid(@NotNull Location position) {
+        this.pos1 = position;
+        this.pos2 = position;
+    }
+
+    public Cuboid(@NotNull Location position, double expand) {
+        this.pos1 = position;
+        this.pos2 = position;
+        this.expand(expand);
+    }
+
     /**
      * Creates a cuboid between the two points.
      *
