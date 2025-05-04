@@ -29,7 +29,8 @@ import java.util.UUID;
  */
 public class Region implements Replicable<Region>, ConfigurationConvertible<Region> {
 
-    private final @NotNull @NoOverlaps List<Cuboid> cuboids;
+    private final @NotNull
+    @NoOverlaps List<Cuboid> cuboids;
 
     public Region() {
         this.cuboids = new ArrayList<>();
@@ -86,7 +87,7 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         return this.cuboids.isEmpty();
     }
 
-    public  @NotNull Location getMinPoint() {
+    public @NotNull Location getMinPoint() {
         if (this.cuboids.isEmpty()) throw new RuntimeException("Region.getMinPoint() called on a empty region.");
         final Location firstMin = this.cuboids.get(0).getMinPoint();
 
@@ -104,7 +105,7 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         return new Location(firstMin.getWorld(), minX, minY, minZ);
     }
 
-    public  @NotNull Location getMaxPoint() {
+    public @NotNull Location getMaxPoint() {
         if (this.cuboids.isEmpty()) throw new RuntimeException("Region.getMaxPoint() called on a empty region.");
         final Location firstMax = this.cuboids.get(0).getMaxPoint();
 
@@ -168,19 +169,23 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
 
         for (Cuboid cuboid : this.cuboids) {
             for (Block block : cuboid.getBlockList()) {
-                final Cuboid checkingCuboid = new Cuboid(
-                    block.getLocation().clone().add(1, 0, 1),
-                    block.getLocation().clone().add(-1, 0, -1)
-                );
-                for (Block checkingBlock : checkingCuboid.getBlockList()) {
-                    if (this.containsWithinCuboids(checkingBlock.getLocation())) continue;
-                    perimeter.add(checkingBlock);
-                    break;
-                }
+                this.handleBlock(block, perimeter);
             }
         }
 
         return perimeter;
+    }
+
+    private void handleBlock(@NotNull Block block, @NotNull List<Block> perimeter) {
+        final Cuboid checkingCuboid = new Cuboid(
+            block.getLocation().clone().add(1, 0, 1),
+            block.getLocation().clone().add(-1, 0, -1)
+        );
+        for (Block checkingBlock : checkingCuboid.getBlockList()) {
+            if (this.containsWithinCuboids(checkingBlock.getLocation())) continue;
+            perimeter.add(checkingBlock);
+            return;
+        }
     }
 
 
