@@ -198,9 +198,9 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
     public @NotNull List<Block> getBlockList() {
         List<Block> blockList = new ArrayList<>();
 
-        for (int x = this.getMinPoint().getBlockX(); x < this.getMaxPoint().getBlockX(); x++) {
-            for (int y = this.getMinPoint().getBlockY(); y < this.getMaxPoint().getBlockY(); y++) {
-                for (int z = this.getMinPoint().getBlockZ(); z < this.getMaxPoint().getBlockZ(); z++) {
+        for (int x = this.getMinPoint().getBlockX(); x <= this.getMaxPoint().getBlockX(); x++) {
+            for (int y = this.getMinPoint().getBlockY(); y <= this.getMaxPoint().getBlockY(); y++) {
+                for (int z = this.getMinPoint().getBlockZ(); z <= this.getMaxPoint().getBlockZ(); z++) {
 
                     Location location = new Location(this.pos1.getWorld(), x, y, z);
                     blockList.add(location.getBlock());
