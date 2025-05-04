@@ -6,6 +6,7 @@ import com.github.squishylib.configuration.implementation.MemoryConfigurationSec
 import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -160,6 +161,27 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         }
         return area;
     }
+
+    public @NotNull List<Block> getPerimeterBlocks() {
+        List<Block> perimeter = new ArrayList<>();
+
+        for (Cuboid cuboid : this.cuboids) {
+            for (Block block : cuboid.getBlockList()) {
+                final Cuboid checkingCuboid = new Cuboid(
+                    block.getLocation().clone().add(1, 0, 1),
+                    block.getLocation().clone().add(-1, 0, -1)
+                );
+                for (Block checkingBlock : checkingCuboid.getBlockList()) {
+                    if (this.containsWithinCuboids(checkingBlock.getLocation())) continue;
+                    perimeter.add(checkingBlock);
+                    break;
+                }
+            }
+        }
+
+        return perimeter;
+    }
+
 
     /**
      * This will recalculate the cuboids so there are no overlaps.
