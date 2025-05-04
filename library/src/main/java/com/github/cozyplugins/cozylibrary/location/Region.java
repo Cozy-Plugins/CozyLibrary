@@ -280,13 +280,7 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
 
     @Override
     public @NotNull Region duplicate() {
-        final Region region = new Region();
-
-        for (Cuboid cuboid : this.cuboids) {
-            region.append(cuboid.duplicate());
-        }
-
-        return region;
+        return new Region().convert(this.convert());
     }
 
     @Override
