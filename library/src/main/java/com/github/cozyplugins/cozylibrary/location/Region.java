@@ -71,6 +71,15 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         return null;
     }
 
+    /**
+     * Finds the min and max point to create a cuboid out of.
+     *
+     * @return The region as a cuboid estimation.
+     */
+    public @NotNull Cuboid getRegionAsCuboid() {
+        return new Cuboid(this.getMinPoint(), this.getMaxPoint());
+    }
+
     public boolean isEmpty() {
         return this.cuboids.isEmpty();
     }
