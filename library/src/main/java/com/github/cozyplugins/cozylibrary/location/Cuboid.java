@@ -175,6 +175,42 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
         );
     }
 
+    public @NotNull Cuboid setMaxX(double maxX) {
+        if (this.pos1.getBlockX() > this.pos2.getBlockX()) this.pos1.setX(maxX);
+        else this.pos2.setX(maxX);
+        return this;
+    }
+
+    public @NotNull Cuboid setMaxY(double maxY) {
+        if (this.pos1.getBlockY() > this.pos2.getBlockY()) this.pos1.setY(maxY);
+        else this.pos2.setY(maxY);
+        return this;
+    }
+
+    public @NotNull Cuboid setMaxZ(double maxZ) {
+        if (this.pos1.getBlockZ() > this.pos2.getBlockZ()) this.pos1.setZ(maxZ);
+        else this.pos2.setZ(maxZ);
+        return this;
+    }
+
+    public @NotNull Cuboid setMinX(double minX) {
+        if (this.pos1.getBlockX() < this.pos2.getBlockX()) this.pos1.setX(minX);
+        else this.pos2.setX(minX);
+        return this;
+    }
+
+    public @NotNull Cuboid setMinY(double minY) {
+        if (this.pos1.getBlockY() < this.pos2.getBlockY()) this.pos1.setY(minY);
+        else this.pos2.setY(minY);
+        return this;
+    }
+
+    public @NotNull Cuboid setMinZ(double minZ) {
+        if (this.pos1.getBlockZ() < this.pos2.getBlockZ()) this.pos1.setZ(minZ);
+        else this.pos2.setZ(minZ);
+        return this;
+    }
+
     /**
      * @return The center of the cuboid.
      */
