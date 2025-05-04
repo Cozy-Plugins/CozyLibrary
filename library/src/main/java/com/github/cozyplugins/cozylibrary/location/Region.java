@@ -6,6 +6,7 @@ import com.github.squishylib.configuration.implementation.MemoryConfigurationSec
 import com.github.squishylib.configuration.indicator.ConfigurationConvertible;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -138,6 +139,10 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         return this.getCuboid(from, direction) != null;
     }
 
+    public @NotNull World getWorld() {
+        return this.getCuboids().get(0).getWorld();
+    }
+
     /**
      * The area of the region.
      * <p>
@@ -200,7 +205,7 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
 
             // Does the existing cuboid overlap the new one?
             // If so split the existing one into new cuboids.
-            if (!existingCuboid.overlaps(cuboid)) {
+            if (existingCuboid.overlaps(cuboid)) {
                 newCuboids.addAll(existingCuboid.splitAround(cuboid));
             }
 
@@ -222,7 +227,7 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
 
             // Does the existing cuboid overlap the new one?
             // If so split the existing one into new cuboids.
-            if (!existingCuboid.overlaps(cuboid)) {
+            if (existingCuboid.overlaps(cuboid)) {
                 newCuboids.addAll(existingCuboid.splitAround(cuboid));
             }
         }

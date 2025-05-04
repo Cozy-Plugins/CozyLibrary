@@ -151,6 +151,10 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
         return this.pos2;
     }
 
+    public @NotNull World getWorld() {
+        return Objects.requireNonNull(this.pos1.getWorld());
+    }
+
     /**
      * @return The smallest x, z and y value as a location.
      */
