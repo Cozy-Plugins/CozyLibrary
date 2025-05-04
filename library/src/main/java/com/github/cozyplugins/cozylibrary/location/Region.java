@@ -294,8 +294,14 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
     @Override
     public @NotNull Region convert(@NotNull ConfigurationSection section) {
 
-        for (String key : section.getKeys()) {
-            this.cuboids.add(new Cuboid(section.getSection(key)));
+        try {
+            for (String key : section.getKeys()) {
+                this.cuboids.add(new Cuboid(section.getSection(key)));
+            }
+        } catch (Exception exception) {
+            System.out.println("Unable to convert region?");
+            System.out.println(section.getMap());
+            throw new RuntimeException(exception);
         }
 
         return this;

@@ -325,6 +325,7 @@
       <workItem from="1746302482707" duration="8000" />
       <workItem from="1746354972233" duration="1236000" />
       <workItem from="1746356570459" duration="184000" />
+      <workItem from="1746357244522" duration="851000" />
     </task>
     <servers />
   </component>
@@ -333,5 +334,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/location/Cuboid.java</url>
+          <line>600</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

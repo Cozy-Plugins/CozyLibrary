@@ -108,7 +108,14 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
 
     @Override
     public Cuboid convert(ConfigurationSection section) {
-        final World world = Bukkit.getWorld(section.getString("world", null));
+        World world = null;
+        try {
+            world = Bukkit.getWorld(section.getString("world", null));
+        } catch (Exception exception) {
+            System.out.println("Section didnt contain a valid world?");
+            System.out.println(section.getMap());
+            throw new RuntimeException(exception);
+        }
 
         // Check if the world is null.
         if (world == null) {
