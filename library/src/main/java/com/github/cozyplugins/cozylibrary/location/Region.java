@@ -253,6 +253,22 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         return false;
     }
 
+    public boolean containsWithinCuboids(@NotNull Cuboid cuboid) {
+        for (Block block : cuboid.getBlockList()) {
+            if (this.containsWithinCuboids(block.getLocation())) continue;
+            return false;
+        }
+        return true;
+    }
+
+    public boolean containsWithinCuboids(@NotNull Region region) {
+        for (Cuboid cuboid : region.getCuboids()) {
+            if (this.containsWithinCuboids(cuboid)) continue;
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Draws a cuboid around the entire region.
      * It then checks if the location is within it.

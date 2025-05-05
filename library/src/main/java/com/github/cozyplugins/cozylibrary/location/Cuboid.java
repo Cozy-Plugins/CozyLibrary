@@ -446,6 +446,26 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
         return block != null;
     }
 
+    public boolean contains(@NotNull Cuboid cuboid) {
+
+        // Get the intersection.
+        Cuboid intersect = cuboid.intersect(this);
+        if (intersect == null) return false;
+
+        final Location max1 = intersect.getMaxPoint();
+        final Location max2 = cuboid.getMaxPoint();
+        final Location min1 = intersect.getMinPoint();
+        final Location min2 = cuboid.getMinPoint();
+
+        // The intersection should be the same as the cuboid.
+        return max1.getBlockX() == max2.getBlockX()
+            && max1.getBlockY() == max2.getBlockY()
+            && max1.getBlockZ() == max2.getBlockZ()
+            && min1.getBlockX() == min2.getBlockX()
+            && min1.getBlockY() == min2.getBlockY()
+            && min1.getBlockZ() == min2.getBlockZ();
+    }
+
     /**
      * Used to check if the cuboid is all 1 type of material.
      * <li>
