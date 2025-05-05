@@ -211,7 +211,7 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         }
 
         // Add the new cuboid.
-        this.cuboids.add(cuboid);
+        newCuboids.add(cuboid);
 
         // Update the region with the new cuboids.
         this.cuboids.clear();
