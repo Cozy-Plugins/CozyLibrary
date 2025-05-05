@@ -111,8 +111,8 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
         final Location firstMax = this.cuboids.get(0).getMaxPoint();
 
         double maxX = firstMax.getX();
-        double maxY = firstMax.getX();
-        double maxZ = firstMax.getX();
+        double maxY = firstMax.getY();
+        double maxZ = firstMax.getZ();
 
         for (Cuboid cuboid : this.cuboids) {
             final Location location = cuboid.getMaxPoint();
@@ -208,10 +208,10 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
             if (existingCuboid.overlaps(cuboid)) {
                 newCuboids.addAll(existingCuboid.splitAround(cuboid));
             }
-
-            // Add the new cuboid.
-            newCuboids.add(cuboid);
         }
+
+        // Add the new cuboid.
+        this.cuboids.add(cuboid);
 
         // Update the region with the new cuboids.
         this.cuboids.clear();
