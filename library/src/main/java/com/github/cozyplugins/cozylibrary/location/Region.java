@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -207,17 +208,47 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
             // If so split the existing one into new cuboids.
             if (existingCuboid.overlaps(cuboid)) {
                 newCuboids.addAll(existingCuboid.splitAround(cuboid));
+            } else {
+                newCuboids.add(existingCuboid);
             }
         }
 
         // Add the new cuboid.
         newCuboids.add(cuboid);
 
+        // Merge adjacent cuboids to reduce unnecessary fragmentation
+        newCuboids = this.mergeAdjacentCuboids(newCuboids);
+
         // Update the region with the new cuboids.
         this.cuboids.clear();
         this.cuboids.addAll(newCuboids);
         return this;
     }
+
+    private @NotNull List<Cuboid> mergeAdjacentCuboids(@NotNull List<Cuboid> cuboids) {
+        List<Cuboid> mergedCuboids = new ArrayList<>();
+
+        // Sort cuboids by their minimum point
+        cuboids.sort(Comparator.comparingDouble(c -> c.getMinPoint().getX()));
+
+        for (Cuboid cuboid : cuboids) {
+            if (mergedCuboids.isEmpty()) {
+                mergedCuboids.add(cuboid);
+            } else {
+                Cuboid lastCuboid = mergedCuboids.get(mergedCuboids.size() - 1);
+
+                // Check if the current cuboid can be merged with the last one
+                if (lastCuboid.canMergeWith(cuboid)) {
+                    mergedCuboids.set(mergedCuboids.size() - 1, lastCuboid.mergeWith(cuboid));
+                } else {
+                    mergedCuboids.add(cuboid);
+                }
+            }
+        }
+
+        return mergedCuboids;
+    }
+
 
     public @NotNull Region remove(@NotNull Cuboid cuboid) {
         List<Cuboid> newCuboids = new ArrayList<>();
@@ -229,6 +260,8 @@ public class Region implements Replicable<Region>, ConfigurationConvertible<Regi
             // If so split the existing one into new cuboids.
             if (existingCuboid.overlaps(cuboid)) {
                 newCuboids.addAll(existingCuboid.splitAround(cuboid));
+            } else {
+                newCuboids.add(existingCuboid);
             }
         }
 

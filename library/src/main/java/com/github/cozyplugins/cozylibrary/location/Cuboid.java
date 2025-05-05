@@ -512,56 +512,131 @@ public class Cuboid implements Replicable<Cuboid>, ConfigurationConvertible<Cubo
      * doesn't overlap this cuboid.
      */
     public List<Cuboid> splitAround(@NotNull Cuboid other) {
-        final List<Cuboid> result = new ArrayList<>();
-        final Cuboid intersection = this.intersect(other);
+        List<Cuboid> result = new ArrayList<>();
+        Cuboid intersection = this.intersect(other);
 
         if (intersection == null) {
             result.add(this);
             return result;
         }
 
-        final Location min = this.getMinPoint();
-        final Location max = this.getMaxPoint();
-        final Location intersectionMin = intersection.getMinPoint();
-        final Location intersectionMax = intersection.getMaxPoint();
-        final World world = min.getWorld();
+        Location min = this.getMinPoint();
+        Location max = this.getMaxPoint();
+        Location iMin = intersection.getMinPoint();
+        Location iMax = intersection.getMaxPoint();
+        World world = this.getWorld();
 
-        // We work on 3 axes: x (0), y (1), z (2)
-        double[] minCoords = { min.getX(), min.getY(), min.getZ() };
-        double[] maxCoords = { max.getX(), max.getY(), max.getZ() };
-        double[] intersectionMinCoords = { intersectionMin.getX(), intersectionMin.getY(), intersectionMin.getZ() };
-        double[] intersectionMaxCoords = { intersectionMax.getX(), intersectionMax.getY(), intersectionMax.getZ() };
+        // Left
+        if (min.getX() < iMin.getX()) {
+            result.add(new Cuboid(
+                new Location(world, min.getX(), min.getY(), min.getZ()),
+                new Location(world, iMin.getX() - 1, max.getY(), max.getZ())
+            ));
+        }
 
-        for (int axis = 0; axis < 3; axis++) {
-            // Slice before intersection.
-            if (minCoords[axis] < intersectionMinCoords[axis]) {
-                result.add(this.makeCuboid(
-                    world, minCoords, maxCoords, axis,
-                    minCoords[axis], intersectionMinCoords[axis]
-                ));
-            }
-            // Slice after intersection.
-            if (maxCoords[axis] > intersectionMaxCoords[axis]) {
-                result.add(this.makeCuboid(
-                    world, minCoords, maxCoords, axis,
-                    intersectionMaxCoords[axis], maxCoords[axis]
-                ));
-            }
+        // Right
+        if (max.getX() > iMax.getX()) {
+            result.add(new Cuboid(
+                new Location(world, iMax.getX() + 1, min.getY(), min.getZ()),
+                new Location(world, max.getX(), max.getY(), max.getZ())
+            ));
+        }
+
+        // Bottom (Y)
+        if (min.getY() < iMin.getY()) {
+            result.add(new Cuboid(
+                new Location(world, iMin.getX(), min.getY(), min.getZ()),
+                new Location(world, iMax.getX(), iMin.getY() - 1, max.getZ())
+            ));
+        }
+
+        // Top (Y)
+        if (max.getY() > iMax.getY()) {
+            result.add(new Cuboid(
+                new Location(world, iMin.getX(), iMax.getY() + 1, min.getZ()),
+                new Location(world, iMax.getX(), max.getY(), max.getZ())
+            ));
+        }
+
+        // Front (Z)
+        if (min.getZ() < iMin.getZ()) {
+            result.add(new Cuboid(
+                new Location(world, iMin.getX(), iMin.getY(), min.getZ()),
+                new Location(world, iMax.getX(), iMax.getY(), iMin.getZ() - 1)
+            ));
+        }
+
+        // Back (Z)
+        if (max.getZ() > iMax.getZ()) {
+            result.add(new Cuboid(
+                new Location(world, iMin.getX(), iMin.getY(), iMax.getZ() + 1),
+                new Location(world, iMax.getX(), iMax.getY(), max.getZ())
+            ));
         }
 
         return result;
     }
 
-    private @NotNull Cuboid makeCuboid(World world, double[] minCoords, double[] maxCoords, int axis, double start, double end) {
-        double[] newMin = minCoords.clone();
-        double[] newMax = maxCoords.clone();
-        newMin[axis] = start;
-        newMax[axis] = end;
+    public boolean canMergeWith(@NotNull Cuboid other) {
+        if (!this.getWorld().equals(other.getWorld())) {
+            return false;
+        }
 
-        return new Cuboid(
-            new Location(world, newMin[0], newMin[1], newMin[2]),
-            new Location(world, newMax[0], newMax[1], newMax[2])
+        Location min1 = this.getMinPoint();
+        Location max1 = this.getMaxPoint();
+        Location min2 = other.getMinPoint();
+        Location max2 = other.getMaxPoint();
+
+        // Check alignment in two axes, and adjacency in the third
+        boolean xAligned = min1.getX() == min2.getX() && max1.getX() == max2.getX();
+        boolean yAligned = min1.getY() == min2.getY() && max1.getY() == max2.getY();
+        boolean zAligned = min1.getZ() == min2.getZ() && max1.getZ() == max2.getZ();
+
+        // Check for adjacency along X
+        if (yAligned && zAligned &&
+            (max1.getX() + 1 == min2.getX() || max2.getX() + 1 == min1.getX())) {
+            return true;
+        }
+
+        // Check for adjacency along Y
+        if (xAligned && zAligned &&
+            (max1.getY() + 1 == min2.getY() || max2.getY() + 1 == min1.getY())) {
+            return true;
+        }
+
+        // Check for adjacency along Z
+        if (xAligned && yAligned &&
+            (max1.getZ() + 1 == min2.getZ() || max2.getZ() + 1 == min1.getZ())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public Cuboid mergeWith(@NotNull Cuboid other) {
+        if (!canMergeWith(other)) {
+            throw new IllegalArgumentException("Cuboids cannot be merged");
+        }
+
+        Location min1 = this.getMinPoint();
+        Location max1 = this.getMaxPoint();
+        Location min2 = other.getMinPoint();
+        Location max2 = other.getMaxPoint();
+
+        World world = this.getWorld();
+        Location newMin = new Location(world,
+            Math.min(min1.getX(), min2.getX()),
+            Math.min(min1.getY(), min2.getY()),
+            Math.min(min1.getZ(), min2.getZ())
         );
+
+        Location newMax = new Location(world,
+            Math.max(max1.getX(), max2.getX()),
+            Math.max(max1.getY(), max2.getY()),
+            Math.max(max1.getZ(), max2.getZ())
+        );
+
+        return new Cuboid(newMin, newMax);
     }
 
     /**
