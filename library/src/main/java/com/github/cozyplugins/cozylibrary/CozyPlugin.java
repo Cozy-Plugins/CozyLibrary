@@ -6,6 +6,7 @@ import com.github.cozyplugins.cozylibrary.configuration.MessagesConfig;
 import com.github.cozyplugins.cozylibrary.dependency.PlaceholderAPIDependency;
 import com.github.cozyplugins.cozylibrary.dependency.ProtocolDependency;
 import com.github.cozyplugins.cozylibrary.dependency.VaultAPIDependency;
+import com.github.cozyplugins.cozylibrary.hologram.HologramManager;
 import com.github.cozyplugins.cozylibrary.inventory.InventoryManager;
 import com.github.cozyplugins.cozylibrary.inventory.action.ActionManager;
 import com.github.cozyplugins.cozylibrary.placeholder.PlaceholderManager;
@@ -31,6 +32,7 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
     private PlaceholderManager<P> placeholderManager;
     private CommandDirectory commandDirectory;
     private MessagesConfig messageConfig;
+    private HologramManager hologramManager;
 
     /**
      * Used to create a new cozy plugin instance.
@@ -146,6 +148,10 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
         // Set up the action manager.
         new ActionManager(this);
 
+        // Set up the hologram manager.
+        this.hologramManager = new HologramManager(this);
+        this.hologramManager.populateSafely();
+
         // Call on enable.
         this.onEnable();
         return this;
@@ -176,6 +182,9 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
 
         // Stop scoreboards.
         ScoreboardManager.stop();
+
+        // Remove holograms and save them.
+        this.hologramManager.saveAndRemoveAll();
 
         // Call on disable.
         this.onDisable();

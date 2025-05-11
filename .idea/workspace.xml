@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="" />
+    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/hologram/Hologram.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/hologram/HologramManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="AnnotationType" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -339,6 +343,8 @@
       <workItem from="1746454974304" duration="552000" />
       <workItem from="1746456861165" duration="776000" />
       <workItem from="1746457883434" duration="164000" />
+      <workItem from="1746458382130" duration="532000" />
+      <workItem from="1746973090290" duration="3163000" />
     </task>
     <servers />
   </component>
