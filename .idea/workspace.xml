@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/hologram/Hologram.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/hologram/HologramManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,8 +123,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26574.91" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26574.91" />
       </set>
     </attachedChunks>
   </component>
@@ -344,7 +342,8 @@
       <workItem from="1746456861165" duration="776000" />
       <workItem from="1746457883434" duration="164000" />
       <workItem from="1746458382130" duration="532000" />
-      <workItem from="1746973090290" duration="3163000" />
+      <workItem from="1746973090290" duration="3981000" />
+      <workItem from="1750428990602" duration="19000" />
     </task>
     <servers />
   </component>
