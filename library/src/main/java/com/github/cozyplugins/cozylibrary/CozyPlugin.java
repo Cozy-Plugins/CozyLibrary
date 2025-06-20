@@ -210,4 +210,8 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
     public @NotNull MessagesConfig getMessageConfig() {
         return this.messageConfig;
     }
+
+    public @NotNull HologramManager getHologramManager() {
+        return this.hologramManager;
+    }
 }
