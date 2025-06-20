@@ -34,7 +34,7 @@ public class Hologram implements ConfigurationConvertible<Hologram>, LocationCon
         this.identifier = identifier;
         this.lines = new ArrayList<>();
         this.entities = new HashMap<>();
-        this.convert();
+        this.convert(section);
         if (this.location == null) throw new RuntimeException(
             "Hologram location cannot be null. section=" + section
         );

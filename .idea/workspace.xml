@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="" />
+    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/hologram/Hologram.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/hologram/Hologram.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -343,6 +346,8 @@
       <workItem from="1746973090290" duration="3981000" />
       <workItem from="1750428990602" duration="19000" />
       <workItem from="1750429184540" duration="266000" />
+      <workItem from="1750429493338" duration="193000" />
+      <workItem from="1750430351322" duration="115000" />
     </task>
     <servers />
   </component>
