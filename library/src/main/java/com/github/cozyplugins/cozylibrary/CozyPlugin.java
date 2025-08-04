@@ -99,13 +99,6 @@ public abstract class CozyPlugin<P extends JavaPlugin> {
         // Before enabling cozy plugin.
         this.onBeforeEnable();
 
-        // Pre-load nbt api.
-        if (!NBT.preloadApi()) {
-            this.getPlugin().getLogger().warning("NBT-API wasn't initialized properly, disabling the plugin");
-            this.getPlugin().getPluginLoader().disablePlugin(this.getPlugin());
-            return this;
-        }
-
         // Set up default messages.
         this.messageConfig = new MessagesConfig(this.getPlugin().getDataFolder(), "messages.yml");
         this.messageConfig.setResourcePath("messages.yml");
