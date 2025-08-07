@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="" />
+    <list default="true" id="78a635b2-fb63-42cd-a4e3-592521272ed4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/InventoryDisplay.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/InventoryType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/action/ClickEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/component/Component.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/component/Empty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/component/Footer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/component/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/component/Pageable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/component/View.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/listener/ClickListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/testing/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/library/src/main/java/com/github/cozyplugins/cozylibrary/inventory_v2/testing/TestDisplay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +28,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="AnnotationType" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -77,6 +92,7 @@
       <recent name="$PROJECT_DIR$/library/src/main/java" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.github.cozyplugins.cozylibrary.inventory_v2" />
       <recent name="com.github.cozyplugins.cozylibrary.location" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -346,6 +362,13 @@
       <workItem from="1750429493338" duration="193000" />
       <workItem from="1750430351322" duration="115000" />
       <workItem from="1750430844400" duration="1012000" />
+      <workItem from="1754325893408" duration="4000" />
+      <workItem from="1754326030466" duration="8000" />
+      <workItem from="1754410016098" duration="2000" />
+      <workItem from="1754410608403" duration="40000" />
+      <workItem from="1754410656344" duration="44000" />
+      <workItem from="1754516736598" duration="1574000" />
+      <workItem from="1754524941169" duration="4193000" />
     </task>
     <servers />
   </component>
